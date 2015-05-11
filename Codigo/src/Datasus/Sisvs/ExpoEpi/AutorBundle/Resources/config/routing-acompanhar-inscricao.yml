@@ -1,0 +1,14 @@
+autor_acompanhar_inscricao:
+    pattern: /acompanhar-inscricao
+    defaults:
+        _controller: DatasusSisvsExpoEpiAutorBundle:AcompanharInscricao:index
+        label: "Acompanhar Informações da Inscrição"
+        parent: "autor_default"
+
+autor_acompanhar_inscricao_search:
+    pattern: /acompanhar-inscricao/search
+    defaults: { _controller: DatasusSisvsExpoEpiAutorBundle:AcompanharInscricao:search }
+
+autor_acompanhar_inscricao_view:
+    pattern: /acompanhar-inscricao/view
+    defaults: { _controller: DatasusSisvsExpoEpiAutorBundle:AcompanharInscricao:view }

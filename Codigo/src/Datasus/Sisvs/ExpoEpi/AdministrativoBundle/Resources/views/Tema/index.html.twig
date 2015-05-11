@@ -1,0 +1,80 @@
+{% extends "DatasusSisvsExpoEpiAdministrativoBundle::base.html.twig" %}
+
+{% block body %}
+    <div class="box">
+        <strong class="title">
+            Consultar Tema / Categoria
+        </strong>
+
+        <div class="formulario">
+            <form id="form-tema">
+                <div class="control-group span4">
+                    <label class="control-label" for="{{ form.noTema.vars.name }}">
+                        Tema / Categoria
+                    </label>
+
+                    <div class="controls">
+                        <input type="text" name="{{ form.noTema.vars.name }}" class="span4" maxlength="60"/>
+                        <input type="hidden" name="{{ form.coArea.vars.name }}" class="tm320"
+                               value="{{ form.coArea.vars.value }}" id="coArea"/>
+                    </div>
+                </div>
+                <div class=" control-group span6">
+                    <label class="control-label" for="{{ form.stAtivo.vars.name }}">
+                        {{ form.stAtivo.vars.label }}:
+                    </label>
+
+                    <div class="controls">
+                        <select class="span4" id="stAtivo" name="stAtivo">
+                            <option value="">Selecione uma opção</option>
+                            <option value="A">Ativo</option>
+                            <option value="N">Inativo</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="botao">
+                    <a class="buttonAzul margim" id="pesquisar">Pesquisar</a>
+                    <button type="reset" class="buttonAzul margim" id="limpar">Limpar</button>
+                    <a class="buttonAzul margim"
+                       href="{{ path('datasus_sisvs_expoepi_administrativo_tema_create')  ~ '?coArea=' ~ entity.getCoArea.getCoSeqArea }}">Cadastrar
+                        Tema / Categoria</a>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="formulario grid">
+            <form>
+                <div class="box">
+                    <table id="grid"></table>
+                    <div id="pager"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="text/javascript"
+            src="{{ asset('bundles/datasussisvsexpoepiadministrativo/js/tema/form.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            var config = {
+                url: '{{ path('datasus_sisvs_expoepi_administrativo_tema_search') }}',
+                buttonSearch: $('#pesquisar'),
+                form: $('#form-tema'),
+                colNames: ['Classificação', 'Código', 'Tema / Categoria', 'Opções'],
+                postData: {data: 'stAtivo=S&coArea={{ entity.getCoArea.getCoSeqArea }}'},
+                colModel: [
+                    {name: 'dsClassificacao', index: 'tc.dsClassificacao', width: 20},
+                    {name: 'nuTema', index: 'e.nuTema', width: 10},
+                    {name: 'noTema', index: 'e.noTema', width: 100},
+                    {name: 'acao', index: 'Acao', width: 20, align: "center"}
+                ],
+                sortname: 'e.coSeqTema',
+                caption: 'Resultado da Pesquisa'
+            };
+            $('#grid').grid(config);
+            $('.alert-error, .alert-success').fadeIn().delay(5000).fadeOut('slow');
+        });
+    </script>
+{% endblock %}

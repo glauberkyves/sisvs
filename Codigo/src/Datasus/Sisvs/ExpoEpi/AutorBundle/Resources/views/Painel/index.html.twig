@@ -1,0 +1,112 @@
+{% extends "DatasusSisvsExpoEpiAutorBundle::base.html.twig" %}
+
+{% block body %}
+    <div class="box">
+        <strong class="title">Informações da Inscrição</strong>
+
+        <div class="formulario">
+            <form id="form-apresentacao" method="get" action="autor_painel_search">
+                <div class="control-group span9">
+                    <label class="control-label" for="coEvento">Modalidade:</label>
+
+                    <div class="controls">
+                        <input type="text" value="{{ modalidade.getNoModalidade }}" disabled="disabled"/>
+                        <input type="hidden" value="{{ modalidade.getCoSeqModalidade }}" name="coModalidade"/>
+                    </div>
+                </div>
+                <div class="control-group span3">
+                    <label class="control-label" for="coEvento">Número da Inscrição:</label>
+
+                    <div class="controls">
+                        <input type="text" name="nuInscricao"/>
+                    </div>
+                </div>
+                <div class="control-group span3">
+                    <label class="control-label" for="coArea">Área:</label>
+
+                    <div class="controls">
+                        <select class="span3" id="coSeqArea" name="coSeqArea">
+                            <option value="">Selecione uma opção</option>
+                            {% for area in modalidade.getCoArea %}
+                                <option value="{{ area.getCoSeqArea }}">{{ area.getNoArea }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group span3">
+                    <label class="control-label" for="coTema">Tema/Categoria:</label>
+
+                    <div class="controls">
+                        <select class="span3" id="coTema" name="coSeqTema">
+                            <option value="">Selecione uma opção</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="botao">
+                    <button type="submit" class="buttonAzul margim" id="pesquisar">Pesquisar</button>
+                    <button type="reset" class="buttonAzul margim" id="limpar">Limpar</button>
+                    <a href="{{ path('autor_painel_create',{'coSeqModalidade': modalidade.coSeqModalidade}) }}"
+                       class="buttonAzul margim" id="pesquisar">Nova Inscrição</a>
+                </div>
+            </form>
+        </div>
+
+        <div class="formulario grid">
+            <div class="box" style="width:97% !important;padding:15px !important">
+                <table id="grid"></table>
+                <div id="pager"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="{{ asset('bundles/datasussisvsexpoepiautor/js/painel/form.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            var config = {
+                url: '{{ path('autor_painel_search') }}',
+                buttonSearch: $('#pesquisar'),
+                form: $('#form-apresentacao'),
+                postData: {data: 'coModalidade={{ modalidade.getCoSeqModalidade }}'},
+
+                colNames: ['Nº Inscrição', 'Área', 'Tema / Categoria', 'Título do Projeto', 'Situação', 'Opções'],
+                colModel: [
+                    {name: 'nuInscricao', index: 'i.nuInscricao', width: 50},
+                    {name: 'noArea', index: 'a.noArea', width: 100},
+                    {name: 'noTema', index: 't.noTema', width: 100},
+                    {name: 'dsTitulo', index: 'i.dsTitulo', width: 100},
+                    {name: 'dsSituacao', index: 's.dsSituacao', width: 50},
+                    {name: 'acao', index: 'Acao', width: 45, align: "center"}
+                ],
+
+                sortname: 'i.nuInscricao',
+                caption: 'Resultado da Pesquisa'
+            };
+
+            $('#grid').grid(config);
+
+            $('#coSeqArea').change(function () {
+                if ($(this).val()) {
+                    $('#coTema').val('').change();
+
+                    var url = '/administrativo/tema/combo-box?coArea=' + $(this).val();
+
+                    utils.getCombo(url, '#coTema');
+                }
+            });
+            $('.alert-error, .alert-success').fadeIn().delay(10000).fadeOut('slow');
+            $('#limpar').click(function () {
+                window.location.href = window.location.href;
+            });
+        });
+    </script>
+    <style type="text/css">
+        .alert-success {
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+            color: #468847;
+            font-size: 14px !important;
+        }
+    </style>
+{% endblock %}

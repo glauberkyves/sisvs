@@ -1,0 +1,49 @@
+acompanhar_evento:
+    pattern: /acompanhar-evento
+    defaults:
+        _controller: DatasusSisvsExpoEpiAcompanhamentoBundle:AcompanharEvento:index
+        label: "Acompanhar Inscrição do Evento"
+        parent: "acompanhar_evento"
+
+acompanhar_inscricao_search:
+    pattern: /acompanhar-evento/search
+    defaults: { _controller: DatasusSisvsExpoEpiAcompanhamentoBundle:AcompanharEvento:search }
+
+acompanhar_evento_view:
+    pattern: /acompanhar-evento/view
+    defaults:
+        _controller: DatasusSisvsExpoEpiAcompanhamentoBundle:AcompanharEvento:view
+        label: "Detalhar Inscrição"
+        parent: "acompanhar_evento"
+
+acompanhar_evento_view_inscricao_area:
+    pattern: /acompanhar-evento/view-inscricao-area
+    defaults: { _controller: DatasusSisvsExpoEpiAcompanhamentoBundle:AcompanharEvento:viewInscricaoArea }
+
+acompanhar_evento_view_total_inscricao:
+    pattern: /acompanhar-evento/view-total-inscricao
+    defaults: { _controller: DatasusSisvsExpoEpiAcompanhamentoBundle:AcompanharEvento:viewTotalInscricao }
+
+acompanhar_evento_view_downloads:
+    pattern: /acompanhar-evento/view-downloads
+    defaults: { _controller: DatasusSisvsExpoEpiAcompanhamentoBundle:AcompanharEvento:viewDownloads }
+
+acompanhar_evento_download:
+    pattern: /acompanhar-evento/download
+    defaults: { _controller: DatasusSisvsExpoEpiAcompanhamentoBundle:AcompanharEvento:download }
+
+acompanhar_evento_view_pdf:
+    pattern: /acompanhar-evento/view-pdf
+    defaults: { _controller: DatasusSisvsExpoEpiAcompanhamentoBundle:AcompanharEvento:viewPdf }
+
+acompanhar_evento_view_inscricao_categoria:
+    pattern: /acompanhar-evento/view-inscricao-categoria
+    defaults: { _controller: DatasusSisvsExpoEpiAcompanhamentoBundle:AcompanharEvento:viewInscricaoCategoria }
+
+acompanhar_evento_view_situacao_inscricao:
+    pattern: /acompanhar-evento/view-situacao-inscricao
+    defaults: { _controller: DatasusSisvsExpoEpiAcompanhamentoBundle:AcompanharEvento:viewSituacaoInscricao }
+
+acompanhar_evento_combo_box:
+    pattern: /acompanhar-evento/combo-box
+    defaults: { _controller: DatasusSisvsExpoEpiAcompanhamentoBundle:AcompanharEvento:comboBox }

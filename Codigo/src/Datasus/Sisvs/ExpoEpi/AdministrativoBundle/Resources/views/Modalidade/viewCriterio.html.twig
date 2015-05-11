@@ -1,0 +1,53 @@
+{% block modal_view %}
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>Visualizar Vinculação: Modalidade/Critério</h3>
+    </div>
+    <div class="modal-body">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th colspan="4">
+                    <h4>{{ entity.getNoModalidade }}</h4>
+                </th>
+            </tr>
+            {% if(entity.getCoModalidadeCriterio.count) %}
+                <tr>
+                    <th>Critério</th>
+                    <th>Permite Bloqueio?</th>
+                    <th>Possui Categoria?</th>
+                    <th>Dado não informado?</th>
+                </tr>
+            {% endif %}
+            </thead>
+            <tbody>
+            {% for enModCriterio in entity.getCoModalidadeCriterio %}
+                {% if (enModCriterio.getCoCriterio.getStAtivo == 'S') %}
+                    <tr>
+                        <td>{{ enModCriterio.getCoCriterio.getNoCriterio }}</td>
+                        <td>{% if enModCriterio.getStPermiteBloqueio == 'S' %}Sim {% else %} Não{% endif %}</td>
+                        <td>{% if enModCriterio.getStPossuiCategoria == 'S' %}Sim {% else %} Não{% endif %}</td>
+                        <td>{% if enModCriterio.getStNaoInformado == 'S' %}Sim {% else %} Não{% endif %}</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+
+            {% if(entity.getCoModalidadeCriterio.count == 0) %}
+                <tr colspan="4">
+                    <td>
+                        <span class="span">
+                        Nenhum registro vinculado.
+                        </span>
+                    </td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+
+    </div>
+    <div class="modal-footer">
+        <button aria-hidden="true" data-dismiss="modal" class="buttonAzul margim view-not">
+            Fechar
+        </button>
+    </div>
+{% endblock %}

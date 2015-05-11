@@ -1,0 +1,10 @@
+<?php
+
+namespace Datasus\Sisvs\ExpoEpi\AutorBundle\Menu;
+
+use Datasus\Sisvs\Base\BaseBundle\Menu\MenuBase;
+
+class MenuBuilder extends MenuBase
+{
+
+}

@@ -1,0 +1,62 @@
+{% extends "DatasusSisvsExpoEpiAutorBundle::base.html.twig" %}
+
+{% block body %}
+    <strong class="title">
+            <span class="link-scpa">
+                <a href="{{ urlSCPA }}" target="_blank">Alterar dados básicos</a>
+            </span>
+    </strong>
+
+    <div class="formulario">
+        <div class="padding">
+            <div class="span6">
+                <h2>Olá {{ app.user.getNome }}.</h2>
+
+                <p>Seja Bem Vindo(a) ao sistema SIEPI. </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="formulario">
+        <div class="span10">
+            <div class="row-fluid">
+                {% if (evento) %}
+                    {% for modalidade in evento.getCoModalidade|reverse %}
+                        {% if(modalidade.getCoTipoModalidade) %}
+                            {% if modalidade.getCoFormularioDeInscricao()
+                            and "now"|date('Y-m-d') <= modalidade.getCoFormularioDeInscricao().getDtFim().format('Y-m-d')|date('Y-m-d') and "now"|date('Y-m-d') >= modalidade.getCoFormularioDeInscricao().getDtInicio().format('Y-m-d')|date('Y-m-d')  and modalidade.getCoFormularioDeInscricao().getCoSituacaoFormulario().getDsSituacaoFormulario == "Publicado" %}
+                                <div class="span4 thumbnail">
+                                    <div class="caption"><h2>{{ modalidade.getNoModalidade }}</h2>
+
+                                        <p>{{ modalidade.getCoTipoModalidade.getNoTipoModalidade }}</p>
+                                        {% if(modalidade.getCoSeqModalidade in arrModalidade) %}
+                                            <a class="btn btn-primary"
+                                               href="{{ path('autor_painel',{'coSeqModalidade': modalidade.getCoSeqModalidade}) }}">
+                                                Acessar »
+                                            </a>
+                                        {% else %}
+                                            <a class="btn btn-primary"
+                                               href="{{ path('autor_painel_create',{'coSeqModalidade': modalidade.getCoSeqModalidade}) }}">
+                                                Inscreva-se »
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="span4 thumbnail">
+                                    <div class="caption"><h2>{{ modalidade.getNoModalidade }}</h2>
+
+                                        <p>{{ modalidade.getCoTipoModalidade.getNoTipoModalidade }}</p>
+                                        <a class="btn" disabled>
+                                            Inscrição Encerrada.
+                                        </a>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

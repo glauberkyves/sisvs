@@ -1,0 +1,203 @@
+{% form_theme form _self %}
+{% block form_errors %}
+{% endblock form_errors %}
+<div class="box">
+    <strong class="title">
+        {% if form.coSeqEvento.vars.value %}
+            Alterar
+        {% else %}
+            Incluir
+        {% endif %}
+        Evento
+    </strong>
+
+    <div class="formulario">
+        {{ form_start(form) }}
+
+        {% if imLogotipo %}
+            <blockquote class="pull-right">
+                <img src="data: image/png;base64,{{ imLogotipo }}" class="img-circle" width="200"/>
+            </blockquote>
+        {% endif %}
+
+        <div class="control-group span6">
+            <label class="control-label" for="{{ form.anEvento.vars.id }}">
+                {{ form.anEvento.vars.label }}: <font color="red"><b>*</b></font>
+            </label>
+
+            <div class="controls">
+                {{ form_widget(form._token) }}
+                {{ form_widget(form.coSeqEvento) }}
+                {{ form_widget(form.anEvento) }}
+            </div>
+        </div>
+
+        <div class="control-group span6">
+            <label class="control-label" for="{{ form.noEvento.vars.id }}">
+                {{ form.noEvento.vars.label }}: <font color="red"><b>*</b></font>
+            </label>
+
+            <div class="controls">
+                {{ form_widget(form.noEvento) }}
+            </div>
+        </div>
+
+        <div class="control-group span6">
+            <label class="control-label" for="{{ form.dsEvento.vars.name }}">
+                {{ form.dsEvento.vars.label }}
+            </label>
+
+            <div class="controls">
+                {{ form_widget(form.dsEvento) }}
+                <span class="countdown" style="float: left">
+					Quantidade de caracteres restantes:
+					<span id="resta"> </span>
+				</span>
+            </div>
+        </div>
+
+        <div class="control-group span6">
+            <label class="control-label" for="{{ form.noEdital.vars.id }}">
+                {{ form.dsEdital.vars.label }}: <font color="red"><b>*</b></font>
+            </label>
+
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on"><i class="icon-upload dsEdital"></i></span>{{ form_widget(form.noEdital) }}
+                </div>
+                {{ form_widget(form.dsEdital) }}
+                <input type="hidden" id="nomeEdital" name="datasus_sisvs_expoepi_administrativobundle_eventoentity[noEdital]">
+            </div>
+        </div>
+
+        <div class="control-group span6">
+            <label class="control-label" for="{{ form.imLogotipo.vars.id }}">
+                {{ form.imLogotipo.vars.label }}:
+            </label>
+
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on"><i class="icon-upload imLogotipo"></i></span>{{ form_widget(form.noLogotipo) }}
+                </div>
+                {{ form_widget(form.imLogotipo) }}
+                <input id="logoEdital" type="hidden" name="datasus_sisvs_expoepi_administrativobundle_eventoentity[noLogotipo]">
+            </div>
+        </div>
+
+        <div class="botao">
+            {{ form_widget(form.submit) }}
+            <button type="reset" class="buttonAzul margim" id="limpar">Limpar</button>
+            <a class="buttonAzul" href="{{ path('datasus_sisvs_expoepi_administrativo_evento') }}">Voltar</a>
+        </div>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('.dsEdital').click(function () {
+            $('#datasus_sisvs_expoepi_administrativobundle_eventoentity_dsEdital').click()
+        });
+
+        $('.imLogotipo').click(function () {
+            $('#datasus_sisvs_expoepi_administrativobundle_eventoentity_imLogotipo').click()
+        });
+
+        $('#datasus_sisvs_expoepi_administrativobundle_eventoentity_dsEdital').change(function () {
+            $('.dsEdital').val($(this).val().replace(/C:\\fakepath\\/i, ''));
+            $('#nomeEdital').val($(this).val().replace(/C:\\fakepath\\/i, ''));
+        });
+        $('#datasus_sisvs_expoepi_administrativobundle_eventoentity_imLogotipo').change(function () {
+            $('.imLogotipo').val($(this).val().replace(/C:\\fakepath\\/i, ''));
+            $('#logoEdital').val($(this).val().replace(/C:\\fakepath\\/i, ''));
+        });
+
+        $("#datasus_sisvs_expoepi_administrativobundle_eventoentity_submit").click(function () {
+            if ($('form').valid()) {
+                var valid = true;
+                var dsEdital = $('#datasus_sisvs_expoepi_administrativobundle_eventoentity_noEdital');
+                var imLogotipo = $('#datasus_sisvs_expoepi_administrativobundle_eventoentity_noLogotipo');
+                var extEdital, exLogotipo = '';
+
+                extEdital = dsEdital.val().substring(dsEdital.val().length - 4).toLowerCase();
+                exLogotipo = imLogotipo.val().substring(imLogotipo.val().length - 4).toLowerCase();
+
+                if (exLogotipo != '.jpg' && exLogotipo != '.jpeg' && exLogotipo != '.png' && exLogotipo != '.gif' && exLogotipo != '') {
+                    Message.addMessage('O formato da imagem deve ser *.jpg ou *.gif ou *.png.', 'error');
+                    return false;
+                    valid = false;
+                }
+
+                if (extEdital != '.pdf'
+                        && extEdital != '.doc'
+                        && extEdital != 'docx'
+                        && extEdital != '.odt'
+                        && extEdital != '.xls'
+                        && extEdital != 'xlsx'
+                        && extEdital != '.jpg'
+                        && extEdital != '.png'
+                        && extEdital != '.gif'
+                        && extEdital != '.ppt'
+                        && extEdital != '.zip'
+                        && extEdital != ''
+                        ) {
+                    var msg = 'Upload não permitido. Permitido apenas upload de arquivos com as extensões: .pdf, .doc, .docx, .odt, .xls, .xlsx, .jpg, .png, .gif, .ppt, .zip.';
+                    Message.addMessage(msg, 'error');
+                    return false;
+                    valid = false;
+                }
+
+
+                if (valid) {
+                    $('form').submit();
+                }
+            }
+//            setInterval(function () {$('.alert-error').hide()}, 1000);
+        });
+
+        jQuery.validator.addMethod("ano", function (value, element) {
+            var date = new Date();
+            var ano = date.getFullYear();
+
+            if ((value < (parseInt(ano) - 10)) || (value > (parseInt(ano) + 1))) {
+                return false
+            } else {
+                return true;
+            }
+
+        }, "O ano informado não é válido.");
+
+        if ($('div.message .alert-error').size() > 0) {
+            $('#datasus_sisvs_expoepi_administrativobundle_eventoentity_noEdital, #datasus_sisvs_expoepi_administrativobundle_eventoentity_noLogotipo').val('')
+        }
+        /**
+         *Metodo de contagem dos caracteres do text área
+         */
+        $('#resta').text(500);
+
+        $('#datasus_sisvs_expoepi_administrativobundle_eventoentity_dsEvento').keyup(function () {
+            var len = this.value.length;
+            if (len >= 500) {
+                this.value = this.value.substring(0, 500);
+            }
+            $('#resta').text(500 - len);
+        });
+        {% if form.coSeqEvento.vars.value %}
+            var lenInicial = $('#datasus_sisvs_expoepi_administrativobundle_eventoentity_dsEvento').val().length;
+            $('#resta').text(500 - lenInicial);
+        {% endif %}
+        $('#datasus_sisvs_expoepi_administrativobundle_eventoentity_noEdital').attr('readonly',true);
+        $('#datasus_sisvs_expoepi_administrativobundle_eventoentity_noLogotipo').attr('readonly',true);
+
+        $('#datasus_sisvs_expoepi_administrativobundle_eventoentity_submit').click(function () {
+            var texto = $('#datasus_sisvs_expoepi_administrativobundle_eventoentity_dsEvento').val().replace(/(\r\n|\n|\r)/gm, " ");
+            $('#datasus_sisvs_expoepi_administrativobundle_eventoentity_dsEvento').val(texto);
+        });
+
+        $('#limpar').click(function () {
+            window.location.href = window.location.href;
+        });
+
+    });
+</script>

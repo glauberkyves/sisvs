@@ -1,0 +1,30 @@
+datasus_sisvs_base_base:
+    pattern: /
+    defaults: { _controller: DatasusSisvsBaseSecurityBundle:Security:checkRoute }
+
+datasus_sisvs_base_security:
+    resource: "@DatasusSisvsBaseSecurityBundle/Resources/config/routing.yml"
+
+datasus_sisvs_expoepi_administrativo:
+    resource: "@DatasusSisvsExpoEpiAdministrativoBundle/Resources/config/routing.yml"
+    prefix:   /administrativo
+
+datasus_sisvs_expo_epi_formulario:
+    resource: "@DatasusSisvsExpoEpiFormularioBundle/Resources/config/routing.yml"
+    prefix:   /formulario
+
+datasus_sisvs_expo_epi_acompanhamento:
+    resource: "@DatasusSisvsExpoEpiAcompanhamentoBundle/Resources/config/routing.yml"
+    prefix:   /acompanhamento
+
+datasus_sisvs_expoepi_autor:
+    resource: "@DatasusSisvsExpoEpiAutorBundle/Resources/config/routing.yml"
+    prefix:   /autor
+
+datasus_sisvs_expo_epi_email:
+    resource: "@DatasusSisvsExpoEpiEmailBundle/Resources/config/routing.yml"
+    prefix:   /email
+
+datasus_sisvs_expo_epi_relatorio:
+    resource: "@DatasusSisvsExpoEpiRelatorioBundle/Resources/config/routing.yml"
+    prefix:   /relatorio

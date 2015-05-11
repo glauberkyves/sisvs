@@ -1,0 +1,89 @@
+{% extends "DatasusSisvsExpoEpiEmailBundle::base.html.twig" %}
+
+{% block body %}
+    <div class="box">
+        <strong class="title">Mala Direta</strong>
+
+        <div class="formulario">
+            <form method="post" action="{{ path('datasus_sisvs_expoepi_email_mala_direta_send') }}"
+                  enctype="multipart/form-data">
+                <div class="control-group">
+                    <label class="control-label" for="">Para:</label>
+
+                    <div class="controls">
+                        <textarea id="arrEmail" class="span6"
+                                  rows="3"
+                                  disabled="disabled">{{ listaEmail }}</textarea>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="">CC:</label>
+
+                    <div class="controls">
+                        <input id="emailCopia" type="text" class="span6" value="{{ email }}" disabled="disabled">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="assunto">Assunto:</label>
+
+                    <div class="controls">
+                        <input id="assunto" type="text" name="assunto" class="span6 required" value="" maxlength="100">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="">Anexado:</label>
+
+                    <div class="controls">
+                        <div class="selectize-control multi" style="width: 50%;">
+                            <div class="selectize-input items not-full has-options has-items" id="list-files">
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group anexo">
+                        <div class="controls">
+                            <a class='btn multi-upload' title='Anexar Arquivo'><i class='icon-arrow-up'></i></a>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="controls">
+                            <textarea class="span6 textarea" name="body" rows="15" id="body"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="botao">
+                        <button type="submit" class="buttonAzul margim">Enviar Mala Direta</button>
+                        <button type="reset" class="buttonAzul margim" id="limpar">Limpar</button>
+                        <a href="{{ path('datasus_sisvs_expoepi_email_mala_direta') }}"
+                           class="buttonAzul margim">Voltar</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="text/javascript"
+            src="{{ asset('bundles/datasussisvsexpoepiemail/js/mala-direta/index.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ asset('bundles/datasussisvsexpoepiemail/js/mala-direta/multi-upload.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            var html = '<br><br><br><br><br><b>Comissão Científica - {{ entity.getNoEvento }} </b><br>';
+
+            {% if entity.getNoLogotipo %}
+            html = html + '<img src="';
+            html = html + window.location.protocol + '//';
+            html = html + window.location.host + '/';
+            html = html + 'bundles/datasussisvsexpoepiemail/images/logo';
+            html = html + '{{ entity.getNoLogotipo | slice( entity.getNoLogotipo | length - 4, 4) }}" width="120">';
+            {% endif %}
+
+            $('#body').html(html);
+        });
+    </script>
+{% endblock %}
+

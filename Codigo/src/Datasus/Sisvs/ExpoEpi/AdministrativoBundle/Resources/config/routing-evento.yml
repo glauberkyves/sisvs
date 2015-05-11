@@ -1,0 +1,37 @@
+################## evento ##################
+datasus_sisvs_expoepi_administrativo_evento:
+    pattern: /evento
+    defaults:
+        _controller: DatasusSisvsExpoEpiAdministrativoBundle:Evento:index
+        label: "Evento"
+        parent: "administrativo_default"
+    
+datasus_sisvs_expoepi_administrativo_evento_search:
+    pattern: /evento/search
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:Evento:search }
+
+datasus_sisvs_expoepi_administrativo_evento_create:
+    pattern: /evento/create
+    defaults:
+        _controller: DatasusSisvsExpoEpiAdministrativoBundle:Evento:create
+        label: "Cadastrar Evento"
+        parent: "datasus_sisvs_expoepi_administrativo_evento"
+    
+datasus_sisvs_expoepi_administrativo_evento_edit:
+    pattern: /evento/edit
+    defaults:
+        _controller: DatasusSisvsExpoEpiAdministrativoBundle:Evento:edit
+        label: "Alterar Evento"
+        parent: "datasus_sisvs_expoepi_administrativo_evento"
+
+datasus_sisvs_expoepi_administrativo_evento_toogle-status:
+    pattern: /evento/toogle-status
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:Evento:toogleStatus }
+
+datasus_sisvs_expoepi_administrativo_evento_view:
+    pattern: /evento/view
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:Evento:view }
+
+datasus_sisvs_expoepi_administrativo_evento_download:
+    pattern: /evento/download
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:Evento:download }

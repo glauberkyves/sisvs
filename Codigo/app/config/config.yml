@@ -1,0 +1,107 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+
+framework:
+    secret: %secret%
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: %framework_strict%
+    profiler: %framework_profile%
+    form:            ~
+    csrf_protection: true
+    validation:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+    default_locale:  "%locale%"
+    translator: { fallback: "%locale%" }
+    trusted_proxies: ~
+    session:
+        storage_id: session.storage.php_bridge
+        handler_id: ~
+    fragments:       ~
+    http_method_override: true
+
+# Twig Configuration
+twig:
+    debug:            %kernel.debug%
+    strict_variables: %kernel.debug%
+    globals:
+        scpa_cadastro: %scpa_cadastro%
+        scpa_esqueci_senha: %scpa_esqueci_senha%
+        version: %version%
+
+# Assetic Configuration
+assetic:
+    debug:          %kernel.debug%
+    use_controller: false
+
+# Configuracao para Oracle
+doctrine:
+    dbal:
+        default_connection: default
+        connections:
+            default:
+                driver:   "%default_database_driver%"
+                host:     "%default_database_host%"
+                port:     "%default_database_port%"
+                dbname:   "%default_database_service_name%"
+                service:   %default_database_service_use%
+                user:     "%default_database_user%"
+                password: "%default_database_password%"
+                charset:  "%default_database_charset%"
+
+    orm:
+        default_entity_manager:   default
+        entity_managers:
+              default:
+                  connection:   default
+                  mappings:
+                      DatasusSisvsBaseSecurityBundle: ~
+                      DatasusSisvsExpoEpiAdministrativoBundle: ~
+                      DatasusSisvsExpoEpiFormularioBundle: ~
+                      DatasusSisvsExpoEpiAcompanhamentoBundle: ~
+                      DatasusSisvsExpoEpiAutorBundle: ~
+                      DatasusSisvsExpoEpiRelatorioBundle: ~
+                  dql:
+                      string_functions:
+                          to_char: Datasus\Sisvs\Base\BaseBundle\Doctrine\DQL\ToChar
+
+services:
+    fix_oracle_doctrine:
+        class: Datasus\Core\BaseBundle\Doctrine\DBAL\Event\Listeners\OracleSession
+        arguments: ["@service_container"]
+        tags:
+            - { name: doctrine.event_listener, event: postConnect, connection: default}
+            - { name: doctrine.event_listener, event: postTransactionBegin, connection: default}
+    oracle_session_init:
+        class: Doctrine\DBAL\Event\Listeners\OracleSessionInit
+        tags:
+            - { name: doctrine.event_listener, event: postConnect, connection: default }
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: %mailer_transport%
+    host:      %mailer_host%
+    username:  %mailer_user%
+    password:  %mailer_password%
+#    spool:     { type: memory }
+#    encryption: %mailer_encryption%
+#    delivery_address: %mailer_delivery_address%
+
+monolog:
+    handlers:
+        applog:
+            type: stream
+            path: "%kernel.root_dir%/logs/error.log"
+            level: error
+        main:
+            type: fingers_crossed
+            action_level: warning
+            handler: file
+        file:
+            type: stream
+            level: debug
+        syslog:
+            type: syslog
+            level: error

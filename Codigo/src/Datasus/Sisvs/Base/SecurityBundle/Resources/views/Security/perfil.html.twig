@@ -1,0 +1,33 @@
+{% extends "DatasusSisvsBaseBaseBundle::base.html.twig" %}
+
+{% block detalhe_usuario_logado %}
+    <p>
+        <span class="usuarioLogado">{{ app.user.getNome }}</span> {{ version }}
+    </p>
+{% endblock %}
+
+{% block body %}
+    <div class="box">
+        <strong class="title">Selecionar Perfil</strong>
+
+        <div class="formulario">
+            <form id="form" method="post">
+                <div class="control-group span3">
+                    <label class="control-label" for="perfil">Perfil:</label>
+
+                    <div class="controls">
+                        <select class="span3 required" id="perfil" name="perfil">
+                            <option value="">Selecione uma opção</option>
+                            {% for key, value in arrPerfil %}
+                                <option value="{{ key }}">{{ value }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="botao">
+                    <button type="submit" class="buttonAzul margim" id="pesquisar">Selecionar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,983 @@
+{% form_theme form _self %}
+    {% block form_errors %}
+    {% endblock form_errors %}
+
+    {% block tituloFormulario %}
+        <strong class="title">
+            {% if(form.coSeqInscricao.vars.value) %}
+                Alterar
+            {% else %}
+                Incluir
+            {% endif %}
+            dados da Inscrição
+        </strong>
+    {% endblock %}
+
+<div class="box">
+    {{ form_start(form, {'attr': {'class': 'form-horizontal', 'ignore-input': 'false' }, multipart: true} ) }}
+    {{ form_widget(form._token) }}
+    {{ form_widget(form.coSeqInscricao) }}
+
+    <div class="formulario">
+        <fieldset>
+            <div class="espacamento-bottom20 control-group">
+                <input type="hidden" name="coSeqModalidade" value="{{ modalidade.getCoSeqModalidade }}"/>
+                <h4 class="pull-left">{{ modalidade.getCoEvento.getNoEvento }} </h4>
+                <h4 class="pull-left"> - {{ modalidade.getNoModalidade }}</h4>
+                <h4 class="pull-left">
+                    {% if(modalidade.getCoTipoModalidade) %}
+                        - {{ modalidade.getCoTipoModalidade.getNoTipoModalidade }}
+                    {% endif %}
+                </h4>
+                {% if(entity.getNuInscricao) %}
+                    <h4 class="alingInsc pull-right">Número da
+                        Inscrição: {{ entity.getNuInscricao }}
+                    </h4>
+                {% endif %}
+            </div>
+
+            <div class="control-group">
+                <label class="pull-left"></label>
+
+                <div class="pull-left">
+                    <h3>{{ formulario.getDsTitulo |raw('html') }}</h3>
+                </div>
+
+            </div>
+            {% block formDescritivo %}
+            <div class="control-group">
+                <div class="pull-left" style="text-align: justify;">
+                    {{ formulario.getDsObjeto |raw('html') }}
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="pull-left">
+                    <label class="control-label span10 alingLabel"> <b> {{ modalidade.getNoModalidade }} </b></label>
+                    <blockquote class="span10">
+                        {% for area in modalidade.getCoArea %}
+                            <p>{{ area.getNoArea }}.</p>
+                            {% for tema in area .getCoTema %}
+                                <small>{% if( tema.getStAtivo) == "S" %}
+                                        {% if (tema.getCoTipoClassificacao.getCoSeqTipoClassificacao) == 1 %}
+                                            {{ tema.getNuTema(true) }}) {{ tema.getNoTema }}
+                                        {% elseif(tema.getNuTema) %}
+                                            {% if(loop.index == 1) %}
+                                                a.{{ tema.getNoTema }}
+                                            {% endif %}
+                                            {% if(loop.index == 2) %}
+                                                b.{{ tema.getNoTema }}
+                                            {% endif %}
+                                            {% if(loop.index == 3) %}
+                                                c.{{ tema.getNoTema }}
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endif %}</small>
+                            {% endfor %}
+                        {% endfor %}
+                    </blockquote>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    {% endblock %}
+    <div class="formulario">
+        <fieldset>
+            <legend>Identificação do Autor</legend>
+
+            <div class="box">
+                <div class="control-group">
+                    <label class="control-label">Nome do Autor:</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" maxlength="120" disabled value="{{ user.getNoUsuario }}">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">CPF:</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" maxlength="9" mask="cpf" disabled
+                               value="{{ user.getCoCpfUsuario }}">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Passaporte:</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" maxlength="9" disabled value="{{ user.getNuPassaporte }}">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Sexo:</label>
+
+                    <div class="controls">
+                        {% if(user.getCoSexo) =="M" %}
+                            <input type="text" maxlength="9" disabled value="Masculino"/>
+                        {% else %}
+                            <input type="text" maxlength="9" disabled value="Feminino"/>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">CEP:</label>
+
+                    <div class="controls">
+                        <input type="text" maxlength="8" mask="cep" disabled value="{{ user.getNuCep }}">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Endereço residêncial:</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" maxlength="120" disabled value="{{ user.getDsLogradouro }}">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Complemento:</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" maxlength="10" disabled
+                               value="{{ user.getDsLogradouroComplemento }}">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Bairro / Localidade:</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" maxlength="60" disabled value="{{ user.getDsBairro }}">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Estado:</label>
+
+                    <div class="controls">
+                        <select class="span6 alingCombo" disabled>
+                            {% if(estadoUser is defined) %}
+                                <option>{{ estadoUser }}</option>
+                            {% endif %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Município:</label>
+
+                    <div class="controls">
+                        <select class="span6 alingCombo" disabled>
+                            {% if(municipioUser is defined) %}
+                                <option>{{ municipioUser }}</option>
+                            {% endif %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Região:</label>
+
+                    <div class="controls">
+                        <select class="span6 alingCombo" disabled>
+                            {% if(regiaoUser is defined) %}
+                                <option>{{ regiaoUser }}</option>
+                            {% endif %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label"
+                           for="datasus_sisvs_expoepi_autorbundle_inscricaoentity_dsEmailSecundario">E-mail 1
+                        (institucional ou pessoal): <font color="red"><b>*</b></font></label></label>
+                    <div class="controls">
+                        {{ form_widget(form.dsEmailSecundario) }}
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">E-mail 2 (institucional ou pessoal):</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" disabled value="{{ user.getDsEmail }}">
+                    </div>
+                </div>
+
+
+                <div class="control-group">
+                    <label class="control-label">Telefone Particular:</label>
+
+                    <div class="controls">
+                        {% if(user.getNuDddFone|length < 3) %}
+                            <input type="text" class="span6" mask="(99) *9999-9999" disabled
+                                   value="{{ user.getNuDddFone }}{{ user.getNuFone }}">
+                        {% endif %}
+                        {% if(user.getNuDddFone|length == 3) %}
+                            <input type="text" class="span6" mask="(999) *9999-9999" disabled
+                                   value="{{ user.getNuDddFone }}{{ user.getNuFone }}">
+                        {% endif %}
+                    </div>
+                </div>
+
+
+                <div class="control-group">
+                    <label class="control-label">Telefone celular:</label>
+
+                    <div class="controls">
+                        {% if(user.getNuDddCelular|length < 3) %}
+                            <input type="text" class="span6" mask="(99) *9999-9999" disabled
+                                   value="{{ user.getNuDddCelular }}{{ user.getNuCelular }}">
+                        {% endif %}
+                        {% if(user.getNuDddCelular|length == 3) %}
+                            <input type="text" class="span6" mask="(999) *9999-9999" disabled
+                                   value="{{ user.getNuDddCelular }}{{ user.getNuCelular }}">
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="control-group coAutorCheck">
+                    <label class="control-label" for="datasus_sisvs_expoepi_autorbundle_inscricaoentity_stAutoria_0">O
+                        trabalho
+                        tem co-autor? <font color="red"><b>*</b></font></label>
+
+                    <div class="controls">
+                        <label class="radio">
+                            {% if(entity.stAutoria == "S") %}
+                                <input type="radio" name="datasus_sisvs_expoepi_autorbundle_inscricaoentity[stAutoria]"
+                                       checked
+                                       id="datasus_sisvs_expoepi_autorbundle_inscricaoentity_stAutoria_0" value="S">
+                            {% else %}
+                                <input type="radio" name="datasus_sisvs_expoepi_autorbundle_inscricaoentity[stAutoria]"
+                                       id="datasus_sisvs_expoepi_autorbundle_inscricaoentity_stAutoria_0" value="S">
+                            {% endif %}
+                            &ensp;Sim
+                        </label>
+                        <label class="radio">
+                            {% if(entity.stAutoria == "N") %}
+                                <input type="radio" name="datasus_sisvs_expoepi_autorbundle_inscricaoentity[stAutoria]"
+                                       checked
+                                       id="datasus_sisvs_expoepi_autorbundle_inscricaoentity_stAutoria_1" value="N">
+                            {% else %}
+                                <input type="radio" name="datasus_sisvs_expoepi_autorbundle_inscricaoentity[stAutoria]"
+                                       id="datasus_sisvs_expoepi_autorbundle_inscricaoentity_stAutoria_1" value="N">
+                            {% endif %}
+                            &ensp;Não
+                        </label>
+                    </div>
+                </div>
+
+                <div class="coAutoria hide">
+                    <div class="control-group">
+                        <label class="control-label" for="coAutor">Nome do Co-autor <font
+                                    color="red"><b>*</b></font></label>
+
+                        <div class="controls">
+                            <input type="text" id="coAutor" maxlength="120"/>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="noInstituicao">Nome da Instituição <font
+                                    color="red"><b>*</b></font></label>
+
+                        <div class="controls">
+                            <input type="text" id="noInstituicao" maxlength="60"/>
+
+                            <button type="button" class="btn btn-mini" id="btAdicionar" title="Adicionar"><i
+                                        class="icon-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="controls span8 margin-left-20">
+                            <span class="table"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+
+    <div class="formulario">
+        <fieldset>
+            <legend>Identificação da Instituição</legend>
+
+            <div class="box">
+                <div class="control-group">
+                    <label class="control-label" for="coTipoInstituicao">Tipo de Instituição: <font
+                                color="red"><b>*</b></font></label>
+
+                    <div class="controls">
+                        {{ form_widget(form.coInstituicao.vars.form.coTipoInstituicao) }}
+                        {% for modalidadeInstituicao in modalidade.getCoModalidadeInstituicao %}
+                            <ul class="ajustRadio">
+                                <li>
+                                    <input type="radio"
+                                           value="{{ modalidadeInstituicao.getCoInstituicao.getCoSeqInstituicao }}"
+                                           name="coTipoInstituicao" id="coTipoInstituicao"
+                                            {% if(modalidadeInstituicao.getCoInstituicao.getCoSeqInstituicao == form.coInstituicao.vars.form.coTipoInstituicao.vars.value) %}
+                                                checked="checked"
+                                            {% endif %}
+                                            />
+                                    {{ modalidadeInstituicao.getCoInstituicao.getNoInstituicao }}
+                                </li>
+                            </ul>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="{{ form.coInstituicao.vars.form.noInstituicao.vars.id }}">Nome
+                        Completo da
+                        Instituição: <font color="red"><b>*</b></font></label>
+
+                    <div class="controls">
+                        {{ form_widget(form.coInstituicao.vars.form.coSeqInstituicao) }}
+                        {{ form_widget(form.coInstituicao.vars.form.noInstituicao) }}
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label for="{{ form.coInstituicao.vars.form.nuCep.vars.id }}" class="control-label">CEP: <font
+                                color="red"><b>*</b></font></label>
+
+                    <div class="controls ">
+                        {{ form_widget(form.coInstituicao.vars.form.nuCep) }}
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="{{ form.coInstituicao.vars.form.dsEndereco.vars.id }}">Endereço:
+                        <font
+                                color="red"><b>*</b></font></label>
+
+                    <div class="controls">
+                        {{ form_widget(form.coInstituicao.vars.form.dsEndereco) }}
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Complemento:</label>
+
+                    <div class="controls">
+                        {{ form_widget(form.coInstituicao.vars.form.dsComplemento) }}
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="{{ form.coInstituicao.vars.form.noBairro.vars.id }}">Bairro /
+                        Localidade:
+                        <font color="red"><b>*</b></font></label>
+
+                    <div class="controls">
+                        {{ form_widget(form.coInstituicao.vars.form.noBairro) }}
+                    </div>
+                </div>
+
+                <div class="control-group divEstado">
+                    <label for="datasus_sisvs_expoepi_autorbundle_inscricaoentity_coInstituicao_coUfIbge"
+                           class="control-label">Estado: <font color="red"><b>*</b></font></label></label>
+
+                    <div class="controls">
+                        {{ form_widget(form.coInstituicao.vars.form.coUfIbge) }}
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label for="datasus_sisvs_expoepi_autorbundle_inscricaoentity_coInstituicao_coMunicipioIbge"
+                           class="control-label">Município: <font color="red"><b>*</b></font></label></label>
+
+                    <div id="divMunicipio" class="controls required">
+
+                        {{ form_widget(form.coInstituicao.vars.form.coMunicipioIbge) }}
+
+                        <input id="comunicipio_hidden" value="" type="hidden"
+                               name="datasus_sisvs_expoepi_autorbundle_inscricaoentity[coInstituicao][coMunicipioIbge]">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label for="datasus_sisvs_expoepi_autorbundle_inscricaoentity_coInstituicao_noRegiao"
+                           class="control-label">Região: <font color="red"><b>*</b></font></label></label>
+
+                    <div class="controls">
+                        {{ form_widget(form.coInstituicao.vars.form.noRegiao) }}
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="{{ form.coInstituicao.vars.form.nuTelefone.vars.id }}">Telefone:
+                        <font
+                                color="red"><b>*</b></font></label>
+
+                    <div class="controls">
+                        {{ form_widget(form.coInstituicao.vars.form.nuTelefone) }}
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Fax:</label>
+
+                    <div class="controls">
+                        {{ form_widget(form.coInstituicao.vars.form.nuFax) }}
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+
+
+    <div class="formulario">
+        <fieldset>
+            <legend>Área(s) da {{ modalidade.getCoEvento.getNoEvento }}</legend>
+
+            <div class="box">
+                <label class="hide" for="coTema">Área(s) da {{ modalidade.getCoEvento.getNoEvento }}</label>
+
+                {{ form_widget(form.coTema) }}
+                <div class="accordion" id="accordion2">
+                    {% for area in  modalidade.getCoArea %}
+                        {% if(area.getStAtivo) == "S" %}
+                            <div class="accordion-group">
+                                <div class="accordion-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2"
+                                       href="#area-{{ area.getCoSeqArea }}">
+                                        <b>{{ area.getNoArea }}:</b> <font color="red"><b>*</b></font>
+                                    </a>
+                                </div>
+
+                                <div id="area-{{ area.getCoSeqArea }}" class="accordion-body collapse">
+                                    <div class="accordion-inner">
+                                        <ul class="control-list">
+                                            {% for tema in area.getCoTema %}
+                                                <li>
+                                                    {% if( tema.getStAtivo) == "S" %}
+                                                        <input type="radio"
+                                                               value="{{ tema.getCoSeqTema }}"
+                                                               name="tema"
+                                                                {% if(tema.getCoSeqTema == form.coTema.vars.value) %}
+                                                                    checked="checked"
+                                                                {% endif %}
+                                                               id="coTema" class="required"/>&emsp;
+
+                                                        {% if (tema.getCoTipoClassificacao.getCoSeqTipoClassificacao) == 1 %}
+                                                            <b>{{ tema.getNuTema(true) }})</b> {{ tema.getNoTema }}
+                                                        {% elseif(tema.getNuTema) %}
+                                                            {% if(loop.index == 1) %}
+                                                                a.{{ tema.getNoTema }}
+                                                            {% endif %}
+                                                            {% if(loop.index == 2) %}
+                                                                b.{{ tema.getNoTema }}
+                                                            {% endif %}
+                                                            {% if(loop.index == 3) %}
+                                                                c.{{ tema.getNoTema }}
+                                                            {% endif %}
+                                                        {% endif %}
+                                                    {% endif %}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </fieldset>
+    </div>
+
+    {% if(modalidade.stPossuiOrientador == 'S') %}
+        <div class="formulario">
+            <fieldset>
+                <legend>Identificação do Orientador</legend>
+
+                <div class="box">
+                    <div class="control-group">
+                        <label class="control-label" for="{{ form.noOrientador.vars.id }}">Nome Completo do Orientador:
+                            <font
+                                    color="red"><b>*</b></font></label>
+
+                        <div class="controls">
+                            {{ form_widget(form.noOrientador) }}
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Nome Completo do Co-Orientador:</label>
+
+                        <div class="controls">
+                            {{ form_widget(form.noCoOrientador) }}
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    {% endif %}
+
+    <div class="formulario">
+        <fieldset>
+            <legend>Resumo Estruturado</legend>
+
+            <div class="box">
+                <div class="control-group">
+                    <div class="pull-left" style="text-align: justify;">
+                        {{ formulario.getDsResumo |raw('html') }}
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="{{ form.dsTitulo.vars.id }}">Título do Resumo Estruturado: <font
+                                color="red"><b>*</b></font></label>
+
+                    <div class="controls">
+                        {{ form_widget(form.dsTitulo|raw('html')) }}
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="{{ form.dsResumo.vars.id }}">Resumo: <font
+                                color="red"><b>*</b></font></label>
+
+                    <div class="controls">
+                        {{ form_widget(form.dsResumo|raw('html')) }}
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+
+    <div class="formulario">
+        <fieldset>
+            <legend>Apresentação</legend>
+
+            <div class="box">
+                <div class="control-group">
+                    <div class="pull-left" style="text-align: justify;">
+                        {{ formulario.dsApresentacao |raw('html') }}
+                    </div>
+                </div>
+
+                {% for inscricaoApresentacao in form.coInscricaoApresentacao %}
+                    <div class="control-group">
+                        <label class="control-label apresentacao" data-placement="right" data-toggle="tooltip"
+                               data-original-title="{{ inscricaoApresentacao.vars.value.getCoApresentacao.getDsApresentacao }}"
+                               for="{{ inscricaoApresentacao.dsApresentacao.vars.id }}">{{ inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao }}
+                            :
+                            <font color="red"><b>*</b></font></label>
+
+                        <div class="controls">
+                            {{ form_widget(inscricaoApresentacao.coApresentacao) }}
+                            {% if (inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao) == "Título" or (inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao) == "título" %}
+                                {{ form_widget(inscricaoApresentacao.dsApresentacao|raw('html'), { 'attr': {'maxlength': 250 }} ) }}
+
+                            {% elseif (inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao) == "Objetivos" or (inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao) == "objetivos" %}
+                                {{ form_widget(inscricaoApresentacao.dsApresentacao|raw('html'), { 'attr': {'maxlength': 500 }} ) }}
+
+                            {% elseif (inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao) == "Métodos" or (inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao) == "métodos" %}
+                                {{ form_widget(inscricaoApresentacao.dsApresentacao|raw('html'), { 'attr': {'maxlength': 1500 }} ) }}
+
+                            {% elseif (inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao) == "Descrição das técnicas, métodos ou processos de trabalho" or (inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao) == "descrição das técnicas, métodos ou processos de trabalho"  or (inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao) == "Descrição das Técnicas, Métodos ou Processos de Trabalho" %}
+                                {{ form_widget(inscricaoApresentacao.dsApresentacao|raw('html'), { 'attr': {'maxlength': 1500 }} ) }}
+
+                            {% elseif (inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao) == "Descrição de como foi desenvolvida" or (inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao) == "descrição de como foi desenvolvida" %}
+                                {{ form_widget(inscricaoApresentacao.dsApresentacao|raw('html'), { 'attr': {'maxlength': 1500 }} ) }}
+
+                            {% elseif (inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao) == "Principais Resultados" or (inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao) == "Principais resultados" or (inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao) == "principais resultados" %}
+                                {{ form_widget(inscricaoApresentacao.dsApresentacao|raw('html'), { 'attr': {'maxlength': 6000 }} ) }}
+
+                            {% elseif (inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao) == "Principais Resultados Alcançados" or (inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao) == "Principais resultados alcançados" or (inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao) == "principais resultados alcançados" %}
+                                {{ form_widget(inscricaoApresentacao.dsApresentacao|raw('html'), { 'attr': {'maxlength': 6000 }} ) }}
+
+                            {% elseif (inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao) == "Principais Resultados Alcançados que Podem ser Atribuídos à Intervenção Social" or (inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao) == "Principais resultados alcançados que podem ser atribuídos à intervenção social" or (inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao) == "principais resultados alcançados que podem ser atribuídos à intervenção social" %}
+                                {{ form_widget(inscricaoApresentacao.dsApresentacao|raw('html'), { 'attr': {'maxlength': 6000 }} ) }}
+
+                            {% elseif (inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao) == "Conclusões e/ou recomendações para a Saúde Pública" or (inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao) == "conclusões e/ou recomendações para a saúde pública" %}
+                                {{ form_widget(inscricaoApresentacao.dsApresentacao|raw('html'), { 'attr': {'maxlength': 2000 }} ) }}
+
+                            {% elseif (inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao) == "Conclusões" or (inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao) == "conclusões" %}
+                                {{ form_widget(inscricaoApresentacao.dsApresentacao|raw('html'), { 'attr': {'maxlength': 2000 }} ) }}
+
+                            {% else %}
+                                {{ form_widget(inscricaoApresentacao.dsApresentacao|raw('html'), { 'attr': {'maxlength': 3000 }} ) }}
+
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </fieldset>
+    </div>
+
+    <div class="formulario">
+        <fieldset>
+            <legend>Anexos</legend>
+
+            <div class="box">
+                <div class="control-group">
+                    <div class="pull-left" style="text-align: justify;">
+                        {{ formulario.dsAnexos |raw('html') }}
+                    </div>
+                </div>
+                {% if(modalidade.getStExigeAnexo == 'S') %}
+                    <div class="control-group">
+                        <label class="control-label" for="upload">
+                            Upload do Anexo: <font color="red"><b>*</b></font>
+                        </label>
+
+                        <div class="controls div-upload">
+                            <input type="file" id="upload" class="input-file span4 required"
+                                   name="">
+                            <button type="button" class="btn btn-mini" id="btAdicionarUpload" title="Adicionar">
+                                <i class="icon-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="control-group">
+                        <label class="control-label" for="upload">
+                            Upload do Anexo:
+                        </label>
+
+                        <div class="controls div-upload">
+                            <input type="file" id="upload" class="input-file span4"
+                                   name="">
+                            <button type="button" class="btn btn-mini" id="btAdicionarUpload" title="Adicionar">
+                                <i class="icon-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="control-group">
+                    <label class="control-label"></label>
+
+                    <div class="controls span8 upload margin-left-20">
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+
+
+    <div class="formulario">
+        <fieldset>
+            <legend>Declaração de Veracidade da Informações</legend>
+
+            <div class="box">
+                <div class="control-group">
+                    <div class="pull-left" style="text-align: justify;">
+                        {{ formulario.getDsDeclaracao |raw('html') }}
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="{{ form.stVeracidade.vars.id }}">Declaração: <font
+                                color="red"><b>*</b></font></label>
+
+                    <div class="controls">
+                        {{ form_widget(form.stVeracidade) }} Sim, certifico que toda a informação citada é verídica
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="">Data:</label>
+
+                    <div class="controls">
+                        <span class="span6">
+                                {% if(form.coSeqInscricao.vars.value) == null %}
+                                    {{ "now"|date('d-m-Y') }}
+                                {% else %}
+                                    {{ dataInscricao | date("d/m/Y") }}
+                                {% endif %}
+                        </span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="">Nome Completo do Autor Principal:</label>
+
+                    <div class="controls">
+                        <span class="span6"> {{ user.getNoUsuario }}</span>
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+
+        {% block botaoFormulario %}
+            <div class="botao span12 espacamento-bottom20">
+                <input type="submit" class="buttonAzul margim" value="Salvar" id="salvar" name="submit"/>
+                <button type="reset" class="buttonAzul margim" id="limpar">Limpar</button>
+
+                {% if(form.coSeqInscricao.vars.value) %}
+                    <a href="{{ path('autor_painel', {coSeqModalidade: modalidade.getCoSeqModalidade}) }}"
+                       class="buttonAzul margim">Voltar</a>
+                {% else %}
+                    <a href="{{ path('autor_painel', {coSeqModalidade: modalidade.getCoSeqModalidade}) }}"
+                       class="buttonAzul margim">Voltar</a>
+                {% endif %}
+            </div>
+        {% endblock %}
+    </div>
+    </form>
+</div>
+
+{% block scriptFormulario %}
+    <script type="text/javascript" src="{{ asset('bundles/datasussisvsexpoepiautor/js/painel/form.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $('.accordion-heading a').click(function () {
+                if ($(this).parent('div').parent('div').find('div:last li').size() == 1) {
+                    $(this).parent('div').parent('div').find('div:last li input[type=radio]').click();
+                }
+            });
+
+            var optCoAutor = {
+                inseretAfter: $('span.table'),
+                namePost: 'datasus_sisvs_expoepi_autorbundle_inscricaoentity[coAutor]',
+                columns: {
+                    'Co-Autor': null,
+                    'Instituição': null
+                },
+                data: []
+            }
+
+            var coAutor = new DynamicTable();
+            coAutor.handler(optCoAutor);
+
+            {% for coAutor in form.coAutor.vars.value %}
+            {% if(coAutor.getStAtivo == 'S') %}
+            coAutor.setData({"noAutor": '{{ coAutor.getNoAutor }}', "noInstituicao": '{{ coAutor.getNoInstituicao }}'});
+            $('#coAutor, #noInstituicao').val('').removeClass('required');
+            {% endif %}
+            {% endfor %}
+
+            if ($('div.coAutorCheck input:last').is(':checked')) {
+                coAutor.clear();
+            }
+
+            $('div.coAutorCheck input:last').click(function () {
+                coAutor.clear();
+            });
+
+            $('#table_0').on('click', 'a.table_0', function () {
+                coAutor.remove($(this).attr('id'));
+            });
+
+
+            $('#datasus_sisvs_expoepi_autorbundle_inscricaoentity_stAutoria_1').click(function () {
+                $('#coAutor, #noInstituicao').val('').removeClass('required');
+            });
+
+            $('#btAdicionar').click(function () {
+                if ($('#coAutor').val() && $('#noInstituicao').val()) {
+                    coAutor.setData({"noAutor": $('#coAutor').val(), "noInstituicao": $('#noInstituicao').val()});
+                    $('#coAutor, #noInstituicao').val('').removeClass('required');
+                } else {
+
+
+                    if ($('#coAutor').val() == "") {
+                        var msg = 'O campo Nome do Co-autor é de preenchimento obrigatório.';
+                        $('html, body').animate({scrollTop: 0}, 300);
+                        Message.addMessage(msg, 'error');
+                    }
+                    if ($('#noInstituicao').val() == "") {
+                        var msg = 'O campo Nome da Instituição é de preenchimento obrigatório.';
+                        $('html, body').animate({scrollTop: 0}, 300);
+                        Message.addMessage(msg, 'error');
+                    }
+                }
+            });
+
+            // anexo
+            var optAnexo = {
+                inseretAfter: $('div.upload'),
+                namePost: 'anexo',
+                columns: {
+                    'Arquivo': null
+                },
+                data: []
+            }
+
+            var coAnexo = new DynamicTable();
+            coAnexo.handler(optAnexo);
+
+            {% if(form.coSeqInscricao.vars.value) %}
+            {% for coAnexo in form.coAnexo.vars.value %}
+            {% if(coAnexo.getStAtivo == 'S') %}
+            coAnexo.setData({"Arquivo": '{{ coAnexo.getNoArquivo}}'});
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+
+            $('#btAdicionarUpload').unbind('click').click(function () {
+                var noAnexo = $('input[id=upload]:first');
+                var exAnexo;
+
+                exAnexo = noAnexo.val().substring(noAnexo.val().length - 4).toLowerCase();
+                console.log(exAnexo);
+                if (exAnexo != '.pdf'
+                        && exAnexo != '.doc'
+                        && exAnexo != 'docx'
+                        && exAnexo != '.odt'
+                        && exAnexo != '.xls'
+                        && exAnexo != '.xlsx'
+                        && exAnexo != '.jpg'
+                        && exAnexo != '.png'
+                        && exAnexo != '.gif'
+                        && exAnexo != '.ppt'
+                        && exAnexo != '.zip'
+                ) {
+                    var msg = 'Upload não permitido. Permitido apenas upload de arquivos com as extensões: .pdf, .doc, docx, .odt, .xls, .xlsx, .jpg, .png, .gif, .ppt, .zip .';
+                    Message.addMessage(msg, 'error');
+                    if (msg) {
+                        $('html, body').animate({scrollTop: 0}, 300);
+                        $('.alert-error').fadeIn().delay(5000).fadeOut('slow');
+                    }
+                } else {
+                    coAnexo.setData({"Arquivo": $('input[type=file]').val().replace(/C:\\fakepath\\/i, '')});
+
+                    var fileInput = $('input[id=upload]:first')
+                            .clone()
+                            .attr('name', '');
+
+                    $('input[id=upload]:first').hide();
+                    $('input[id=upload]:first').before(fileInput);
+
+                    $(coAnexo.getData()).each(function (i, v) {
+                        $($('input[id=upload]').get().reverse()).each(function (ind, val) {
+                            if (i == ind) {
+                                $(val).attr('name', 'datasus_sisvs_expoepi_autorbundle_inscricaoentity[coAnexo][' + ind + '][dsArquivo]');
+                            }
+                        });
+                    });
+                }
+            });
+
+            $('#table_1').on('click', 'a.table_1', function () {
+                coAnexo.remove($(this).attr('id'));
+                $('input[name="datasus_sisvs_expoepi_autorbundle_inscricaoentity[coAnexo][' + $(this).attr('id') + '][dsArquivo]"]').remove();
+
+                $(coAnexo.getData()).each(function (i, v) {
+                    $($('input[id=upload]').get().reverse()).each(function (ind, val) {
+                        if (i == ind && !$('input[id=upload]').is(':visible')) {
+                            $(val).attr('name', 'datasus_sisvs_expoepi_autorbundle_inscricaoentity[coAnexo][' + ind + '][dsArquivo]');
+                        }
+                    });
+                });
+            });
+
+            {% if(modalidade.getStExigeAnexo == 'S') %}
+            $('form').submit(function () {
+                if (coAnexo.getData().length == 0) {
+                    Message.addMessage('O campo Upload do Anexo é de preenchimento obrigatório.', 'error', 'upload');
+                    $('html, body').animate({scrollTop: 0}, 300);
+                    $('.alert-error').fadeIn().delay(5000).fadeOut('slow');
+                    return false;
+                } else {
+                    Message.remove('upload');
+                }
+            });
+            {% endif %}
+
+            /**
+             * @return Se estiver ba edição
+             */
+
+            {% if(form.coSeqInscricao.vars.value) %}
+
+            $('form').submit(function () {
+                if (coAutor.getData().length == 0 && $('#datasus_sisvs_expoepi_autorbundle_inscricaoentity_stAutoria_0').is(':checked')) {
+                    Message.addMessage('O campo Nome do Co-autor é de preenchimento obrigatório.', 'error');
+                    $('.alert-error').fadeIn().delay(5000).fadeOut('slow');
+                }
+            });
+            {% endif %}
+
+            /**
+             * @return Se estiver ba edição
+             */
+            {% if(form.coSeqInscricao.vars.value) %}
+            if ($('#datasus_sisvs_expoepi_autorbundle_inscricaoentity_coSeqInscricao').val()) {
+                Address.config.estado = $('#datasus_sisvs_expoepi_autorbundle_inscricaoentity_coInstituicao_coUfIbge');
+                Address.populateEstadoFromPais(1, {{ estadoInst }});
+
+                $(document).ajaxStop(function () {
+                    $('#datasus_sisvs_expoepi_autorbundle_inscricaoentity_coInstituicao_coMunicipioIbge').val({{ municipioInst }}).change();
+                    $('#comunicipio_hidden').val($('#datasus_sisvs_expoepi_autorbundle_inscricaoentity_coInstituicao_coMunicipioIbge').val());
+                    $('#datasus_sisvs_expoepi_autorbundle_inscricaoentity_coInstituicao_noRegiao').val('{{ regiaoInst }}');
+                });
+            }
+            {% endif %}
+
+
+            $('#limpar').click(function () {
+                window.location.href = window.location.href;
+            });
+
+            $('#salvar').click(function () {
+
+//                if ($('#comunicipio_hidden').val() == "") {
+//                    Message.addMessage('O campo CEP é de preenchimento obrigatório.', 'error');
+//                    $('html, body').animate({scrollTop: 0}, 300);
+//                }
+
+                if (coAutor.getData().length == 0 && $('#datasus_sisvs_expoepi_autorbundle_inscricaoentity_stAutoria_0').is(':checked')) {
+                    $('html, body').animate({scrollTop: 0}, 300);
+                    Message.addMessage('O campo Nome do Co-autor é de preenchimento obrigatório.', 'error');
+                    $('.alert-error').fadeIn().delay(5000).fadeOut('slow');
+                }
+
+                if (coAnexo.getData().length == 0) {
+                    Message.addMessage('O campo Upload do Anexo é de preenchimento obrigatório.', 'error', 'upload');
+                    $('html, body').animate({scrollTop: 0}, 300);
+                    $('.alert-error').fadeIn().delay(5000).fadeOut('slow');
+                    return false;
+                }
+
+                if ($('form').submit(function () {
+//                            if ($('#comunicipio_hidden').val() == "") {
+//                                Message.addMessage('O campo CEP é de preenchimento obrigatório.', 'error');
+//                                $('html, body').animate({scrollTop: 0}, 300);
+//                            }
+                            if ($('.alert-error').show()) {
+                                $('html, body').animate({scrollTop: 0}, 300);
+                                $('.alert-error').fadeIn().delay(5000).fadeOut('slow');
+                            }
+                            if (coAutor.getData().length == 0 && $('#datasus_sisvs_expoepi_autorbundle_inscricaoentity_stAutoria_0').is(':checked')) {
+                                $('html, body').animate({scrollTop: 0}, 300);
+//                                Message.addMessage('O campo Nome do Co-autor é de preenchimento obrigatório.', 'error');
+                            }
+                        }));
+            });
+            $('.apresentacao').tooltip('toggle');
+            $('.apresentacao').tooltip('hide');
+            $('#comunicipio_hidden').val($('#datasus_sisvs_expoepi_autorbundle_inscricaoentity_coInstituicao_coMunicipioIbge').val());
+        });
+    </script>
+    <style type="text/css">
+        blockquote small:before {
+            display: none !important;
+        }
+
+        .alingLabel {
+            position: relative;
+            left: -63px;
+            padding-top: 0px !important;
+        }
+
+        .control-group blockquote {
+            left: -27px;
+            position: relative;
+        }
+
+        .control-group blockquote p {
+            margin-bottom: 5px;
+            margin-top: 5px;
+        }
+    </style>
+{% endblock %}
+
+

@@ -1,0 +1,177 @@
+{% extends "DatasusSisvsExpoEpiAcompanhamentoBundle::base.html.twig" %}
+
+{% block body %}
+    <div class="box">
+        <strong class="title">Listar Possíveis Duplicadas / Duplicadas (bloqueadas)</strong>
+
+        <div class="formulario">
+            <form id="form-duplicata" method="get" action="acompanhar_inscricao_search">
+                <div class="control-group span3">
+                    <label class="control-label" for="noEvento">Evento: <font color="red"><b>*</b></font> </label>
+
+                    <div class="controls">
+                        {% for evento in cmbEnvento %}
+                            {% if (evento.anEvento) == ( "now"|date("Y")) %}
+                                <input type="hidden" name="eventoCorrente" id="eventoCorrente" value="{{ evento.getCoSeqEvento }}" />
+                            {% endif %}
+                        {% endfor %}
+                        <select class="span3 required" id="noEvento" name="coEvento">
+                            {% for evento in cmbEnvento %}
+                                <option value="{{ evento.getCoSeqEvento }}">{{ evento.getNoEvento }}</option>
+                            {% endfor %}
+                        </select>
+
+                    </div>
+                </div>
+
+                <div class="control-group span3">
+                    <label class="control-label" for="noModalidade">Modalidade: <font color="red"><b>*</b></font>
+                    </label>
+
+                    <div class="controls">
+                        <select class="span3 required" id="noModalidade" name="coModalidade">
+                            <option value="">Selecione uma opção</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group span3">
+                    <label class="control-label" for="coArea">Área:</label>
+
+                    <div class="controls">
+                        <select class="span3" id="noArea" name="coArea">
+                            <option value="">Selecione uma opção</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group span3">
+                    <label class="control-label" for="coTema">Tema/Categoria:</label>
+
+                    <div class="controls">
+                        <select class="span3" id="noTema" name="coTema">
+                            <option value="">Selecione uma opção</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group span5">
+                    <label class="control-label" for="tpConsulta">
+                        Inscrições: <font color="red"><b>*</b></font>
+                    </label>
+
+                    <div class="span3">
+                        <label class="radio">
+                            <input type="radio" name="tpConsulta" value="duplicadas" id="tpConsulta" class="required"/>
+                            Possíveis Duplicadas
+                        </label>
+
+                        <label class="radio">
+                            <input type="radio" name="tpConsulta" value="bloqueadas" id="tpConsulta"/> Duplicadas
+                            (Bloqueadas)
+                        </label>
+                    </div>
+                </div>
+
+                <div class="botao">
+                    <button type="submit" class="buttonAzul margim" id="pesquisar">Pesquisar</button>
+                    <button type="reset" class="buttonAzul margim" id="limpar">Limpar</button>
+                </div>
+            </form>
+        </div>
+        <div class="grid hide">
+            <div class="formulario grid ">
+                <div class="box">
+                    <div id="pager"></div>
+                    <form method="post" action="{{ path('acompanhar_duplicata_toogle') }}" id="form-grid">
+                        <table id="grid"></table>
+                        <div class="botao">
+                            <button type="button" class="buttonAzul margim" id="salvar"></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script type="text/javascript"
+            src="{{ asset('bundles/datasussisvsexpoepiacompanhamento/js/acompanhar-duplicata/index.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+
+            $('.radio').change(function () {
+                if ($("input:radio[name=tpConsulta]:checked").val() == 'duplicadas') {
+                    $('#inscricao').html('Bloquear Projeto');
+                    $('#checkboxall').prop('checked', false);
+                }
+                else if ($("input:radio[name=tpConsulta]:checked").val() == 'bloqueadas') {
+                    $('#inscricao').html('Desbloquear Projeto');
+                    $('#checkboxall').prop('checked', false);
+                }
+            });
+            $('#coEvento').change();
+            $('#pesquisar').click(function(){
+                var config = {
+                    url: '{{ path('acompanhar_duplicata_search') }}',
+                    buttonSearch: $('#pesquisar'),
+                    postData: {data: $('#form-duplicata').serialize()},
+                    form: $('#form-duplicata'),
+
+                    colNames: [
+                        '<span class="checkboxall" id="inscricao" ></span>',
+                        'Inscrições',
+                        'Autor Principal',
+                        'Área',
+                        'Tema / Categoria',
+                        'Título do Projeto',
+                        'Nome da Instituição',
+                        'Data e Hora da Inscrição',
+                        'Opção'
+                    ],
+                    colModel: [
+                        {name: 'check', sortable: false, width: 50},
+                        {name: 'nuInscricao', index: 'i.nuInscricao', width: 40,sortable:true},
+                        {name: 'noUsuario', index: 'u.noUsuario', width: 80},
+                        {name: 'noArea', index: 'a.noArea', width: 55},
+                        {name: 'noTema', index: 't.noTema', width: 55},
+                        {name: 'dsTitulo', index: 'i.dsTitulo', width: 80},
+                        {name: 'noInstituicao', index: 'it.noInstituicao', width: 55},
+                        {name: 'dtSituacao', index: 'hh.dtSituacao', width: 55},
+                        {name: 'acao', index: 'Acao', width:35, align: "center"}
+                    ],
+
+                    sortname: 'i.nuInscricao',
+                    caption: 'Resultado da Pesquisa',
+                    multiselect: true,
+                    beforeSelectRow: function () {
+                        return false
+                    }
+                };
+
+                $('#grid').grid(config);
+                $('.radio').change();
+            });
+            var grid = $("#grid");
+            $("#noEvento").each(function(){
+                $(this).children("option").each(function(){
+                    if($(this).val() == $('#eventoCorrente').val()){
+                        $(this).attr('selected',true);
+                    }
+                });
+            });
+            $('#noEvento').change();
+        });
+    </script>
+  <style type="text/css">
+      table #grid_cb {
+      border-style: none !important;
+      }
+
+      table tr td[aria-describedby="grid_cb"] {
+      border-style: none !important;
+      }
+      #check{display: none;}
+  </style>
+{% endblock %}
+

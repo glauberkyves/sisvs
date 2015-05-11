@@ -1,0 +1,7 @@
+parameters:
+    datasus_sisvs_expo_epi_email.email.class: Datasus\Sisvs\ExpoEpi\EmailBundle\Service\EmailService
+
+services:
+    datasus_sisvs_expo_epi_email.email:
+        class: %datasus_sisvs_expo_epi_email.email.class%
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]

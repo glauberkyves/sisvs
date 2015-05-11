@@ -1,0 +1,45 @@
+{% block modal_view %}
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>Visualizar Vinculação: Tema / Categoria com Área</h3>
+    </div>
+    <div class="modal-body">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>
+                    <h4>{{ entity.getNoArea }}</h4>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for tema in entity.getCoTema %}
+                {% if(tema.getStAtivo == 'S') %}
+                    <tr>
+                        <td>
+                            <span class="span">
+                            {{ tema.getNoTema }}
+                            </span>
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+
+            {% if(entity.getCoTema.count == 0) %}
+                <tr>
+                    <td>
+                        <span class="span">
+                        Nenhum registro vinculado.
+                        </span>
+                    </td>
+                </tr>
+            {% endif %}
+        </table>
+    </div>
+
+    <div class="modal-footer">
+        <button aria-hidden="true" data-dismiss="modal" class="buttonAzul margim view-not">
+            Fechar
+        </button>
+    </div>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% block modal_view %}
+    <div class="modal-header">
+        <div class="alert alert-error hide" id="mensagemErro"></div>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>Listar arquivos da inscrição em PDF para anexo</h3>
+    </div>
+    {% if dados is defined and dados %}
+        <div class="modal-body">
+            <form method="post" action="" name="formInscricaoAnexo" id="formInscricaoAnexo"
+                  enctype="multipart/form-data">
+                <table class="table table-bordered ui-widget-content aling-table table-striped" id="tabelaModal">
+                    <thead>
+                    <tr>
+                        <th style="width: 100px; text-align: center;">Código da Inscrição</th>
+                        <th style="width: 100px; text-align: center;">Modalidade</th>
+                        <th style="text-align: center;">Área</th>
+                        <th style="text-align: center;">Tema/Categoria</th>
+                        <th style="text-align: center;">Título do Projeto</th>
+                        <th style="text-align: center;">Situação</th>
+                        <th style="text-align: center;">PDF da Inscrição</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for inscricao in dados %}
+                        <tr>
+                            <td >
+                                <input type="checkbox" name="usuario[{{ usuario }}][{{ inscricao.coSeqInscricao }}]" class="inscricaoUsuario" id="check"
+                                       value="{{ inscricao.coSeqInscricao }}"> {{ inscricao.nuInscricao }}
+                            </td>
+                            <td >{{ inscricao.noModalidade }}</td>
+                            <td >{{ inscricao.noArea }}</td>
+                            <td >{{ inscricao.noTema }}</td>
+                            <td >{{ inscricao.dsTitulo | raw('html') }}</td>
+                            <td >{{ inscricao.dsSituacao }}</td>
+                            <td style="text-align: center;">
+                                <a href="{{ path('datasus_sisvs_expoepi_email_mala_direta_view_pdf',  {'coSeqInscricao': inscricao.coSeqInscricao}) }}"
+                                   class="icon-file"
+                                   target="_blank">
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    {% else %}
+        <div class="aling-center-hr">
+            <h5>Nenhum registro encontrado</h5>
+        </div>
+
+    {% endif %}
+    <div class="modal-footer">
+        <button aria-hidden="true" data-dismiss="modal" class="buttonAzul margim view-not" id="voltar">
+            Voltar
+        </button>
+        <button class="buttonAzul margim view-not incluirEmail" type="button" id="btnAdicionar">Confirmar</button>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $ ('.incluirEmail').click(function() {
+                $('#mensagemErro').hide();
+                $('#mensagemErro').html('');
+                $('#tabelaModal').each(function(){
+                    if ($(this).find('input').is(':checked')) {
+                        var form = $('#formInscricaoAnexo').serialize();
+                        $.get ('/email/mala-direta/anexo', form);
+                        Message.addMessage('Os arquivos serão anexados no momento do envio do e-mail.');
+                        $('#voltar').click();
+                    }
+                    else{
+                        $('#mensagemErro').show();
+                        $('#mensagemErro').html('Selecione pelo menos um ítem');
+                        return false;
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

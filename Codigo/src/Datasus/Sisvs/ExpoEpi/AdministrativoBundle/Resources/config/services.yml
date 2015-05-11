@@ -1,0 +1,94 @@
+parameters:
+    datasus_sisvs_expoepi_administrativo.tema.class: Datasus\Sisvs\ExpoEpi\AdministrativoBundle\Service\TemaService
+    datasus_sisvs_expoepi_administrativo.criterio.class: Datasus\Sisvs\ExpoEpi\AdministrativoBundle\Service\CriterioService
+    datasus_sisvs_expoepi_administrativo.apresentacao.class: Datasus\Sisvs\ExpoEpi\AdministrativoBundle\Service\ApresentacaoService
+    datasus_sisvs_expoepi_administrativo.instituicao.class: Datasus\Sisvs\ExpoEpi\AdministrativoBundle\Service\InstituicaoService
+    datasus_sisvs_expoepi_administrativo.evento.class: Datasus\Sisvs\ExpoEpi\AdministrativoBundle\Service\EventoService
+    datasus_sisvs_expoepi_administrativo.evento_duplicata.class: Datasus\Sisvs\ExpoEpi\AdministrativoBundle\Service\AcompanharDuplicataService
+
+    datasus_sisvs_expoepi_administrativo.tipo_modalidade.class: Datasus\Sisvs\ExpoEpi\AdministrativoBundle\Service\TipoModalidadeService
+    datasus_sisvs_expoepi_administrativo.area.class: Datasus\Sisvs\ExpoEpi\AdministrativoBundle\Service\AreaService
+    datasus_sisvs_expoepi_administrativo.modalidade.class: Datasus\Sisvs\ExpoEpi\AdministrativoBundle\Service\ModalidadeService
+    datasus_sisvs_expoepi_administrativo.modalidade_instituicao.class: Datasus\Sisvs\ExpoEpi\AdministrativoBundle\Service\ModalidadeInstituicaoService
+    datasus_sisvs_expoepi_administrativo.modalidade_apresentacao.class: Datasus\Sisvs\ExpoEpi\AdministrativoBundle\Service\ModalidadeApresentacaoService
+    datasus_sisvs_expoepi_administrativo.modalidade_criterio.class: Datasus\Sisvs\ExpoEpi\AdministrativoBundle\Service\ModalidadeCriterioService
+    datasus_sisvs_expoepi_administrativo.modalidade_prazo.class: Datasus\Sisvs\ExpoEpi\AdministrativoBundle\Service\PrazoService
+
+    datasus_sisvs_expoepi_administrativo.regiao.class: Datasus\Sisvs\ExpoEpi\AdministrativoBundle\Service\RegiaoService
+    datasus_sisvs_expoepi_administrativo.uf.class: Datasus\Sisvs\ExpoEpi\AdministrativoBundle\Service\UfService
+    datasus_sisvs_expoepi_administrativo.municipio.class: Datasus\Sisvs\ExpoEpi\AdministrativoBundle\Service\MunicipioService
+    datasus_sisvs_expoepi_administrativo.sexo.class: Datasus\Sisvs\ExpoEpi\AdministrativoBundle\Service\SexoService
+    datasus_sisvs_expoepi_administrativo.cep.class: Datasus\Sisvs\ExpoEpi\AdministrativoBundle\Service\CepService
+
+services:
+    datasus_sisvs_expoepi_administrativo.tema:
+        class: %datasus_sisvs_expoepi_administrativo.tema.class%
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+
+    datasus_sisvs_expoepi_administrativo.criterio:
+        class: %datasus_sisvs_expoepi_administrativo.criterio.class%
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+
+    datasus_sisvs_expoepi_administrativo.apresentacao:
+        class: %datasus_sisvs_expoepi_administrativo.apresentacao.class%
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+
+    datasus_sisvs_expoepi_administrativo.instituicao:
+        class: %datasus_sisvs_expoepi_administrativo.instituicao.class%
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+
+    datasus_sisvs_expoepi_administrativo.evento:
+        class: %datasus_sisvs_expoepi_administrativo.evento.class%
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+
+    datasus_sisvs_expoepi_administrativo.evento_duplicata:
+        class: %datasus_sisvs_expoepi_administrativo.evento_duplicata.class%
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+
+    datasus_sisvs_expoepi_administrativo.tipo_modalidade:
+        class: %datasus_sisvs_expoepi_administrativo.tipo_modalidade.class%
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+
+    datasus_sisvs_expoepi_administrativo.area:
+        class: %datasus_sisvs_expoepi_administrativo.area.class%
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+
+    datasus_sisvs_expoepi_administrativo.modalidade:
+        class: %datasus_sisvs_expoepi_administrativo.modalidade.class%
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+
+    datasus_sisvs_expoepi_administrativo.modalidade_instituicao:
+        class: %datasus_sisvs_expoepi_administrativo.modalidade_instituicao.class%
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+
+    datasus_sisvs_expoepi_administrativo.modalidade_apresentacao:
+        class: %datasus_sisvs_expoepi_administrativo.modalidade_apresentacao.class%
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+
+    datasus_sisvs_expoepi_administrativo.modalidade_criterio:
+        class: %datasus_sisvs_expoepi_administrativo.modalidade_criterio.class%
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+
+    datasus_sisvs_expoepi_administrativo.prazo:
+        class: %datasus_sisvs_expoepi_formulario.formulario_inscricao.class%
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+
+    datasus_sisvs_expoepi_administrativo.regiao:
+        class: %datasus_sisvs_expoepi_administrativo.regiao.class%
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+
+    datasus_sisvs_expoepi_administrativo.uf:
+        class: %datasus_sisvs_expoepi_administrativo.uf.class%
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+
+    datasus_sisvs_expoepi_administrativo.municipio:
+        class: %datasus_sisvs_expoepi_administrativo.municipio.class%
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+
+    datasus_sisvs_expoepi_administrativo.cep:
+        class: %datasus_sisvs_expoepi_administrativo.cep.class%
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+
+    datasus_sisvs_expoepi_administrativo.sexo:
+        class: %datasus_sisvs_expoepi_administrativo.sexo.class%
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]

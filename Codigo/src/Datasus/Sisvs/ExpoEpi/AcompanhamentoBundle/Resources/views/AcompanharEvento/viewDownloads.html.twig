@@ -1,0 +1,33 @@
+{% block modal_view %}
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>Listar arquivos da inscrição em PDF para anexo </h3>
+    </div>
+    <div class="modal-body">
+        <table class="table table-bordered ui-widget-content table-striped">
+            <thead>
+
+            <tr>
+                <th class="aling-content">Anexos</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for anexo in entity.getCoAnexo %}
+                <tr>
+                    <td class="aling-content">
+                        <a href="{{ path('acompanhar_evento_download', {id: anexo.getCoSeqAnexo}) }}"
+                           target="_blank">
+                            {{ anexo.getNoArquivo }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button aria-hidden="true" data-dismiss="modal" class="buttonAzul margim view-not">
+            Voltar
+        </button>
+    </div>
+{% endblock %}

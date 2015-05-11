@@ -1,0 +1,29 @@
+################## apresentacao ##################
+datasus_sisvs_expoepi_administrativo_apresentacao:
+    pattern: /apresentacao
+    defaults:
+       _controller: DatasusSisvsExpoEpiAdministrativoBundle:Apresentacao:index
+       label: "Apresentação"
+       parent: "administrativo_default"
+    
+datasus_sisvs_expoepi_administrativo_apresentacao_search:
+    pattern: /apresentacao/search
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:Apresentacao:search }
+
+datasus_sisvs_expoepi_administrativo_apresentacao_create:
+    pattern: /apresentacao/create
+    defaults:
+        _controller: DatasusSisvsExpoEpiAdministrativoBundle:Apresentacao:create
+        label: "Cadastrar Apresentação"
+        parent: "datasus_sisvs_expoepi_administrativo_apresentacao"
+    
+datasus_sisvs_expoepi_administrativo_apresentacao_edit:
+    pattern: /apresentacao/edit
+    defaults:
+        _controller: DatasusSisvsExpoEpiAdministrativoBundle:Apresentacao:edit
+        label: "Alterar Apresentação"
+        parent: "datasus_sisvs_expoepi_administrativo_apresentacao"
+
+datasus_sisvs_expoepi_administrativo_apresentacao_toogle-status:
+    pattern: /apresentacao/toogle-status
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:Apresentacao:toogleStatus }

@@ -1,0 +1,95 @@
+{% form_theme form _self %}
+{% block form_errors %}
+{% endblock form_errors %}
+<div class="box">
+    <strong class="title">
+
+        {% if form.coSeqArea.vars.value %}
+            Alterar
+        {% else %}
+            Incluir
+        {% endif %}
+        Área
+    </strong>
+
+    <div class="formulario">
+        {{ form_start(form) }}
+        {{ form_widget(form._token) }}
+        {{ form_widget(form.coSeqArea) }}
+        {{ form_widget(form.coModalidade) }}
+
+        <div class="control-group span12" >
+            <label clas="control-label">Modalidade:</label>
+            <div class="controls">
+                <input type="text" value="{{ entity.getCoModalidade.getNoModalidade }}" disabled="disabled" style="background-color: #fff;" class="span6">
+                </input>
+            </div>
+        </div>
+
+        <div class="control-group span12">
+            <label class="control-label" for="{{ form.noArea.vars.id }}">
+                {{ form.noArea.vars.label }}: <font color="red"><b>*</b></font>
+            </label>
+
+            <div class="controls">
+                {{ form_widget(form.noArea) }}
+            </div>
+        </div>
+
+        <div class="control-group span12">
+            <label class="control-label" for="dsArea">
+                {{ form.dsArea.vars.label }}
+            </label>
+
+            <div class="controls">
+                {{ form_widget(form.dsArea) }}
+                <span class="countdown" style="display: block;">
+					Quantidade de caracteres restantes:
+					<span id="resta"> </span>
+				</span>
+            </div>
+        </div>
+
+        <div class="botao">
+            {{ form_widget(form.submit) }}
+            <button type="reset" class="buttonAzul margim" id="limpar">Limpar</button>
+            <a class="buttonAzul"
+               href="{{ path('datasus_sisvs_expoepi_administrativo_area') ~ '?coModalidade=' ~ entity.getCoModalidade.getCoSeqModalidade }}">Voltar</a>
+        </div>
+        </form>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        /**
+         *Metodo de contagem dos caracteres do text área
+         */
+        $('#resta').text(500);
+
+            $('#datasus_sisvs_expoepi_administrativobundle_areaentity_dsArea').keyup(function () {
+                var len = this.value.length;
+                if (len >= 500) {
+                    this.value = this.value.substring(0, 500);
+                }
+                $('#resta').text(500 - len);
+            });
+
+
+            {% if form.coSeqArea.vars.value %}
+                 var lenInicial = $('#datasus_sisvs_expoepi_administrativobundle_areaentity_dsArea').val().length;
+                 $('#resta').text(500 - lenInicial);
+            {% endif %}
+
+        $('.alert-error').fadeIn().delay(3000).fadeOut('slow');
+
+        $('#limpar').click(function () {
+            window.location.href = window.location.href;
+        });
+        $('#datasus_sisvs_expoepi_administrativobundle_areaentity_submit').click(function () {
+            var texto = $('#datasus_sisvs_expoepi_administrativobundle_areaentity_dsArea').val().replace(/(\r\n|\n|\r)/gm, " ");
+            $('#datasus_sisvs_expoepi_administrativobundle_areaentity_dsArea').val(texto);
+        });
+    });
+</script>

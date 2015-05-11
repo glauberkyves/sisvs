@@ -1,0 +1,48 @@
+{% extends "DatasusCoreBaseBundle::base.html.twig" %} {% block title
+%}DatasusCorebASEBundle:Defauld{% endblock %} {% block body %}
+
+<h1>Base de desenvolvimento de sistemas do Datasus</h1>
+<p class="lead">Esta é a base para desenvolvimento de sistemas do
+	Datasus, do qual todos os bundles deverão estender</p>
+
+<p>A base de desenvolvimento é composta de 2 bundles principais:</p>
+<ul>
+	<li>Datasus\Core\BaseBundle - Provê elementos básicos da arquitetura do
+		Datasus - CSS, Javascript, componentes de view, controller e model</li>
+	<li>Datasus\Core\DevelBundle - Provê diversas ferramentas para o
+		desenvolvimento de aplicações utilizando o BaseBundle do Datasus</li>
+</ul>
+
+<p>
+	Para iniciar o desenvolvimento de sua aplicação, acesse o <a
+		href="{{ asset('datasus_core_devel') }}">DevelBundle</a>. Em caso de
+	dúvidas, bugs identificados ou sugestões de melhorias, entre em contato
+	com a Arquitetura do Datasus.
+<br /><br />&nbsp;
+
+<strong class="title">Consultar Cadastro de Profissionais</strong>
+<div class="caixa">
+	<div class="padding">		
+		<ul>
+			<li><label class="row span2">Inteiro </label><input class="span2 integer"
+				type="text" name="" id="" /></li>
+				
+			<li><label class="row span2">Telefone <font
+					color="red"><b>*</b></font></label><input class="span2 phone"
+				type="text" name="" id="" required /></li>
+				
+			<li><label class="row span2">CPF <font
+					color="red"><b>*</b></font></label><input class="span2 cpf"
+				type="text" name="" id="" required /></li>
+				
+			<li><label class="row span2">CNPJ <font
+					color="red"><b>*</b></font></label><input class="span2 cnpj"
+				type="text" name="" id="" required /></li>
+				
+			<li><label class="row span2">CEP </label><input class="span2 cep"
+				type="text" name="" id=""  /></li>
+		</ul>
+	</div>
+</div>
+
+{% endblock %}

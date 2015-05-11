@@ -1,0 +1,46 @@
+security:
+   encoders:
+           Datasus\Sisvs\Base\SecurityBundle\Security\User\UserSCPA:
+             algorithm: sha256
+             iterations: 1
+             encode_as_base64: false
+
+   providers:
+           datasus_sisvs_base_webservice_scpa:
+               id: datasus_sisvs_base_webservice_scpa
+
+   firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        login:
+            pattern:  ^/login$
+            security: false
+
+        main:
+            security: true
+            pattern:    /.*
+            provider:   datasus_sisvs_base_webservice_scpa
+            form_login:
+                check_path: datasus_sisvs_base_security_auth_login_check
+                login_path: datasus_sisvs_base_security_auth_login
+                csrf_provider: form.csrf_provider
+                success_handler: datasus_sisvs_base_security_success_handler
+            logout:
+                path:   datasus_sisvs_base_security_auth_logout
+                target: /login
+            anonymous: false
+            http_basic: ~
+            access_denied_handler: datasus_sisvs_base_security_access_denied_handler
+
+   access_control:
+        - { path: ^/administrativo/endereco, roles: [ROLE_COO, ROLE_AUT]}
+        - { path: ^/administrativo/tema/combo-box, roles: [ROLE_COO, ROLE_AUT]}
+        - { path: ^/administrativo, roles: ROLE_COO}
+        - { path: ^/formulario, roles: ROLE_COO}
+        - { path: ^/acompanhamento, roles: ROLE_COO}
+        - { path: ^/email, roles: ROLE_COO}
+        - { path: ^/relatorio, roles: ROLE_COO}
+        - { path: ^/autor, roles: ROLE_AUT}
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }

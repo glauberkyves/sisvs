@@ -1,0 +1,59 @@
+datasus_sisvs_expoepi_formulario_formulario_inscricao:
+    pattern: /formulario-inscricao
+    defaults:
+        _controller: DatasusSisvsExpoEpiFormularioBundle:FormularioInscricao:index
+        label: "Formulário de Inscrição"
+        parent: "formulario_inscricao"
+
+datasus_sisvs_expoepi_formulario_formulario_inscricao_search:
+    pattern: /formulario-inscricao/search
+    defaults: { _controller: DatasusSisvsExpoEpiFormularioBundle:FormularioInscricao:search }
+
+datasus_sisvs_expoepi_formulario_formulario_inscricao_create:
+    pattern: /formulario-inscricao/create
+    defaults:
+        _controller: DatasusSisvsExpoEpiFormularioBundle:FormularioInscricao:create
+        label: "Cadastrar Formulário de Inscrição"
+        parent: "datasus_sisvs_expoepi_formulario_formulario_inscricao"
+
+datasus_sisvs_expoepi_formulario_formulario_inscricao_edit:
+    pattern: /formulario-inscricao/edit
+    defaults:
+        _controller: DatasusSisvsExpoEpiFormularioBundle:FormularioInscricao:edit
+        label: "Alterar Formulário de Inscrição"
+        parent: "datasus_sisvs_expoepi_formulario_formulario_inscricao"
+
+datasus_sisvs_expoepi_formulario_formulario_inscricao_view:
+    pattern: /formulario-inscricao/view
+    defaults:
+        _controller: DatasusSisvsExpoEpiFormularioBundle:FormularioInscricao:view
+        label: "Visualizar Formulário de Inscrição"
+        parent: "datasus_sisvs_expoepi_formulario_formulario_inscricao"
+
+datasus_sisvs_expoepi_formulario_formulario_inscricao_view_pdf:
+    pattern: /formulario-inscricao/view-pdf
+    defaults: { _controller: DatasusSisvsExpoEpiFormularioBundle:FormularioInscricao:viewPdf }
+
+datasus_sisvs_expoepi_formulario_formulario_inscricao_combo_box:
+    pattern: /formulario-inscricao/combo-box
+    defaults: { _controller: DatasusSisvsExpoEpiFormularioBundle:FormularioInscricao:comboBox }
+
+datasus_sisvs_expoepi_formulario_formulario_inscricao_ajax_get_no_tipo_modalidade:
+    pattern: /formulario-inscricao/ajax-get-no-tipo-modalidade
+    defaults: { _controller: DatasusSisvsExpoEpiFormularioBundle:FormularioInscricao:ajaxGetNoTipoModalidade }
+
+datasus_sisvs_expoepi_formulario_formulario_inscricao_ajax_get_evento_of_modalidade:
+    pattern: /formulario-inscricao/ajax-get-evento-of-modalidade
+    defaults: { _controller: DatasusSisvsExpoEpiFormularioBundle:FormularioInscricao:ajaxGeteventoOfModalidade }
+
+datasus_sisvs_expoepi_formulario_formulario_inscricao_publish:
+    pattern: /formulario-inscricao/publish
+    defaults: { _controller: DatasusSisvsExpoEpiFormularioBundle:FormularioInscricao:publish }
+
+datasus_sisvs_expoepi_formulario_formulario_inscricao_active_inactive:
+    pattern: /formulario-inscricao/active-inactive
+    defaults: { _controller: DatasusSisvsExpoEpiFormularioBundle:FormularioInscricao:activeInactive }
+
+datasus_sisvs_expoepi_formulario_formulario_inscricao_get_apresentacao_modalidade:
+    pattern: /formulario-inscricao/get-apresentacao-modalidade
+    defaults: { _controller: DatasusSisvsExpoEpiFormularioBundle:FormularioInscricao:getApresentacaoModalidade }

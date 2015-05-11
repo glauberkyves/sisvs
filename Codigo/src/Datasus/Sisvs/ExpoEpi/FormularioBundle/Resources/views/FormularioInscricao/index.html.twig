@@ -1,0 +1,113 @@
+{% extends "DatasusSisvsExpoEpiFormularioBundle::base.html.twig" %}
+
+{% block body %}
+    <div class="box">
+        <strong class="title">Consultar Formulário de Inscrição</strong>
+
+        <div class="formulario">
+            <form id="form-formulario-inscricao" name="form-formulario-inscricao">
+                <div class="control-group span2">
+                    <label class="control-label" for="nuFormulario">N° do Formulário:</label>
+
+                    <div class="controls">
+                        <input id="nuFormulario" type="text" name="nuFormulario" class="tm120">
+                    </div>
+                </div>
+                <div class="control-group span3">
+                    <label class="control-label" for="coEvento">Evento: <font color="red"><b>*</b></font></label>
+
+                    <div class="controls">
+                        <select class="span3 required" id="coEvento" name="coEvento">
+                            {% for evento in cmbEvento %}
+                                {%  if (evento.anEvento) == ( "now"|date("Y"))  %}
+                                    <option value="{{ evento.getCoSeqEvento }}" selected>{{ evento.getNoEvento }}</option>
+                                {% else %}
+                                    <option value="{{ evento.getCoSeqEvento }}">{{ evento.getNoEvento }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="control-group span3">
+                    <label class="control-label" for="coModalidade">Modalidade:</label>
+
+                    <div class="controls">
+                        <select class="span3" id="coModalidade" name="coModalidade">
+                            <option value="">Selecione uma opção</option>
+                            {% for modalidade in cmbModalidade %}
+                                <option value="{{ modalidade.getCoSeqModalidade }}">{{ modalidade.getNoModalidade }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="control-group span3">
+                    <label class="control-label" for="noFormulario">Situação:</label>
+
+                    <div class="controls">
+                        <select class="span3" id="stAtivo" name="stAtivo">
+                            <option value="">Selecione uma opção</option>
+                            {% for formulario in cmbSituacaoFormulario %}
+                                <option value="{{ formulario.getCoSituacaoFormulario }}">{{ formulario.getDsSituacaoFormulario }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="botao span12">
+                    <button class="buttonAzul margim margin-left--20"  id="pesquisar">Pesquisar</button>
+                    <button type="reset" class="buttonAzul margim" id="limpar">Limpar</button>
+                    <a class="buttonAzul margim"
+                       href="{{ path('datasus_sisvs_expoepi_formulario_formulario_inscricao_create') }}">Novo
+                        Formulário</a>
+                </div>
+            </form>
+        </div>
+
+        <div class="formulario grid hide">
+            <div class="box" style="width:97% !important;padding:15px !important">
+                <table id="grid"></table>
+                <div id="pager"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript"
+            src="{{ asset('bundles/datasussisvsexpoepiformulario/js/formulario-inscricao/index.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+			$('#pesquisar').click(function(){
+                var form = $('#form-formulario-inscricao').serialize();
+                $('.formulario').removeClass('hide');
+				var config = {
+					url: '{{ path('datasus_sisvs_expoepi_formulario_formulario_inscricao_search') }}',
+					buttonSearch: $('#pesquisar'),
+                    postData: {data: form},
+					form: $('#form-formulario-inscricao'),
+					colNames: ['Nº do Formulário', 'Evento', 'Modalidade', 'Situação', 'Ação'],
+					colModel: [
+						{name: 'nuFormulario', index: 'f.nuFormulario', width: 10},
+						{name: 'noEvento', index: 'e.noEvento', width: 30},
+						{name: 'noModalidade', index: 'm.noModalidade', width: 30},
+						{name: 'dsSituacaoFormulario', index: 'sf.dsSituacaoFormulario', width: 10},
+						{name: 'acao', index: 'Acao', width: 11, align: "center"}
+					],
+					sortname: 'f.nuFormulario',
+					caption: 'Resultado da Pesquisa'
+				};
+				$('#grid').grid(config);
+                $('.alert-error').hide();
+			});
+            $('#nuFormulario').setMask('*99999-9999');
+            $('#coEvento').change();
+
+            $('#limpar').click(function () {
+                $('#form-formulario-inscricao').each(function () {
+                    this.reset();
+                });
+					location.reload();
+            });
+
+            $('.alert-error, .alert-success').fadeIn().delay(5000).fadeOut('slow');
+        });
+    </script>
+{% endblock %}

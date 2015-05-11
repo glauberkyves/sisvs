@@ -1,0 +1,9 @@
+coAutor:
+        validations:
+            default:
+                MoreThanOne: Selecione ao menos um registro.
+                linkedRecord: O registro não pode ser alterado e/ou inativado, pois já existem vinculações efetivadas.
+
+            co_autor:
+                noBlankNoAutor: O campo Nome do Autor é de preenchimento obrigatório.
+                noBlankNoInstituicao: O campo Nome da instituição é de preenchimento obrigatório.

@@ -1,0 +1,126 @@
+{% extends "DatasusSisvsExpoEpiAdministrativoBundle::base.html.twig" %}
+
+{% block body %}
+    <div class="box">
+        <strong class="title">Prorrogar Prazo</strong>
+
+        <div class="formulario">
+            <form id="form-prazo">
+                <div class="control-group span3">
+                    <label class="control-label" for="coEvento">Evento: <font color="red"><b>*</b></font></label>
+
+                    <div class="controls">
+                        <select class="span3 required" id="coEvento" name="coEvento" disabled>
+                            {% for evento in cmbEvento %}
+                                {%  if (evento.anEvento) == ( "now"|date("Y"))  %}
+                                    <option value="{{ evento.getCoSeqEvento }}" selected>{{ evento.getNoEvento }}</option>
+                                    <option hidden="hidden" value="{{ evento.getCoSeqEvento }}">{{ evento.getNoEvento }}</option>
+                                {#{% else %}#}
+                                    {#<option value="{{ evento.getCoSeqEvento }}">{{ evento.getNoEvento }}</option>#}
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group span3">
+                    <label class="control-label" for="coModalidade">Modalidade:</label>
+
+                    <div class="controls">
+                        <select class="span3" id="coModalidade" name="coModalidade">
+                            <option value="">Selecione uma opção</option>
+
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group span3">
+                    <label class="control-label" for="coArea">Área:</label>
+
+                    <div class="controls">
+                        <select class="span3" id="coArea" name="coArea">
+                            <option value="">Selecione uma opção</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group span2">
+                    <label class="control-label" for="nuFormulario">N° do Formulário:</label>
+
+                    <div class="controls">
+                        <input id="nuFormulario" type="text" name="nuFormulario" class="tm120">
+                    </div>
+                </div>
+
+                <div class="control-group hide">
+                    <label class="control-label" for="dtFim">Situação:</label>
+
+                    <div class="controls">
+                        <select class="span3" id="stAtivo" name="stAtivo">
+                            {% for formulario in cmbSituacaoFormulario %}
+                                {% if (formulario.getCoSituacaoFormulario) == 2 %}
+                                    <option value="{{ formulario.getCoSituacaoFormulario }}">{{ formulario.getCoSituacaoFormulario }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group span3">
+                    <label class="control-label" for="formulario">Tipo de Participação:</label>
+
+                    <div class="controls">
+                        <select class="span3" id="formulario" name="formulario">
+
+                            <option value="">Selecione uma opção</option>
+                            <option value="1">Inscrição</option>
+                            <option value="2">Seleção</option>
+                            <option value="3">Triagem</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="botao">
+                    <button class="buttonAzul margim"  id="pesquisar">Pesquisar</button>
+                    <button type="reset" class="buttonAzul margim" id="limpar">Limpar</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="formulario box-tabela">
+            <div class="box" style="width:97% !important;padding:15px !important">
+                <table id="grid"></table>
+                <div id="pager"></div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript"
+            src="{{ asset('bundles/datasussisvsexpoepiadministrativo/js/prazo/index.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            var config = {
+                url: '{{ path('datasus_sisvs_expoepi_administrativo_prazo_search') }}',
+                postData: {data: 'stAtivo=2'},
+                buttonSearch: $('#pesquisar'),
+                form: $('#form-prazo'),
+                colNames: ['N° do Formulário', 'Modalidade', 'Data Início', 'Data Fim', 'Ação'],
+                colModel: [
+                    {name: 'formulario', index: 'f.nuFormulario', width: 20},
+                    {name: 'noModalidade', index: 'm.noModalidade', width: 20},
+                    {name: 'dtInicio', index: 'f.dtInicio', width: 10},
+                    {name: 'dtFim', index: 'f.dtFim', width: 10},
+                    {name: 'acao', index: 'Acao', width: 7, align: "center"}
+                ],
+                sortname: 'f.nuFormulario',
+                caption: 'Resultado da Pesquisa'
+            };
+
+            $('#grid').grid(config);
+            $('#nuFormulario').setMask('*99999-9999');
+            $('.alert-error, .alert-success').fadeIn().delay(5000).fadeOut('slow');
+            $('#limpar').click(function () {
+                window.location.href = window.location.href;
+            });
+        });
+    </script>
+{% endblock %}

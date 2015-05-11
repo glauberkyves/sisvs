@@ -1,0 +1,534 @@
+{% form_theme form _self %}
+{% block form_errors %}
+{% endblock form_errors %}
+<div class="box" xmlns="http://www.w3.org/1999/html">
+    <strong class="title">
+        {% if form.coSeqFormularioInscricao.vars.value %}
+            Alterar
+        {% else %}
+            Gerar
+        {% endif %}
+        Formulário de Inscrição
+    </strong>
+
+    <div class=" box formulario row-fluid">
+        {{ form_start(form) }}
+        {{ form_widget(form._token) }}
+        {{ form_widget(form.coSeqFormularioInscricao) }}
+
+        <div class="control-group hide">
+            <label class="control-label" for="">
+                {{ form.nuFormulario.vars.label }} <font color="red"><b>*</b></font>
+            </label>
+
+            <div class="controls">
+                <input
+                        type="text"
+                        id="datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_nuFormulario"
+                        name="datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity[nuFormulario]"
+                        value=""/>
+                <input type="hidden"
+                       id="coModalidade_hidden"
+                       name="coModalidade"
+                       value=""/>
+
+            </div>
+        </div>
+        {% if(form.coSeqFormularioInscricao.vars.value) %}
+            <div class="control-group span10">
+                <h3 class="control-label" for="coEvento">Nº do Formulário:
+                    {{ form.nuFormulario.vars.value }}
+                </h3>
+
+            </div>
+        {% endif %}
+        <div class="control-group span6">
+            <label class="control-label" for="coEvento">Evento: <font color="red"><b>*</b></font></label>
+
+
+            <div class="controls">
+                {% if(form.coSeqFormularioInscricao.vars.value) %}
+                    <select class="required span11" disabled id="coEvento" name="coEvento">
+                        <option value="">Selecione uma opção</option>
+                        {% for evento in cmbEvento %}
+                            <option value="{{ evento.getCoSeqEvento }}"
+                                    {% if coEvento is defined and coEvento == evento.getCoSeqEvento %}
+                                        selected="selected"
+                                    {% endif %}
+                                    >
+                                {{ evento.getNoEvento }}</option>
+                        {% endfor %}
+                    </select>
+                {% else %}
+                    <select class="required span11" id="coEvento" name="coEvento">
+                        {% for evento in cmbEvento %}
+                            {% if (evento.anEvento) == ( "now"|date("Y")) %}
+                                <option value="{{ evento.getCoSeqEvento }}" selected>{{ evento.getNoEvento }}</option>
+                            {% else %}
+                                <option value="{{ evento.getCoSeqEvento }}">{{ evento.getNoEvento }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                {% endif %}
+            </div>
+        </div>
+        <div class="control-group span6">
+            <label class="control-label"
+                   for="datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_coModalidade">
+                {{ form.coModalidade.vars.label }}  <font color="red"><b>*</b></font>
+            </label>
+
+            <div class="controls">
+                {% if(form.coSeqFormularioInscricao.vars.value) %}
+                    <input type="hidden"
+                           name="datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity[coModalidade]"
+                           value="{{ form.coModalidade.vars.value }}">
+                    <select class="span11 required"
+                            id="datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_coModalidade" disabled
+                            name="datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity[coModalidade]">
+                        {% if coModalidade is defined %}
+                            {% for key, data in cmbModalidade %}
+                                <option value="{{ key }}"
+                                        {% if coModalidade is defined and coModalidade == key %}
+                                            selected="selected"
+                                        {% endif %}
+                                        >
+                                    {{ data }}</option>
+                            {% endfor %}
+                        {% endif %}
+                    </select>
+                {% else %}
+                    <select class="span11 required"
+                            id="datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_coModalidade"
+                            name="datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity[coModalidade]">
+                        <option value="">Selecione uma opção</option>
+                        {% if coModalidade is defined %}
+                            {% for key, data in cmbModalidade %}
+                                <option value="{{ key }}"
+                                        {% if coModalidade is defined and coModalidade == key %}
+                                            selected="selected"
+                                        {% endif %}
+                                        >
+                                    {{ data }}</option>
+                            {% endfor %}
+                        {% endif %} }}
+                    </select>
+                {% endif %}
+
+            </div>
+        </div>
+        <div class="control-group span6">
+            <label class="control-label"
+                   for="datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_noTipoModalidade">
+                Tipo da Modalidade: <font color="red"><b>*</b></font>
+            </label>
+
+            <div class="controls">
+                <input type="text"
+                       id="datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_noTipoModalidade"
+                       name="datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity[noTipoModalidade]"
+                       class="tm495" disabled="disabled" readonly="readonly" value=""/>
+            </div>
+        </div>
+        <div class="control-group span6">
+            <label class="control-label" for="Periodo">
+                Período de Inscrição
+            </label>
+
+            <div class="control-group span5 ajust">
+                <label class="control-label" for="{{ form.dtInicio.vars.id }}">
+                    {{ form.dtInicio.vars.label }} <font color="red"><b>*</b></font>
+                </label>
+
+                <div class="controls">
+                    {{ form_widget(form.dtInicio) }}
+                </div>
+            </div>
+
+            <div class="control-group span5 ajust">
+                <label class="control-label" for="{{ form.dtFim.vars.id }}">
+                    {{ form.dtFim.vars.label }} <font color="red"><b>*</b></font>
+                </label>
+
+                <div class="controls">
+                    {{ form_widget(form.dtFim) }}
+                </div>
+            </div>
+        </div>
+        <div class="control-group span12">
+            <label class="control-label"
+                   for="datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_dsTitulo">
+                {{ form.dsTitulo.vars.label }} <font color="red"><b>*</b></font>
+            </label>
+
+            <div class="controls">
+                {{ form_widget(form.dsTitulo) }}
+                <span id="resta"> </span>
+            </div>
+        </div>
+
+        <div class="control-group span6">
+            <label class="control-label" for="{{ form.dsObjeto.vars.label }}">
+                {{ form.dsObjeto.vars.label }} <font color="red"><b>*</b></font>
+            </label>
+
+            <div class="controls">
+                {{ form_widget(form.dsObjeto) }}
+            </div>
+        </div>
+
+        <div class="control-group span6">
+            <label class="control-label" for="{{ form.dsAreaEvento.vars.id }}">
+                {{ form.dsAreaEvento.vars.label }}
+            </label>
+
+            <div class="controls">
+                {{ form_widget(form.dsAreaEvento) }}
+            </div>
+        </div>
+
+        <div class="control-group span6">
+            <label class="control-label" for="{{ form.dsResumo.vars.id }}">
+                {{ form.dsResumo.vars.label }} <font color="red"><b>*</b></font>
+            </label>
+
+            <div class="controls">
+                {{ form_widget(form.dsResumo) }}
+            </div>
+        </div>
+
+        <div class="control-group span6">
+            <label class="control-label" for="{{ form.dsApresentacao.vars.id }}">
+                {{ form.dsApresentacao.vars.label }} <font color="red"><b>*</b></font>
+            </label>
+
+            <div class="controls">
+                {{ form_widget(form.dsApresentacao) }}
+            </div>
+        </div>
+
+        <div class="control-group span6">
+            <label class="control-label" for="">
+                {{ form.dsAnexos.vars.label }}
+            </label>
+
+            <div class="controls">
+                {{ form_widget(form.dsAnexos) }}
+            </div>
+        </div>
+
+        <div class="control-group span6">
+            <label class="control-label" for="{{ form.dsDeclaracao.vars.id }}">
+                {{ form.dsDeclaracao.vars.label }} <font color="red"><b>*</b></font>
+            </label>
+
+            <div class="controls">
+                {{ form_widget(form.dsDeclaracao) }}
+            </div>
+        </div>
+        {#Aqui entra a GRID com os Critérios#}
+        <fieldset class="span12">
+            <legend>Apresentações Vinculadas</legend>
+            <div class="control-group span6">
+                <div class="controls">
+                    <table id="tabeladinamica" class="table table-bordered ui-widget-content dynamic-table">
+                        <thead>
+                        <tr>
+                            <th>Apresentação</th>
+                            <th width="80px">Opções</th>
+                        </tr>
+                        </thead>
+                        <tbody id="corpo">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </fieldset>
+        <div class="botao">
+            {% if form.coSeqFormularioInscricao.vars.value %}
+                <input type="submit" class="buttonAzul margim" id="alterarFormulario" value="Alterar Formulário"/>
+            {% else %}
+                <input type="submit" class="buttonAzul margim" id="gerarFormulario" value="Gerar Formulário"/>
+            {% endif %}
+
+            <button id="limpar" class="buttonAzul margim" type="reset">Limpar</button>
+            <a class="buttonAzul" href="{{ path('datasus_sisvs_expoepi_formulario_formulario_inscricao') }}">Voltar</a>
+        </div>
+        </form>
+    </div
+</div>
+
+<script type="text/javascript"
+        src="{{ asset('bundles/datasussisvsexpoepiformulario/js/formulario-inscricao/form.js') }}"></script>
+
+
+{% if (form.coSeqFormularioInscricao.vars.value) %}
+    <script>
+        $(document).ready(function () {
+            $('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_coModalidade').change();
+        });
+    </script>
+{% endif %}
+    {% if (form.coSeqFormularioInscricao.vars.value == null) %}
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#coEvento').change();
+                $('#limpar').click(function () {
+                    $('iframe').contents().find('body').empty();
+                });
+
+                if ($('#gerarFormulario').unbind('click').click(function () {
+                            if ($('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_dsTitulo').val() == false) {
+                                Message.addMessage('O campo Título do Formulário é de preenchimento obrigatório.', 'error');
+                                $('html, body').animate({scrollTop: 0}, 300);
+                                $('.alert-error').fadeIn().delay(5000).fadeOut('slow');
+                            }
+
+                            if ($('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_coModalidade').val() == false) {
+                                Message.addMessage('O campo Modalidade é de preenchimento obrigatório.', 'error');
+                                $('html, body').animate({scrollTop: 0}, 300);
+                                $('.alert-error').fadeIn().delay(5000).fadeOut('slow');
+                            }
+
+                            if ($('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_dsObjeto').val() == false) {
+                                Message.addMessage('O campo Objeto Descritivo é de preenchimento obrigatório.', 'error');
+                                $('html, body').animate({scrollTop: 0}, 300);
+                                $('.alert-error').fadeIn().delay(5000).fadeOut('slow');
+                            }
+
+                            if ($('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_dsResumo').val() == false) {
+                                Message.addMessage('O campo Resumo Estruturado é de preenchimento obrigatório.', 'error');
+                                $('html, body').animate({scrollTop: 0}, 300);
+                                $('.alert-error').fadeIn().delay(5000).fadeOut('slow');
+                            }
+
+                            if ($('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_dsDeclaracao').val() == false) {
+                                Message.addMessage('O campo Declaração da Veracidade das Informações é de preenchimento obrigatório.', 'error');
+                                $('html, body').animate({scrollTop: 0}, 300);
+                                $('.alert-error').fadeIn().delay(5000).fadeOut('slow');
+                            }
+
+                            var inicio = $('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_dtInicio').val().split('/');
+                            var fim = $('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_dtFim').val().split('/');
+                            if (inicio[2] + inicio[1] + inicio[0] > fim[2] + fim[1] + fim[0]) {
+                                Message.addMessage('A data final não pode ser menor que a data de início.', 'error');
+                                $('html, body').animate({scrollTop: 0}, 300);
+                                $('.alert-error').fadeIn().delay(5000).fadeOut('slow');
+                            }
+                        }));
+
+                $('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_coModalidade').change(function () {
+                    $('span.table').html('');
+                    $.ajax({
+                        type: "POST",
+                        url: '/formulario/formulario-inscricao/get-apresentacao-modalidade',
+                        data: {coModalidade: $('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_coModalidade').val()},
+                        dataType: "json",
+                        success: function (res) {
+                            $('#corpo').html(res);
+                            $('#coModalidade_hidden').val($('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_coModalidade').val());
+                            initTable();
+                        }
+
+                    });
+                });
+                if ($('.alert-error').show()) {
+                    $('html, body').animate({scrollTop: 0}, 300);
+                }
+                $('.alert-error').fadeIn().delay(5000).fadeOut('slow');
+                $('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_dtInicio').setMask('99/99/9999');
+                $('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_dtFim').setMask('99/99/9999');
+            });
+            var tab;
+            var filas;
+
+            function initTable() {
+                var filas;
+                var tab;
+                tab = document.getElementById('corpo');
+                filas = tab.getElementsByTagName('tr');
+                for (i = 0; ele = filas[i]; i++) {
+                    ele.getElementsByTagName('a')[0].onclick = function () {
+                        mover(this, -1)
+                    }
+                    ele.getElementsByTagName('a')[1].onclick = function () {
+                        mover(this, 1)
+                    }
+                }
+                mostrarOcultar();
+            }
+
+            function mostrarOcultar() {
+                var filas;
+                var tab;
+                tab = document.getElementById('corpo');
+                filas = tab.getElementsByTagName('tr');
+                for (i = 0; ele = filas[i]; i++) {
+                    ele.getElementsByTagName('a')[0].style.visibility = (i == 0) ? 'hidden' : 'visible';
+                    ele.getElementsByTagName('a')[1].style.visibility = (i == filas.length - 1) ? 'hidden' : 'visible';
+                }
+            }
+
+            function mover(obj, num) {
+                var filas;
+                var tab;
+                tab = document.getElementById('corpo');
+                filas = tab.getElementsByTagName('tr');
+                fila = obj.parentNode.parentNode;
+                for (i = 0; ele = tab.getElementsByTagName('tr')[i]; i++) {
+                    if (ele == fila) {
+                        numFila = i;
+                        break;
+                    }
+                }
+                copia = filas[numFila].cloneNode(true);
+
+                copia.getElementsByTagName('a')[0].onclick = function () {
+                    mover(this, -1)
+                };
+                copia.getElementsByTagName('a')[1].onclick = function () {
+                    mover(this, 1)
+                };
+
+                tab.removeChild(filas[numFila]);
+                numFila += num;
+                if (numFila > filas.length - 1) {
+                    tab.appendChild(copia);
+                }
+                else {
+                    tab.insertBefore(copia, filas[numFila]);
+                }
+                mostrarOcultar();
+            }
+        </script>
+    {% else %}
+        <script>
+            $('#coEvento').change();
+            $('#limpar').click(function () {
+                $('iframe').contents().find('body').empty();
+                window.location.href = window.location.href;
+            });
+
+            $('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_coModalidade').change(function () {
+                $('span.table').html('');
+                $.ajax({
+                    type: "POST",
+                    url: '/formulario/formulario-inscricao/get-apresentacao-modalidade',
+                    data: {coModalidade: $('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_coModalidade').val()},
+                    dataType: "json",
+                    success: function (res) {
+                        $('#corpo').html(res);
+                        $('#coModalidade_hidden').val($('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_coModalidade').val());
+                        initTable();
+                    }
+
+                });
+            });
+            var tab;
+            var filas;
+
+            function initTable() {
+                var filas;
+                var tab;
+                tab = document.getElementById('corpo');
+                filas = tab.getElementsByTagName('tr');
+                for (i = 0; ele = filas[i]; i++) {
+                    ele.getElementsByTagName('a')[0].onclick = function () {
+                        mover(this, -1)
+                    }
+                    ele.getElementsByTagName('a')[1].onclick = function () {
+                        mover(this, 1)
+                    }
+                }
+                mostrarOcultar();
+            }
+
+            function mostrarOcultar() {
+                var filas;
+                var tab;
+                tab = document.getElementById('corpo');
+                filas = tab.getElementsByTagName('tr');
+                for (i = 0; ele = filas[i]; i++) {
+                    ele.getElementsByTagName('a')[0].style.visibility = (i == 0) ? 'hidden' : 'visible';
+                    ele.getElementsByTagName('a')[1].style.visibility = (i == filas.length - 1) ? 'hidden' : 'visible';
+                }
+            }
+
+            function mover(obj, num) {
+                var filas;
+                var tab;
+                tab = document.getElementById('corpo');
+                filas = tab.getElementsByTagName('tr');
+                fila = obj.parentNode.parentNode;
+                for (i = 0; ele = tab.getElementsByTagName('tr')[i]; i++) {
+                    if (ele == fila) {
+                        numFila = i;
+                        break;
+                    }
+                }
+                copia = filas[numFila].cloneNode(true);
+
+                copia.getElementsByTagName('a')[0].onclick = function () {
+                    mover(this, -1)
+                };
+                copia.getElementsByTagName('a')[1].onclick = function () {
+                    mover(this, 1)
+                };
+
+                tab.removeChild(filas[numFila]);
+                numFila += num;
+                if (numFila > filas.length - 1) {
+                    tab.appendChild(copia);
+                }
+                else {
+                    tab.insertBefore(copia, filas[numFila]);
+                }
+                mostrarOcultar();
+            }
+
+            if ($('#gerarFormulario').click(function () {
+                        if ($('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_dsTitulo').val() == false) {
+                            Message.addMessage('O campo Título do Formulário é de preenchimento obrigatório.', 'error');
+                            $('html, body').animate({scrollTop: 0}, 300);
+                            $('.alert-error').fadeIn().delay(5000).fadeOut('slow');
+                        }
+
+                        if ($('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_coModalidade').val() == false) {
+                            Message.addMessage('O campo Modalidade é de preenchimento obrigatório.', 'error');
+                            $('html, body').animate({scrollTop: 0}, 300);
+                            $('.alert-error').fadeIn().delay(5000).fadeOut('slow');
+                        }
+
+                        if ($('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_dsObjeto').val() == false) {
+                            Message.addMessage('O campo Objeto Descritivo é de preenchimento obrigatório.', 'error');
+                            $('html, body').animate({scrollTop: 0}, 300);
+                            $('.alert-error').fadeIn().delay(5000).fadeOut('slow');
+                        }
+
+                        if ($('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_dsResumo').val() == false) {
+                            Message.addMessage('O campo Resumo Estruturado é de preenchimento obrigatório.', 'error');
+                            $('html, body').animate({scrollTop: 0}, 300);
+                            $('.alert-error').fadeIn().delay(5000).fadeOut('slow');
+                        }
+
+                        if ($('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_dsDeclaracao').val() == false) {
+                            Message.addMessage('O campo Declaração da Veracidade das Informações é de preenchimento obrigatório.', 'error');
+                            $('html, body').animate({scrollTop: 0}, 300);
+                            $('.alert-error').fadeIn().delay(5000).fadeOut('slow');
+                        }
+
+                        var inicio = $('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_dtInicio').val().split('/');
+                        var fim = $('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_dtFim').val().split('/');
+                        if (inicio[2] + inicio[1] + inicio[0] > fim[2] + fim[1] + fim[0]) {
+                            Message.addMessage('A data final não pode ser menor que a data de início.', 'error');
+                            $('html, body').animate({scrollTop: 0}, 300);
+                            $('.alert-error').fadeIn().delay(5000).fadeOut('slow');
+                        }
+                    }));
+
+            $('#alterarFormulario').click(function () {
+                $('html, body').animate({scrollTop: 0}, 300)
+            });
+
+        </script>
+    {% endif %}

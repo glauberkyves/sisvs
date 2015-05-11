@@ -1,0 +1,11 @@
+autor_default:
+    pattern: /default
+    defaults:
+        _controller: DatasusSisvsExpoEpiAutorBundle:Painel:acessar
+        label: "Painel do Autor"
+
+datasus_sisvs_expoepi_autor_acompanhar_inscricacao:
+    resource: routing-acompanhar-inscricao.yml
+
+datasus_sisvs_expoepi_autor_painel:
+    resource: routing-painel.yml

@@ -1,0 +1,185 @@
+{% extends "DatasusSisvsExpoEpiEmailBundle::base.html.twig" %}
+
+{% block body %}
+    <div class="box">
+        <strong class="title">Mala Direta</strong>
+
+        <div class="formulario">
+            <form id="form-mala-direta" name="form-mala-direta" method="get">
+
+                <div class="control-group span3">
+                    <label class="control-label" for="envolvidos">Envolvidos: <font color="red"><b>*</b></font></label>
+
+                    <div class="controls">
+                        <select class="span3 obrigatorio required" id="envolvidos" name="envolvidos">
+                            <option value="">Selecione uma opção</option>
+                            {% for seqAtor, ator in cmbAtores %}
+                                <option value="{{ seqAtor }}">{{ ator }}</option>
+                            {% endfor %}
+                        </select>
+                        <span class="help-block hide">Campo de preenchimento obrigatório</span>
+                    </div>
+                </div>
+
+                <div class="control-group span3">
+                    <label class="control-label" for="noUsuario">Nome Completo:</label>
+
+                    <div class="controls">
+                        <input id="noUsuario" type="text" name="noUsuario" class="span3" maxlength="70">
+                    </div>
+                </div>
+
+                <div class="control-group span3">
+                    <label class="control-label" for="coEvento">Evento: <font color="red"><b>*</b></font></label>
+
+                    <div class="controls">
+                        <select class="span3 obrigatorio required" id="coEvento" name="coSeqEvento">
+                            <option value="">Selecione uma opção</option>
+                            {% for evento in cmbEnvento %}
+                                <option value="{{ evento.getCoSeqEvento }}">{{ evento.getNoEvento }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="control-group span3">
+                    <label class="control-label" for="coModalidade">Modalidade:</label>
+
+                    <div class="controls">
+                        <select class="span3" id="coModalidade" name="coSeqModalidade">
+                            <option value="">Selecione uma opção</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group span3">
+                    <label class="control-label" for="coArea">Área:</label>
+
+                    <div class="controls">
+                        <select class="span3" id="coArea" name="coSeqArea">
+                            <option value="">Selecione uma opção</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="control-group span3">
+                    <label class="control-label" for="coTema">Tema/Categoria:</label>
+
+                    <div class="controls">
+                        <select class="span3" id="coTema" name="coSeqTema">
+                            <option value="">Selecione uma opção</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group span3">
+                    <label class="control-label" for="dsSituacao">Situação:</label>
+
+                    <div class="controls">
+                        <select class="span3" id="dsSituacao" name="coSituacao">
+                            <option value="">Selecione uma opção</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="botao">
+                    <button type="button" class="buttonAzul margim" id="pesquisar">Pesquisar</button>
+                    <button type="reset" class="buttonAzul margim" id="limpar">Limpar</button>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="gridPai hide">
+            <div class="formulario grid hide">
+                <form id="form-mala" method="post"
+                      action="{{ path('datasus_sisvs_expoepi_email_mala_direta_write_mail') }}">
+                    <div class="box">
+                        <table id="grid"></table>
+                        <div id="pager"></div>
+                    </div>
+
+                    <div class="botao">
+                        <button type="submit" class="buttonAzul margim" id="send">Enviar Mala Direta</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript"
+            src="{{ asset('bundles/datasussisvsexpoepiemail/js/mala-direta/index.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ asset('bundles/datasussisvsexpoepiemail/js/mala-direta/multi-upload.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#pesquisar').click(function(){
+                if ($('form').valid()) {
+                    var config = {
+                        url: '{{ path('datasus_sisvs_expoepi_email_mala_direta_search') }}',
+                        buttonSearch: $('#pesquisar'),
+                        form: $('#form-mala-direta'),
+                        postData: {data: $('#form-mala-direta').serialize()},
+                        colNames: [
+                            '<span class="icon-ok" title="Selecionar"></span>',
+                            '<span class="icon-th-list" title="Anexar Inscrição?"></span>',
+                            'E-mail',
+                            'Nome Completo'
+                        ],
+                        colModel: [
+                            {name: 'check', width: 30, sortable: false},
+                            {name: 'anexo', width: 30, sortable: false},
+                            {name: 'dsEmail', index: 'u.dsEmail', width: 250},
+                            {name: 'noUsuario', index: 'u.noUsuario', width: 250}
+                        ],
+
+                        sortname: 'u.noUsuario',
+                        caption: 'Resultado da Pesquisa'
+                    };
+
+                    $('#grid').grid(config);
+                }
+            });
+
+
+            $('#pesquisar').click(function () {
+                var valid = true;
+                if (!$('#coEvento').val()) {
+                    Message.addMessage('O campo Evento é de preenchimento obrigatório.', 'error');
+                    $('.gridPai').hide();
+                    valid = false;
+                }
+
+                if (!$('#envolvidos').val()) {
+                    Message.addMessage('O campo Envolvidos é de preenchimento obrigatório.', 'error');
+                    $('.gridPai').hide();
+                    valid = false;
+                }
+
+                if (valid) {
+                    $('.gridPai').show();
+                    $.componentGrid.grid.setGridWidth($.componentGrid.options.form.width());
+                }
+            });
+
+            $('#send').click(function(){
+                var checado = false;
+                $('#grid').each(function () {
+                    if ($(this).find('tbody:last tr input:checkbox').is(':checked')) {
+                        checado = true;
+                    }
+                });
+                if (!checado) {
+                    Message.addMessage('Torna-se obrigatório a seleção de pelo menos um registro.', 'error');
+                    return false;
+                }
+            });
+            $('#limpar').click(function () {
+                window.location.href = window.location.href;
+            });
+        });
+    </script>
+{% endblock %}
+

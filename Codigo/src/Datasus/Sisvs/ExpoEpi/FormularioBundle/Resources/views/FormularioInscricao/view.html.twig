@@ -1,0 +1,598 @@
+{% extends "DatasusSisvsExpoEpiFormularioBundle::base.html.twig" %}
+{% block body %}
+    {% form_theme form _self %}
+    {% block form_errors %}
+    {% endblock form_errors %}
+    <strong class="title">
+        Visualizar Formulário
+    </strong>
+
+    <div class="box">
+        {{ form_start(form, {'attr': {'class': 'form-horizontal' }, multipart: true} ) }}
+        {{ form_widget(form._token) }}
+        {{ form_widget(form.coSeqInscricao) }}
+
+        <div class="formulario">
+            <fieldset>
+                <div class="espacamento-bottom20 control-group">
+                    <input type="hidden" name="coSeqModalidade" value="{{ modalidade.getCoSeqModalidade }}"/>
+                    <h4 class="pull-left">{{ modalidade.getCoEvento.getNoEvento }} </h4>
+                    <h4 class="pull-left"> - {{ modalidade.getNoModalidade }} </h4>
+                    <h4 class="pull-left">
+                        {% if(modalidade.getCoTipoModalidade) %}
+                            - {{ modalidade.getCoTipoModalidade.getNoTipoModalidade }}
+                        {% endif %}
+                    </h4>
+                </div>
+
+                <div class="control-group">
+                    <label class="pull-left"></label>
+
+                    <div class="pull-left">
+                        <h3>{{ formulario.getDsTitulo  |raw('html') }}</h3>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="pull-left">
+                        {{ formulario.getDsObjeto|raw('html') }}
+                    </div>
+
+                    <div class="control-group">
+                        <div class="pull-left span11 alingLabel">
+                            <label class="control-label span12">
+                                <b> {{ modalidade.getNoModalidade }} </b></label>
+                        </div>
+                        <div class="pull-left">
+                            <blockquote>
+                                {% for area in modalidade.getCoArea %}
+                                    <p>Área {{ loop.index }} {{ area.getNoArea }}.</p>
+                                    {% for tema in area .getCoTema %}
+                                        <small><b>{% if( tema.getStAtivo) == "S" %}
+                                                    {% if (tema.getCoTipoClassificacao.getCoSeqTipoClassificacao) == 1 %}
+                                                        {{ tema.getNuTema(true) }}) {{ tema.getNoTema }}
+                                                    {% elseif(tema.getNuTema) %}
+                                                        {% if(loop.index == 1) %}
+                                                            a.{{ tema.getNoTema }}
+                                                        {% endif %}
+                                                        {% if(loop.index == 2) %}
+                                                            b.{{ tema.getNoTema }}
+                                                        {% endif %}
+                                                        {% if(loop.index == 3) %}
+                                                            c.{{ tema.getNoTema }}
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endif %}</b></small>
+                                    {% endfor %}
+                                {% endfor %}
+                            </blockquote>
+                        </div>
+                    </div>
+
+            </fieldset>
+        </div>
+
+        <div class="formulario">
+            <fieldset>
+                <legend>Identificação do Autor</legend>
+
+                <div class="control-group">
+                    <label class="control-label">Nome do Autor:</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" maxlength="120" disabled>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">CPF:</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" maxlength="14" disabled>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Passaporte:</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" maxlength="9" disabled>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Sexo:</label>
+
+                    <div class="controls">
+                        <input type="radio" disabled name="sexo">&ensp;Masculino
+                        <br>
+                        <input type="radio" disabled name="sexo">&ensp;Feminino
+                        </input>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">CEP:</label>
+
+                    <div class="controls ">
+                        <input type="text" maxlength="8" disabled>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Endereço residêncial:</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" maxlength="120" disabled>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Complemento:</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" maxlength="10" disabled>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Bairro:</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" maxlength="60" disabled>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Estado:</label>
+
+                    <div class="controls">
+                        <select class="span6 alingCombo" disabled>
+                            <option>Selecione</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Município:</label>
+
+                    <div class="controls">
+                        <select class="span6 alingCombo" disabled>
+                            <option>Selecione</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Região:</label>
+
+                    <div class="controls">
+                        <select class="span6 alingCombo" disabled>
+                            <option>Selecione</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">E-mail 1 (institucional ou pessoal):</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" disabled>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">E-mail 2 (institucional ou pessoal):</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" disabled>
+                    </div>
+                </div>
+
+
+                <div class="control-group">
+                    <label class="control-label">Telefone Particular:</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" disabled>
+                    </div>
+                </div>
+
+
+                <div class="control-group">
+                    <label class="control-label">Telefone celular:</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" disabled>
+                    </div>
+                </div>
+
+
+                <div class="control-group coAutorCheck">
+                    <label class="control-label">O trabalho tem co-autor?</label>
+
+                    <div class="controls">
+                        <input type="radio" disabled="disabled" name="cautor">&nbsp;Sim
+                        <br>
+                        <input type="radio" disabled name="cautor">&nbsp;Não
+                        </input>
+                    </div>
+                </div>
+
+                <div class="coAutoria hide">
+                    <div class="control-group">
+                        <label class="control-label"><font color="red"><b>*</b></font>Nome do Co-autor</label>
+
+                        <div class="controls">
+                            <input type="text" id="coAutor"/>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label"><font color="red"><b>*</b></font>Nome da Instituição</label>
+
+                        <div class="controls">
+                            <input type="text" id="noInstituicao" s/>
+                            <a type="button" class="btn btn-mini" id="btAdicionar" title="Adicionar">
+                                <i class="icon-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="controls span8 margin-left-20">
+                            <span class="table"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </fieldset>
+        </div>
+        <div class="formulario">
+            <fieldset>
+                <legend>Identificação da Instituição</legend>
+
+                <div class="control-group">
+                    <label class="control-label">Tipo de Instituição</label>
+
+                    <div class="controls">
+                        {{ form_widget(form.coInstituicao.vars.form.coTipoInstituicao) }}
+                        {% for modalidadeInstituicao in modalidade.getCoModalidadeInstituicao %}
+                            <ul class="control-list">
+                                <li>
+                                    <input type="radio"
+                                           value="{{ modalidadeInstituicao.getCoInstituicao.getCoSeqInstituicao }}"
+                                           name="coTipoInstituicao" id="coTipoInstituicao" disabled
+                                            {% if(modalidadeInstituicao.getCoInstituicao.getCoSeqInstituicao == form.coInstituicao.vars.form.coTipoInstituicao.vars.value) %}
+                                                checked="checked"
+                                            {% endif %}
+                                            />
+                                    {{ modalidadeInstituicao.getCoInstituicao.getNoInstituicao }}
+                                </li>
+                            </ul>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Nome Completo da Instituição:</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" maxlength="120" disabled>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label for="cpfUsuario" class="control-label">CEP:</label>
+
+                    <div class="controls ">
+                        <input type="text" disabled>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Endereço:</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" maxlength="120" disabled>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Complemento:</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" maxlength="120" disabled>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Bairro / Localidade:</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" maxlength="120" disabled>
+                    </div>
+                </div>
+
+                <div class="control-group divEstado">
+                    <label for="DDD" class="control-label">Estado</label>
+
+                    <div class="controls">
+                        <select class="span6 alingCombo" disabled>
+                            <option>Selecione</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label for="DDD" class="control-label">Município</label>
+
+                    <div class="controls">
+                        <select class="span6 alingCombo" disabled>
+                            <option>Selecione</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Região:</label>
+
+                    <div class="controls">
+                        <select class="span6 alingCombo" disabled>
+                            <option>Selecione</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Telefone:</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" maxlength="120" disabled>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Fax:</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" maxlength="120" disabled>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="formulario">
+            <fieldset>
+                <legend>Área(s) da {{ modalidade.getCoEvento.getNoEvento }}</legend>
+                <div class="control-group" style="margin-bottom: 0px;margin-top: 0px;">
+                    <div class="pull-left" style="text-align: justify;">
+                        {{ formulario.getDsAreaEvento |raw('html') }}
+                    </div>
+                </div>
+                <div class="control-group">
+                    {% for area in modalidade.getCoArea %}
+                        {% if(area.getStAtivo) == "S" %}
+                            <div class="control-group">
+                                <label class="">Área {{ loop.index }} {{ area.getNoArea }}: <font
+                                            color="red"><b>*</b></font></label>
+
+                                <div class="control-group ajust-bottom">
+                                    <ul class="control-list">
+                                        {% for tema in area .getCoTema %}
+                                            <li>
+                                                {% if( tema.getStAtivo) == "S" %}
+                                                    <input type="radio" disabled
+                                                           value="{{ tema.getCoSeqTema }}"
+                                                           name="tema" id="coTema"/>&emsp;
+                                                    {% if (tema.getCoTipoClassificacao.getCoSeqTipoClassificacao) == 1 %}
+                                                        <b>{{ tema.getNuTema(true) }})</b> {{ tema.getNoTema }}
+                                                    {% elseif(tema.getNuTema) %}
+                                                        {% if(loop.index == 1) %}
+                                                            a.{{ tema.getNoTema }}
+                                                        {% endif %}
+                                                        {% if(loop.index == 2) %}
+                                                            b.{{ tema.getNoTema }}
+                                                        {% endif %}
+                                                        {% if(loop.index == 3) %}
+                                                            c.{{ tema.getNoTema }}
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </fieldset>
+        </div>
+        {% if(modalidade.getStPossuiOrientador) == 'S' %}
+            <div class="formulario">
+                <fieldset>
+                    <legend>Identificação do Orientador</legend>
+                    <div class="control-group">
+                        <label class="control-label">Nome Completo do Orientador:</label>
+
+                        <div class="controls">
+                            <input type="text" class="span6" maxlength="120" disabled>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Nome Completo do Co-Orientador:</label>
+
+                        <div class="controls">
+                            <input type="text" class="span6" maxlength="120" disabled>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        {% endif %}
+        <div class="formulario">
+            <fieldset>
+                <legend>Resumo Estruturado</legend>
+                <div class="control-group">
+                    <div class="pull-left" style="text-align: justify;">
+                        {{ formulario.getDsResumo |raw('html') }}
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Título do Resumo Estruturado:</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" maxlength="120" disabled>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Resumo:</label>
+
+                    <div class="controls">
+                        <textarea class="span6" rows="6" disabled></textarea>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+        <div class="formulario">
+            <fieldset>
+                <legend>Apresentação</legend>
+
+                <div class="control-group">
+                    <div class="pull-left" style="text-align: justify;">
+                        {{ formulario.dsApresentacao |raw('html') }}
+                    </div>
+                </div>
+
+                {% for  inscricaoApresentacao in form.coInscricaoApresentacao %}
+                    <div class="control-group">
+                        <label class="control-label apresentacao" data-placement="right" data-toggle="tooltip"
+                               data-original-title="{{ inscricaoApresentacao.vars.value.getCoApresentacao.getDsApresentacao }}"
+                               for="{{ inscricaoApresentacao.dsApresentacao.vars.id }}">{{ inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao }}
+                            :
+                            <font color="red"><b>*</b></font></label>
+
+                        <div class="controls">
+                            <textarea class="span6" rows="6" disabled></textarea>
+                        </div>
+                    </div>
+                {% endfor %}
+            </fieldset>
+        </div>
+        <div class="formulario">
+            <fieldset>
+                <legend>Anexos</legend>
+
+                <div class="control-group">
+                    <div class="pull-left" style="text-align: justify;">
+                        {{ formulario.dsAnexos |raw('html') }}
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">
+                        {% if(modalidade.getStExigeAnexo == 'S') %}
+                            Upload do Anexo: <font color="red"><b>*</b></font>
+                        {% else %}
+                            Upload do Anexo:
+                        {% endif %}
+                    </label>
+
+                    <div class="controls div-upload">
+                        <input type="file" id="upload" disabled class="input-file span4"
+                               name="">
+                        <a type="button" class="btn btn-mini" id="btAdicionarUpload" title="Adicionar">
+                            <i class="icon-plus"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label"></label>
+
+                    <div class="controls span8 upload margin-left-20">
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="formulario">
+            <fieldset>
+                <legend>Declaração de Veracidade das Informações</legend>
+
+                <div class="control-group">
+                    <div class="pull-left" style="text-align: justify;">
+                        {{ formulario.getDsDeclaracao |raw('html') }}
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Declaração:</label>
+
+                    <div class="controls">
+                        {{ form_widget(form.stVeracidade, {'attr': {'disabled': 'disabled' }}) }} Sim, certifico que
+                        toda a
+                        informação citada é verídica
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Data:</label>
+
+                    <div class="controls">
+                        <input type="text" disabled/>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Nome completo do Autor Principal:</label>
+
+                    <div class="controls">
+                        <input type="text" class="span3" disabled/>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="botao span12 espacamento-bottom20">
+                <div class="botao">
+                    <a class="buttonAzul margim"
+                       href="{{ path('datasus_sisvs_expoepi_formulario_formulario_inscricao_publish') ~
+                       '?id=' ~ app.request.get('id') }}">Publicar</a>
+                    <a class="buttonAzul"
+                       href="{{ path('datasus_sisvs_expoepi_formulario_formulario_inscricao') }}">Voltar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style type="text/css">
+        blockquote small:before {
+            display: none !important;
+        }
+
+        blockquote small {
+            font-weight: bold;
+        }
+
+        .alingLabel {
+            position: relative;
+            right: 50px;
+            padding-top: 0px !important;
+        }
+
+        .control-group blockquote {
+            margin-left: -15px;
+        }
+
+        .control-group blockquote p {
+            margin-bottom: 5px;
+            margin-top: 5px;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $('.apresentacao').tooltip('toggle');
+            $('.apresentacao').tooltip('hide');
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,14 @@
+imports:
+    - { resource: config_dev.yml }
+
+framework:
+    test: ~
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+    default_locale: %locale%
+    translator:
+        fallback: %locale%
+
+be_simple_i18n_routing:
+    attribute_translator:
+        type: translator

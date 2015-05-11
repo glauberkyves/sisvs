@@ -1,0 +1,41 @@
+################## area ##################
+datasus_sisvs_expoepi_administrativo_tema:
+    pattern: /tema
+    defaults:
+        _controller: DatasusSisvsExpoEpiAdministrativoBundle:Tema:index
+        label: "Tema / Categoria"
+        parent: "datasus_sisvs_expoepi_administrativo_area"
+    
+datasus_sisvs_expoepi_administrativo_tema_search:
+    pattern: /tema/search
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:Tema:search }
+
+datasus_sisvs_expoepi_administrativo_tema_create:
+    pattern: /tema/create
+    defaults:
+        _controller: DatasusSisvsExpoEpiAdministrativoBundle:Tema:create
+        label: "Cadastrar Tema / Categoria"
+        parent: "datasus_sisvs_expoepi_administrativo_tema"
+
+datasus_sisvs_expoepi_administrativo_tema_edit:
+    pattern: /tema/edit
+    defaults:
+        _controller: DatasusSisvsExpoEpiAdministrativoBundle:Tema:edit
+        label: "Alterar Tema / Categoria"
+        parent: "datasus_sisvs_expoepi_administrativo_tema"
+
+datasus_sisvs_expoepi_administrativo_tema_toogle-status:
+    pattern: /tema/toogle-status
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:Tema:toogleStatus }
+
+datasus_sisvs_expoepi_administrativo_tema_check-duplicity:
+    pattern: /tema/check-duplicity
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:Tema:checkDuplicity }
+
+datasus_sisvs_expoepi_administrativo_tema_combo_box:
+    pattern: /tema/combo-box
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:Tema:comboBox }
+
+datasus_sisvs_expoepi_administrativo_tema_change_order:
+    pattern: /tema/change-order
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:Tema:changeOrder }

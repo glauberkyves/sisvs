@@ -1,0 +1,31 @@
+services:
+    base.twig.base_extension:
+        class: Datasus\Sisvs\Base\BaseBundle\Twig\BaseExtension
+        tags:
+            - { name: twig.extension }
+
+    base.twig.extension_html:
+        class: Datasus\Sisvs\Base\BaseBundle\Twig\ExtensionHtml
+        tags:
+            - { name: twig.extension }
+
+    base.twig.breadcrumb:
+        class: Datasus\Sisvs\Base\BaseBundle\Twig\BreadcrumbExtension
+        arguments:
+            - "@service_container"
+        tags:
+            -  { name: twig.extension }
+
+    base.twig.header_pdf_extension:
+        class: Datasus\Sisvs\Base\BaseBundle\Twig\HeaderPdfExtension
+        arguments:
+            - "@service_container"
+        tags:
+            -  { name: twig.extension }
+
+    base.twig.order_by_array:
+        class: Datasus\Sisvs\Base\BaseBundle\Twig\OrderByArray
+        arguments:
+            - "@service_container"
+        tags:
+            -  { name: twig.extension }

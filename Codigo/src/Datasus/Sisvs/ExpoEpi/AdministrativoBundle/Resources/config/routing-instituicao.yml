@@ -1,0 +1,29 @@
+################## instituicao ##################
+datasus_sisvs_expoepi_administrativo_instituicao:
+    pattern: /instituicao
+    defaults:
+        _controller: DatasusSisvsExpoEpiAdministrativoBundle:Instituicao:index
+        label: "Tipo de Instituição"
+        parent: "administrativo_default"
+    
+datasus_sisvs_expoepi_administrativo_instituicao_search:
+    pattern: /instituicao/search
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:Instituicao:search }
+
+datasus_sisvs_expoepi_administrativo_instituicao_create:
+    pattern: /instituicao/create
+    defaults:
+        _controller: DatasusSisvsExpoEpiAdministrativoBundle:Instituicao:create
+        label: "Cadastrar Tipo de Instituição"
+        parent: "datasus_sisvs_expoepi_administrativo_instituicao"
+    
+datasus_sisvs_expoepi_administrativo_instituicao_edit:
+    pattern: /instituicao/edit
+    defaults:
+        _controller: DatasusSisvsExpoEpiAdministrativoBundle:Instituicao:edit
+        label: "Alterar Tipo de Instituição"
+        parent: "datasus_sisvs_expoepi_administrativo_instituicao"
+
+datasus_sisvs_expoepi_administrativo_instituicao_toogle-status:
+    pattern: /instituicao/toogle-status
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:Instituicao:toogleStatus }

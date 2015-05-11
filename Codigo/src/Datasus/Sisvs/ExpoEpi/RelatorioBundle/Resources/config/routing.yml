@@ -1,0 +1,8 @@
+relatorio_default:
+    pattern: /default
+    defaults:
+        _controller: DatasusSisvsExpoEpiRelatorioBundle:Default:index
+        label: "Relatório"
+
+relatorio_relatorio_inscricao:
+    resource: routing-relatorio-inscricao.yml

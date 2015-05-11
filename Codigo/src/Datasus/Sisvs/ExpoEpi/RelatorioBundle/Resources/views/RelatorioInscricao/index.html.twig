@@ -1,0 +1,307 @@
+{% extends "DatasusSisvsExpoEpiFormularioBundle::base.html.twig" %}
+
+{% block body %}
+    <div class="box">
+        <strong class="title">Gerar Relatório</strong>
+
+        <div class="formulario">
+            <form id="form-relatorio-inscricao">
+                <div class="control-group span12">
+                    <label class="control-label" for="tpConsulta">Tipo do Relatório: <font color="red"><b>*</b></font>
+                    </label>
+
+                    <div class="span3">
+                        <label class="radio">
+                            <input type="radio" name="tpConsulta" value="geral" id="tpConsulta" class="required"/>
+                            Relatório Geral
+                        </label>
+
+                        <label class="radio">
+                            <input type="radio" name="tpConsulta" value="consolidado" id="tpConsulta"/> Relatório
+                            Consolidado
+                        </label>
+                    </div>
+                </div>
+
+                <div class="control-group span3">
+                    <label class="control-label" for="coEvento">Evento: <font color="red"><b>*</b></font> </label>
+
+                    <div class="controls">
+                        <select class="span3 required" id="coEvento" name="coSeqEvento">
+                            {% for evento in cmbEvento %}
+                                {%  if (evento.anEvento) == ( "now"|date("Y"))  %}
+                                    <option value="{{ evento.getCoSeqEvento }}" selected>{{ evento.getNoEvento }}</option>
+                                {% else %}
+                                    <option value="{{ evento.getCoSeqEvento }}">{{ evento.getNoEvento }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group span3">
+                    <label class="control-label" for="coModalidade">Modalidade: <font color="red"><b>*</b></font>
+                    </label>
+
+                    <div class="controls">
+                        <select class="span3 required" id="coModalidade" name="coSeqModalidade">
+                            <option value="">Selecione uma opção</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group span3">
+                    <label class="control-label" for="coArea">Área:</label>
+
+                    <div class="controls">
+                        <select class="span3" id="coArea" name="coSeqArea">
+                            <option value="">Selecione uma opção</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group span3">
+                    <label class="control-label" for="coTema">Tema / Categoria:</label>
+
+                    <div class="controls">
+                        <select class="span3" id="coTema" name="coSeqTema">
+                            <option value="">Selecione uma opção</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group span3">
+                    <label class="control-label" for="coRegiao">Região da Instituição:</label>
+
+                    <div class="controls">
+                        <select class="span3" id="coRegiao" name="coRegiao">
+                            <option value="">Selecione uma opção</option>
+                            {% for regiao in cmbRegiao %}
+                                <option value="{{ regiao.getCoRegiao }}">{{ regiao.getNoRegiao }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group span3">
+                    <label class="control-label" for="coUf">Estado da Instituição:</label>
+
+                    <div class="controls">
+                        <select class="span3" id="coUfIbge" name="coUfIbge">
+                            <option value="">Selecione uma opção</option>
+                            {% for estado in cmbEstado %}
+                                <option value="{{ estado.getCoUfIbge }}">{{ estado.getNoUf }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group span3">
+                    <label class="control-label" for="coMunicipioIbge">Município da Instituição:</label>
+
+                    <div class="controls">
+                        <select class="span3" id="coMunicipioIbge" name="coMunicipioIbge">
+                            <option value="">Selecione uma opção</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group span3">
+                    <label class="control-label" for="coSexo">Sexo:</label>
+
+                    <div class="controls">
+                        <select class="span3" id="coSexo" name="coSexo">
+                            <option value="">Selecione uma opção</option>
+                            <option value="M">MASCULINO</option>
+                            <option value="F">FEMININO</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group span3">
+                    <label class="control-label" for="coSituacao">Situação:</label>
+
+                    <div class="controls">
+                        <select class="span3" id="coSituacao" name="coSituacao">
+                            <option value="">Selecione uma opção</option>
+                            {% for situacaoInsc in cmbSituacaoInscricao %}
+                                <option value="{{ situacaoInsc.getCoSituacao }}">{{ situacaoInsc.getDsSituacao }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group span3">
+                    <label class="control-label" for="coInstituicao">Tipo Instituição:</label>
+
+                    <div class="controls">
+                        <select class="span3" id="coInstituicao" name="coSeqInstituicao">
+                            <option value="">Selecione uma opção</option>
+                            {% for tipoInstituicao in cmbTipoInstituicao %}
+                                <option value="{{ tipoInstituicao.getCoSeqInstituicao }}">{{ tipoInstituicao.getNoInstituicao }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group span3">
+
+                    <div class="controls">
+                        <label class="checkbox" for="coInstituicao">Instituição:
+                            <input type="checkbox" name="inInstituicao" id="inInstituicao"/>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="control-group span3">
+
+                    <div class="controls">
+                        <label class="checkbox" for="coDuplicadas">Possíveis Duplicadas:
+                            <input type="checkbox" name="InInforDuplicadas" id="InInforDuplicadas"/>
+                        </label>
+                    </div>
+                    <input type="hidden" id="inLoadCoArea" value=""/>
+                </div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                <div class="control-group span3">
+                    <label class="control-label" for="coRegiaoAutor">Região do Autor:</label>
+
+                    <div class="controls">
+                        <select class="span3" id="coRegiaoAutor" name="coRegiaoAutor">
+                            <option value="">Selecione uma opção</option>
+                            {% for regiao in cmbRegiao %}
+                                <option value="{{ regiao.getCoRegiao }}">{{ regiao.getNoRegiao }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group span3">
+                    <label class="control-label" for="coUfIbgeAutor">Estado do Autor:</label>
+
+                    <div class="controls">
+                        <select class="span3" id="coUfIbgeAutor" name="coUfIbgeAutor">
+                            <option value="">Selecione uma opção</option>
+                            {% for estado in cmbEstado %}
+                                <option value="{{ estado.getCoUfIbge }}">{{ estado.getNoUf }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group span3">
+                    <label class="control-label" for="coMunicipioIbgeAutor">Município do Autor:</label>
+
+                    <div class="controls">
+                        <select class="span3" id="coMunicipioIbgeAutor" name="coMunicipioIbgeAutor">
+                            <option value="">Selecione uma opção</option>
+                        </select>
+                    </div>
+                </div>
+
+            </form>
+            <div class="botao">
+                <button type="button" class="buttonAzul margim" id="gerarRelatorio">Gerar Relatório</button>
+                <button type="reset" class="buttonAzul margim" id="limpar">Limpar</button>
+            </div>
+        </div>
+
+        <div class="formulario grid hide">
+            <div class="box" style="width:97% !important;padding:15px !important">
+                <table id="grid"></table>
+                <div id="pager"></div>
+            </div>
+
+            <div class="botao">
+                <button type="button" class="buttonAzul margim gerar-excel">Exportar para Excel</button>
+                <button type="button" class="buttonAzul margim gerar-pdf">Gerar PDF</button>
+                <a class="buttonAzul margim" href="{{path('datasus_sisvs_expoepi_relatorio_relatorio_inscricao')}}">Voltar</a>
+            </div>
+        </div>
+
+    </div>
+    <script type="text/javascript"
+            src="{{ asset('bundles/datasussisvsexpoepirelatorio/js/relatorio-inscricao/index.js') }}">
+    </script>
+    <script>
+        $(document).ready(function () {
+            var config = {
+                url: '{{ path('datasus_sisvs_expoepi_relatorio_relatorio_inscricao_search') }}',
+                buttonSearch: $('#gerarRelatorio'),
+                form: $('#form-relatorio-inscricao'),
+                colNames: ['Evento', 'Ano', 'Modalidade', 'Área', 'Tema/Categoria', 'Estado', 'Município', 'Região',
+                    'Sexo', 'Inscrições Duplicadas', 'Situação', 'Tipo de Instituição', 'Instituição',
+                    'Quantidade de Inscrições', 'Percentual'],
+                colModel: [
+                    {name: 'noEvento', index: 'noEvento ', width: 10},
+                    {name: 'anEvento', index: 'anEvento ', width: 7},
+                    {name: 'noModalidade', index: 'noModalidade', width: 10},
+                    {name: 'noArea', index: 'noArea', width: 10},
+                    {name: 'noTema', index: 'noTema', width: 10},
+                    {name: 'noUf', index: 'noUf', width: 10},
+                    {name: 'noMunicipio', index: '', width: 10},
+                    {name: 'noRegiao', index: '', width: 10},
+                    {name: 'coSexo', index: 'noSexo', width: 10},
+                    {name: 'duplicata', index: '', width: 10},
+                    {name: 'dsSituacao', index: '', width: 10},
+                    {name: 'noTipoInstituicao', index: '', width: 10},
+                    {name: 'noInstituicao', index: '', width: 10},
+                    {name: 'quantidade', index: '', width: 10},
+                    {name: 'porcentagem', index: '', width: 10}
+                ],
+                sortname: 'nuFormulario',
+                caption: 'Resultado da Pesquisa',
+                beforeSelectRow: function(rowid, e) {
+                    return false;
+                },
+                loadComplete: function() {
+                    var ids = $("#grid").jqGrid('getDataIDs');
+                    if(ids.length == 0) {
+                        $('.message').each(function () {
+                            $(this).children().show();
+                        });
+                        Message.addMessage('Registro(s) não encontrado(s).','success');
+                        $('html, body').animate({scrollTop: 0}, 300);
+                    }
+                }
+            };
+            $('#grid').grid(config);
+
+            $('input[name=tpConsulta]').click(function(){
+                if($(this).val() == 'geral'){
+                    $('form').children().hide();
+                    $('form div.control-group:nth-child(1)').show();
+                    $('form div.control-group:nth-child(2)').show();
+                }else{
+                    $('form').children().show();
+                }
+            });
+
+            $('form').children().hide();
+            $('form div.control-group:nth-child(1)').show();
+
+            $('#gerarRelatorio').click(function(){
+
+                if($('input[name=tpConsulta]:checked').val() == 'geral'){
+                    $('.grid').hide();
+
+                    var url = '/relatorio/relatorio-inscricao/geral?';
+                    var form = $('form').serialize();
+                    window.location = url + form;
+               }
+            });
+
+            $('input[name=tpConsulta]').click(function(){
+                if($(this).val() == 'consolidado'){
+                $('#coEvento').change();
+                }
+            });
+
+            $('#limpar').click(function(){
+                $('#form-relatorio-inscricao').each(function(){
+                    window.location.href = window.location.href;
+                });
+            });
+        });
+
+    </script>
+{% endblock %}

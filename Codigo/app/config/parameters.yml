@@ -1,0 +1,61 @@
+parameters:
+    # Otpions database
+#    default_database_driver:        oci8
+#    default_database_host:          172.25.61.151
+#    default_database_port:          1521
+#    default_database_service_name:  BDFHO1.SAUDE.GOV
+#    default_database_service_use:   true
+#    default_database_user:          SISVSWEB
+#    default_database_password:      hm22xyw9
+#    default_database_charset:       UTF8
+#    default_database_role_user:     RO_SISVS_T
+#    default_database_role_pass:     hm33pto10
+    default_database_driver:        oci8
+    default_database_host:          10.20.129.1
+    default_database_port:          1521
+    default_database_service_name:  develms
+    default_database_service_use:   true
+    default_database_user:          DBSISVS_TEMP_H
+    default_database_password:      DBSISVS_TEMP_H
+    default_database_charset:       UTF8
+    default_database_role_user:
+    default_database_role_pass:
+
+    # Otpions mail
+    mailer_transport:               smtp
+    mailer_host:                    smtpaplicacao.saude.gov
+    mailer_destinatario:            expoepi@saude.gov.br
+    mailer_user:
+    mailer_password:
+
+    framework_strict:               true
+    framework_profile:              { only_exceptions: true }
+
+    locale:                         pt_BR
+    secret:                         c27da77c1f9107575b3d72f26c738f828
+    version:                        V 1.0.0-RC47
+
+    # email expoepi padrao
+    mail_expoepi:                   expoepi@saude.gov.br
+
+    # Otpions wsdl SCPA
+    scpa_email:                     usuario.teste.scpa@saude.gov.br
+    scpa_senha:                     123456a
+    scpa_sigla_sistema:             SISVS
+    scpa_wsdl:                      http://10.1.2.72:10380/datasus-scpa-ws/ScpaServiceImpl?wsdl
+    scpa_cadastro:                  http://10.1.2.72:10480/datasus-scpaweb-usuario/visao/login/login-sistema.jsf
+    scpa_esqueci_senha:             http://10.1.2.72:10480/datasus-scpaweb-usuario/visao/login/gerar-senha.jsf
+    scpa_wsdl_options:
+       uri: "urn: xmethods-delayed-quoteds"
+       style: SOAP_RPC
+       use: SOAP_ENCODED
+       encoding: UTF-8
+       soap_version: SOAP_1_1
+
+    spca_role:
+       ROLE_COO: Coordenação
+       ROLE_GTE: Grupo Técnico de Seleção
+       ROLE_GTC: Grupo Técnico de Triagem
+       ROLE_OAN: Organização dos Anais
+       ROLE_REV: Revisoras
+       ROLE_AUT: Autor

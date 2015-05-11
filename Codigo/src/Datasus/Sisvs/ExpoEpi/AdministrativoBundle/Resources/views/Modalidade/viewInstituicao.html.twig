@@ -1,0 +1,46 @@
+{% block modal_view %}
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>Visualizar Vinculação: Modalidade / Tipo da Instituição</h3>
+    </div>
+    <div class="modal-body">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>
+                    <h4>{{ entity.getNoModalidade }}</h4>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for enModInstituicao in entity.getCoModalidadeInstituicao %}
+                {% if(enModInstituicao.getCoInstituicao.getStAtivo == 'S') %}
+                    <tr>
+                        <td>
+                            <span class="span">
+                            {{ enModInstituicao.getCoInstituicao.getNoInstituicao }}
+                            </span>
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+
+            {% if(entity.getCoModalidadeInstituicao.count == 0) %}
+                <tr>
+                    <td>
+                        <span class="span">
+                        Nenhum registro vinculado.
+                        </span>
+                    </td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal-footer">
+        <button aria-hidden="true" data-dismiss="modal" class="buttonAzul margim view-not">
+            Fechar
+        </button>
+    </div>
+{% endblock %}

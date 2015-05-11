@@ -1,0 +1,38 @@
+---
+# Ansible Playbook Deploy
+
+- name: Gerando a Deploy da Aplicação
+  vars:
+    ambiente: "{{lookup('env','ambiente')}}"
+    nfs_name: "{{lookup('env','nfs_name')}}"
+    app_path: "{{lookup('env','app_path')}}"
+  hosts: '{{ nfs_name }}'
+  sudo: yes
+  tasks:
+  - name: Alterando as permissões do sistema para "ugcs"
+    command: chown ugcs /nfs/{{ ambiente }}/{{ app_path }}/ -R
+  - name: Copiando arquivos do sistema para o servidor NFS
+    sudo: no
+    synchronize: src=./ dest=/nfs/{{ ambiente }}/{{ app_path }}/ dest_port=37259 rsync_opts=--exclude=.svn
+  - name: Removendo a pasta "build"
+    command: rm -rf /nfs/{{ ambiente }}/{{ app_path }}/build
+  - name: Removendo a pasta "cruise-output"
+    command: rm -rf /nfs/{{ ambiente }}/{{ app_path }}/cruise-output
+  - name: Removendo a pasta "bin"
+    command: rm -rf /nfs/{{ ambiente }}/{{ app_path }}/bin
+  - name: Removendo outros arquivos
+    command: rm -rf /nfs/{{ ambiente }}/{{ app_path }}/{{ item }}
+    with_items:
+      - hosts
+      - README.txt
+      - VHost.txt
+      - deploy.yml
+      - package.yml
+      - build.xml
+      - quality.yml
+      - .sonar
+      - ./data/cache
+  - name: Alterando as permissões da pasta da aplicação "775"
+    command: chmod 775 /nfs/{{ ambiente }}/{{ app_path }}/ -R
+  - name: Alterando as permissões do sistema para "apache"
+    command: chown apache:apache /nfs/{{ ambiente }}/{{ app_path }}/ -R

@@ -1,0 +1,66 @@
+{% extends "DatasusSisvsExpoEpiAdministrativoBundle::base.html.twig" %}
+
+{% block body %}
+    <div class="box">
+        <strong class="title">Consultar Tipo Instituição</strong>
+
+        <div class="formulario">
+            <form id="form-instituicao">
+                <div class="control-group span4">
+                    <label class="control-label" for="noInstituicao">Tipo Instituição:</label>
+
+                    <div class="controls">
+                        <input id="noInstituicao" type="text" name="noInstituicao" class="span4" maxlength="60">
+                    </div>
+                </div>
+                <div class="control-group span6">
+                    <label class="control-label" for="noInstituicao">Situação:</label>
+
+                    <div class="controls">
+                        <select class="span4" id="stAtivo" name="stAtivo">
+                            <option value="">Selecione uma opção</option>
+                            <option value="S">Ativo</option>
+                            <option value="N">Inativo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="botao">
+                    <button class="buttonAzul margim" id="pesquisar">Pesquisar</button>
+                    <button type="reset" class="buttonAzul margim" id="limpar">Limpar</button>
+                    <a class="buttonAzul margim" href="{{ path('datasus_sisvs_expoepi_administrativo_instituicao_create') }}">Incluir
+                    Tipo Instituição</a>
+                </div>
+            </form>
+        </div>
+    <div class="formulario grid">
+        <div class="formulario box-tabela">
+            <div class="box" style="width:97% !important;padding:15px !important">
+                <table id="grid"></table>
+                <div id="pager"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            var config = {
+                url: '{{ path('datasus_sisvs_expoepi_administrativo_instituicao_search') }}',
+                buttonSearch: $('#pesquisar'),
+                form: $('#form-instituicao'),
+                colNames: ['Tipo Instituição', 'Opções'],
+                postData: {data: 'stAtivo=S'},
+                colModel: [
+                    {name: 'noInstituicao', index: 'e.noInstituicao', width: 100},
+                    {name: 'acao', index: 'Acao', width: 10, align: "center"}
+                ],
+                sortname: 'e.noInstituicao',
+                caption: 'Resultado da Pesquisa'
+            };
+
+            $('#grid').grid(config);
+            $('.alert-error, .alert-success').fadeIn().delay(5000).fadeOut('slow');
+            $('#limpar').click(function () {
+                window.location.href = window.location.href;
+            });
+        });
+    </script>
+{% endblock %}

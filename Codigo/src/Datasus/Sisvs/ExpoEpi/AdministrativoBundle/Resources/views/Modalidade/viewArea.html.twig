@@ -1,0 +1,46 @@
+{% block modal_view %}
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>Visualizar vinculação da área com a modalidade</h3>
+    </div>
+    <div class="modal-body">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>
+                    <h4>{{ entity.getNoModalidade }}</h4>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for area in entity.getCoArea %}
+                {% if(area.getStAtivo == 'S') %}
+                    <tr>
+                        <td>
+                            <span class="span">
+                            {{ area.getNoArea }}
+                            </span>
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+
+            {% if(entity.getCoArea.count == 0) %}
+                <tr>
+                    <td>
+                        <span class="span">
+                        Nenhum registro vinculado.
+                        </span>
+                    </td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal-footer">
+        <button aria-hidden="true" data-dismiss="modal" class="buttonAzul margim view-not">
+            Fechar
+        </button>
+    </div>
+{% endblock %}

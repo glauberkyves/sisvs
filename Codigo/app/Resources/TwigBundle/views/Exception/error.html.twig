@@ -1,0 +1,28 @@
+{% extends "DatasusSisvsBaseBaseBundle::base.html.twig" %}
+
+{% block title %}SISVS - Error {% endblock %}
+{% block breadcrumb %}{% endblock %}
+{% block opcoes_usuario %}{% endblock %}
+{% block detalhe_usuario_logado %}{% endblock %}
+{% block tempo_sessao %}{% endblock %}
+{% block menu_sistema %}{% endblock %}
+
+{% block body %}
+    <div class="box">
+        <strong class="title">Erro econtrado.</strong>
+
+        <div class="formulario">
+            <form id="form-area">
+                <div class="control-group">
+                    <label class="control-label" for="">
+                        Erro(s) encontrado(s) na execução desta funcionalidade.
+                    </label>
+                </div>
+            </form>
+
+            <div class="botao">
+                <a class="buttonAzul margim" href="javascript: history.back();">Voltar</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

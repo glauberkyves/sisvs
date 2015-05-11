@@ -1,0 +1,74 @@
+{% extends "DatasusSisvsExpoEpiAdministrativoBundle::base.html.twig" %}
+
+{% block body %}
+    {% form_theme form _self %}
+    {% block form_errors %}
+    {% endblock form_errors %}
+
+    <div class="box">
+        <strong class="title">Consultar Tipo Modalidade</strong>
+
+        <div class="formulario">
+            <form id="form-tipo-modalidade">
+                <div class="control-group span4">
+                    <label class="control-label"
+                           for="{{ form.noTipoModalidade.vars.name }}">{{ form.noTipoModalidade.vars.label }}: </label>
+
+                    <div class="controls">
+                        <input type="text" name="noTipoModalidade" class="span4" maxlength="60"/>
+                    </div>
+                </div>
+                <div class="control-group span6">
+                    <label class="control-label" for="{{ form.stAtivo.vars.name }}">{{ form.stAtivo.vars.label }}
+                        :</label>
+
+                    <div class="controls">
+                        <select class="span4" id="stAtivo" name="stAtivo">
+                            <option value="">Selecione uma opção</option>
+                            <option value="S">Ativo</option>
+                            <option value="N">Inativo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="botao">
+                    <button class="buttonAzul margim" id="pesquisar">Pesquisar</button>
+                    <button type="reset" class="buttonAzul margim" id="limpar">Limpar</button>
+                    <a class="buttonAzul margim"
+                       href="{{ path('datasus_sisvs_expoepi_administrativo_tipo_modalidade_create') }}">
+                        Incluir Tipo Modalidade</a>
+                </div>
+            </form>
+        </div>
+    <div class="formulario grid">
+        <div class="formulario box-tabela">
+            <div class="box" style="width:97% !important;padding:15px !important">
+                <table id="grid"></table>
+                <div id="pager"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            var config = {
+                url: '{{ path('datasus_sisvs_expoepi_administrativo_tipo_modalidade_search') }}',
+                buttonSearch: $('#pesquisar'),
+                form: $('#form-tipo-modalidade'),
+                colNames: ['Tipo Modalidade', 'Opções'],
+                postData: {data: 'stAtivo=S'},
+                colModel: [
+                    {name: 'noTipoModalidade', index: 'e.noTipoModalidade', width: 100,sortable:true},
+                    {name: 'acao', index: 'Acao', width: 7, align: "center"}
+                ],
+                sortname: 'e.noTipoModalidade',
+                caption: 'Resultado da Pesquisa'
+            };
+
+            $('#grid').grid(config);
+            $('.alert-error, .alert-success').fadeIn().delay(5000).fadeOut('slow');
+            $('#limpar').click(function () {
+                window.location.href = window.location.href;
+            });
+
+        });
+    </script>
+{% endblock %}

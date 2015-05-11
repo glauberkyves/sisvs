@@ -1,0 +1,57 @@
+parameters:
+    datasus_sisvs_expoepi_autor.painel.class: Datasus\Sisvs\ExpoEpi\AdministrativoBundle\Service\PainelService
+    datasus_sisvs_expoepi_autor.autor.class: Datasus\Sisvs\ExpoEpi\AutorBundle\Service\AutorService
+    datasus_sisvs_expoepi_autor.inscricao.class: Datasus\Sisvs\ExpoEpi\AutorBundle\Service\InscricaoService
+    datasus_sisvs_expoepi_autor.inscricao_apresentacao.class: Datasus\Sisvs\ExpoEpi\AutorBundle\Service\InscricaoApresentacaoService
+    datasus_sisvs_expoepi_autor.situacao_inscricao.class: Datasus\Sisvs\ExpoEpi\AutorBundle\Service\SituacaoInscricaoService
+    datasus_sisvs_expoepi_autor.historico_inscricao.class: Datasus\Sisvs\ExpoEpi\AutorBundle\Service\HistoricoInscricaoService
+    datasus_sisvs_expoepi_autor.co_autor.class: Datasus\Sisvs\ExpoEpi\AutorBundle\Service\CoAutorService
+    datasus_sisvs_expoepi_autor.anexo.class: Datasus\Sisvs\ExpoEpi\AutorBundle\Service\AnexoService
+    datasus_sisvs_expoepi_autor.instituicao.class: Datasus\Sisvs\ExpoEpi\AutorBundle\Service\InstituicaoService
+    datasus_sisvs_expoepi_autor.painel_controller.class: Datasus\Sisvs\ExpoEpi\AutorBundle\Controller\PainelController
+
+
+services:
+    datasus_sisvs_expoepi_autor.autor:
+        class: %datasus_sisvs_expoepi_autor.autor.class%
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+
+    datasus_sisvs_expoepi_autor.inscricao:
+        class: %datasus_sisvs_expoepi_autor.inscricao.class%
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+
+    datasus_sisvs_expoepi_autor.historico_inscricao:
+        class: %datasus_sisvs_expoepi_autor.historico_inscricao.class%
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+
+    datasus_sisvs_expoepi_autor.situacao_inscricao:
+        class: %datasus_sisvs_expoepi_autor.situacao_inscricao.class%
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+
+    datasus_sisvs_expoepi_autor.inscricao_apresentacao:
+        class: %datasus_sisvs_expoepi_autor.inscricao_apresentacao.class%
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+
+    datasus_sisvs_expoepi_autor.painel:
+        class: %datasus_sisvs_expoepi_autor.painel.class%
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+
+    datasus_sisvs_expoepi_autor.situacao_inscricao:
+        class: %datasus_sisvs_expoepi_autor.situacao_inscricao.class%
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+
+    datasus_sisvs_expoepi_autor.co_autor:
+         class: %datasus_sisvs_expoepi_autor.co_autor.class%
+         arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+
+    datasus_sisvs_expoepi_autor.anexo:
+         class: %datasus_sisvs_expoepi_autor.anexo.class%
+         arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+
+    datasus_sisvs_expoepi_autor.instituicao:
+         class: %datasus_sisvs_expoepi_autor.instituicao.class%
+         arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+
+    datasus_sisvs_expoepi_autor.painel_controller:
+         class: %datasus_sisvs_expoepi_autor.painel_controller.class%
+         arguments: ["@service_container"]

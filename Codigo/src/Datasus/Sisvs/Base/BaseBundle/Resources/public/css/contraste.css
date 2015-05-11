@@ -1,0 +1,164 @@
+@charset "utf-8";
+
+/* HEADER */
+
+.acessibilidade{
+	background-color:#333333 !important;
+	color:#fff !important;
+}
+.acessibilidade #barra-brasil {
+    background: url("../images/lgo/barra-brasil-v3-bgx.png") no-repeat scroll center bottom #000;
+}
+.acessibilidade #barra-brasil .ai {
+    background: url("../images/lgo/ai.png") no-repeat scroll 0 4px #000;
+}
+.acessibilidade #barra-brasil .brasilgov {
+    background: url("../images/lgo/brasil.png") no-repeat scroll 0 4px #000;
+}
+.acessibilidade #topo_geral {
+    background: linear-gradient(to bottom, #000 0%, #423E3E 100%) repeat-x scroll 0 0 transparent;
+}
+.acessibilidade .box_botoes_acessibilidade {
+    background-color: #000000;
+}
+.acessibilidade .box_botoes_acessibilidade {
+    background-color: #000000;
+    box-shadow: 1px 5px 10px 1px #3E3A3A;
+}
+.acessibilidade .logo {
+    color: #FFFFFF;
+    text-shadow: 0 3px 3px #333030;
+}
+.acessibilidade .titulo_sistema {
+    text-shadow: 0 3px 3px #333030;
+}
+.acessibilidade #BoxMenuPrincipal {
+    background: linear-gradient(to bottom, #000000 0%, #3F3B3B 100%) repeat scroll 0 0 transparent;
+    border-top: 1px solid #fff;
+    box-shadow: 1px 5px 10px 1px #A4A4A4;
+}
+
+/* CONTEUDO */
+
+.acessibilidade section p {
+    color: #000;
+}
+.acessibilidade .BoxAreaLogin_titulo {
+    background: linear-gradient(to bottom, #070606 0%, #403C3C 100%) repeat scroll 0 0 transparent;
+    border-radius: 8px 8px 0 0;
+    float: left;
+    margin: 0;
+    width: 100%;
+}
+.acessibilidade #BoxAreaLogin_Informacoes_Contato {
+    background: none repeat scroll 0 0 #fff;
+    box-shadow: 1px 5px 10px 1px #868686;
+}
+.acessibilidade .BoxAreaLogin_content {
+    background-color: #fff;
+}
+.acessibilidade .logar label
+, .acessibilidade #BoxAreaLogin_EsqueceuEmail a{
+    color: #000;
+}
+.acessibilidade .buttonAzul {
+    background: linear-gradient(to bottom, #000000 0%, #3E3A3A 100%) repeat scroll 0 0 transparent;
+    box-shadow: 1px 5px 10px 1px #8D8D8D;
+    color: #FFFFFF;
+}
+.acessibilidade .buttonAzul:hover {
+    background: linear-gradient(to bottom, #3E3A3A 0%, #000000 100%) repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+}
+.acessibilidade .box strong.title {
+    border-bottom: 2px solid #fff;
+    color: #fff;
+}
+.acessibilidade a
+, .acessibilidade .box h4{
+    color: #fff;
+}
+.acessibilidade .box label
+, .acessibilidade .box .tab-content strong{
+    color: #fff !important;
+}
+.acessibilidade .box .formulario
+, .acessibilidade .box .tabelaImpri
+, .acessibilidade #aba .tab-content{
+    background: none repeat scroll 0 0 #000000;
+    box-shadow: 1px 5px 10px 1px #A4A4A4;
+}
+.acessibilidade #aba .tab-content table
+, .acessibilidade .box .tabela table
+, .acessibilidade .box .tabelaMaior table{
+    border: 1px solid #fff;
+}
+.acessibilidade .box .tabela table thead
+, .acessibilidade .box .tabelaMaior table thead{
+    background-color: #333333;
+}
+.acessibilidade #aba .tab-content table thead th
+, .acessibilidade #aba .tab-content table tbody td
+, .acessibilidade .box .tabela table thead th
+, .acessibilidade .box .tabela table tbody td
+, .acessibilidade .box .tabelaMaior table thead th
+, .acessibilidade .box .tabelaMaior table tbody td{
+    border-bottom: 1px solid #fff;
+    border-right: 1px solid #fff;
+    color: #fff;
+}
+.acessibilidade #aba .tab-content table .none_right {
+    border-right: medium none;
+    width: 230px;
+}
+.acessibilidade .box .tabela table .none_right {
+    border-right: medium none;
+    width: 232px;
+}
+.acessibilidade .box .tabelaMaior table .none_right {
+    border-right: medium none;
+    width: 146px;
+}
+.acessibilidade .box .tabela table tbody tr.color
+, .acessibilidade .box .tabelaMaior table tbody tr.color{
+    background-color: #333333;
+}
+.acessibilidade .box .tabelaMaior table tbody td a{
+    float: left;
+    height: 18px;
+    width: 100%;
+}
+.acessibilidade .box .tabelaMaior table tbody td img.b{
+    display: block;
+    margin: 0 auto;
+}
+.acessibilidade .box .tabelaMaior table tbody td img.p{
+    display: none;
+}
+.acessibilidade .datepicker{
+    color: #000
+}
+.acessibilidade .sf-menu a {
+    border-left: 0 solid #333333;
+    border-right: 0 solid #255C92;
+}
+.acessibilidade .sf-menu li:hover
+, .acessibilidade .sf-menu li.sfHover
+, .acessibilidade .sf-menu a:focus
+, .acessibilidade .sf-menu a:hover
+, .acessibilidade .sf-menu a:active {
+    background-color: #333333;
+}
+.acessibilidade .sf-menu li li{
+    background: none repeat scroll 0 0 #333333;
+    border-bottom: 1px solid #333333;
+    border-right: 1px solid #333333;
+    border-left: 1px solid #333333;
+}
+
+/* FOOTER */
+
+.acessibilidade #BoxRodapePrincipal {
+    background: linear-gradient(to bottom, #000000 0%, #3F3B3B 100%) repeat scroll 0 0 transparent;
+    border-top: 1px solid #fff;
+}

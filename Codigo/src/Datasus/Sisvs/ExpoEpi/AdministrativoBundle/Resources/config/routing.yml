@@ -1,0 +1,35 @@
+administrativo_default:
+    pattern: /default
+    defaults:
+        _controller: DatasusSisvsExpoEpiAdministrativoBundle:Default:index
+        label: "Módulo Administrativo"
+
+administrativo_apresentacao:
+    resource: routing-apresentacao.yml
+
+administrativo_criterio:
+    resource: routing-criterio.yml
+
+administrativo_evento:
+    resource: routing-evento.yml
+
+administrativo_instituicao:
+    resource: routing-instituicao.yml
+
+administrativo_tipo_modalidade:
+    resource: routing-tipo-modalidade.yml
+
+administrativo_area:
+    resource: routing-area.yml
+
+administrativo_tema:
+    resource: routing-tema.yml
+
+administrativo_modalidade:
+    resource: routing-modalidade.yml
+
+administrativo_prazo:
+    resource: routing-prazo.yml
+
+administrativo_municipio:
+    resource: routing-municipio.yml

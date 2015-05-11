@@ -1,0 +1,69 @@
+administrativo:
+        validations:
+            default:
+                MoreThanOne: Selecione ao menos um registro.
+                linkedRecord: O registro não pode ser alterado e/ou inativado, pois já existem vinculações efetivadas.
+
+            apresentacao:
+                notBlank: O campo Apresentação é de preenchimento obrigatório.
+                NotEqualTo: O campo Apresentação já existe no cadastro.
+                activeInactive: O registro não pode ser inativado, pois já existem vinculações efetivadas.
+            criterio:
+                notBlank: O campo Critério é de preenchimento obrigatório.
+                NotEqualTo: O campo Critério já existe no cadastro.
+                activeInactive: O registro não pode ser inativado, pois já existem vinculações efetivadas.
+                
+            instituicao:
+                notBlank: O campo Tipo Instituição é de preenchimento obrigatório.
+                NotEqualTo: O campo Tipo Instituição já existe no cadastro.
+                activeInactive: O registro não pode ser inativado, pois já existem vinculações efetivadas.
+
+            tipo_modalidade:
+                notBlank: O campo Tipo Modalidade é de preenchimento obrigatório.
+                NotEqualTo: O campo Tipo Modalidade já existe no cadastro.
+                activeInactive: O registro não pode ser inativado, pois já existem vinculações efetivadas.
+
+            area:
+                notBlank: O campo Área é de preenchimento obrigatório.
+                NotEqualTo: O campo Área já existe no cadastro.
+                activeInactive: O registro não pode ser alterado e/ou inativado, pois já existem vinculações efetivadas.
+                tamamho: A quantidade de caracteres excede o valor máximo permitido.
+
+            tema:
+                notBlank: O campo classificação é de seleção obrigatório.
+                notBlankTema: O campo Tema e de preenchimento obrigatório.
+                NotEqualTo:  O campo Tema/Categoria já existe no cadastro.
+
+            evento:
+                notBlankAnEvento: O campo Ano é de preenchimento obrigatório.
+                anEventoNotValid: O ano informado não é válido.
+                anEventoNotEqual: O campo Ano já existe no cadastro.
+                notBlank: O campo Evento é de preenchimento obrigatório.
+                NotEqualTo: O campo Evento já existe no cadastro.
+                notBlankDsEdital: O campo Edital é de preenchimento obrigatório.
+                fileDsLogo: O formato da imagem deve ser *.jpg ou *.gif ou *.png.
+                fileMaxSize: O tamanho máximo do upload e 10MB.
+                activeInactive: O registro não pode ser inativado, pois já existem vinculações efetivadas.
+
+            modalidade:
+                notBlank: O campo Modalidade é de preenchimento obrigatório.
+                NotEqualTo: O campo Modalidade já existe no cadastro.
+
+            formulario_inscricao:
+                noBlankCoModalidade: O campo Modalidade é de preenchimento obrigatório.
+                noBlankDtInicio: O campo Data Início é de preenchimento obrigatório.
+                noBlankDsTitulo: O campo Título é de preenchimento obrigatório.
+                noBlankDtFim: O campo Data Fim é de preenchimento obrigatório.
+                noBlankDsObjeto: O campo Objeto Descritivo é de preenchimento obrigatório.
+                noBlankDsResumo: O campo Resumo Estruturado é de preenchimento obrigatório.
+                noBlankDsApresentacao: O campo Apresentação é de preenchimento obrigatório.
+                noBlankDsDeclaracao: O campo Declaração da Veracidade das Informações é de preenchimento obrigatório.
+                noDateValid: A data final não pode ser menor que a data de início.
+                NotEqualTo: O Título já existe no cadastro.
+
+            acompanhar_evento:
+                noBlankCoEvento: O campo Evento é de preenchimento obrigatório.
+
+            prazo:
+                noBlankDtFim: O campo Data Fim é de preenchimento obrigatório.
+                noBlankJustificativa: O campo Justificativa é de preenchimento obrigatório.

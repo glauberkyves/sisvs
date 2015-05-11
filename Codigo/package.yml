@@ -1,0 +1,24 @@
+---
+# Ansible Playbook Package
+
+- name: Gerando a Build da Aplicação
+  vars:
+    ambiente: "{{lookup('env','ambiente')}}"
+    senha: "{{lookup('env','senha')}}"
+  hosts: localhost
+  sudo: no
+  tasks:
+  - name: Criando o diretório "data/cache"
+    command: mkdir -p data/cache
+  - name: Criando o diretório "data/logs"
+    command: mkdir -p data/logs
+  - name: Criando o diretório "data/session"
+    command: mkdir -p data/session 
+  - name: Setando permissão de execução para o phing
+    command: chmod +x bin/phing
+  - name: Setando permissão de execução para o composer
+    command: chmod +x bin/composer.phar
+  - name: Executando composer.phar
+    command: bin/composer.phar
+  - name: Executando o phing
+    command: php bin/phing.phar -Dprojeto.ambiente={{ ambiente }}

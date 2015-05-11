@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<project name="SISVS APP" basedir="." default="build">
+
+    <property file="geral.properties" />
+
+    <target name="build:parameters">
+        <property file="${projeto.ambiente}.properties" />
+        <phingcall target="run:configuracao"/>
+    </target>
+
+	<target name="run:configuracao">
+        <copy file="../app/config/parameters.yml.dist" tofile="../app/config/parameters.yml" overwrite="true">
+            <filterchain>
+                <replacetokens begintoken="@" endtoken="@">
+					<!-- replace DB -->
+                    <token key="DB_DRIVER" value="${db.driver}"/>
+                    <token key="DB_HOSTNAME" value="${db.host}"/>
+                    <token key="DB_PORT" value="${db.port}"/>
+                    <token key="DB_SERVICE_NAME" value="${db.service_name}"/>
+                    <token key="DB_SERVICE_USE" value="${db.service_use}"/>
+                    <token key="DB_USERNAME" value="${db.user}"/>
+                    <token key="DB_PASSWORD" value="${db.password}"/>
+                    <token key="DB_CHARSET" value="${db.charset}"/>
+                    <token key="DB_ROLE_USER" value="${db.role_user}"/>
+                    <token key="DB_ROLE_PASS" value="${db.role_pass}"/>
+
+                    <!-- replace MAILER -->
+                    <token key="MAILER_TRANSPORT" value="${mailer.transport}"/>
+                    <token key="MAILER_HOSTNAME" value="${mailer.hostname}"/>
+                    <token key="MAILER_DESTINATARIO" value="${mailer.destinatario}"/>
+                    <token key="MAILER_USER" value="${mailer.username}"/>
+                    <token key="MAILER_PASS" value="${mailer.password}"/>
+
+                    <!-- replace DEFAULT -->
+                    <token key="LOCALE" value="${locale}"/>
+                    <token key="SECRECT_KEY" value="${secret}"/>
+                    <token key="VERSION" value="${version}"/>
+
+                    <token key="FRAMEWORK_STRICT" value="${framework.strict}"/>
+                    <token key="FRAMEWORK_PROFILE" value="${framework.profile}"/>
+
+                    <!-- replace AUTH SCPA -->
+                    <token key="SCPA_EMAIL" value="${scpa_email}"/>
+                    <token key="SCPA_SENHA" value="${scpa_senha}"/>
+                    <token key="SCPA_SIGLA_SISTEMA" value="${scpa_sigla_sistema}"/>
+                    <token key="SCPA_WSDL" value="${scpa_wsdl}"/>
+                    <token key="SCPA_CADASTRO" value="${scpa_cadastro}"/>
+                    <token key="SCPA_ESQUECI_SENHA" value="${scpa_esqueci_senha}"/>
+                </replacetokens>
+            </filterchain>
+        </copy>	
+	</target>
+</project>

@@ -1,0 +1,53 @@
+{% extends "DatasusSisvsExpoEpiAdministrativoBundle::base.html.twig" %}
+
+{% block body %}
+<div class="box">
+    <strong class="title">
+        Tipos de Instituição Cadastradas
+    </strong>
+
+    <div class="formulario">
+
+        <form id="" action="{{ path('datasus_sisvs_expoepi_administrativo_modalidade_save-bind') }}" method="post">
+            <input type="hidden" value="{{ entity.getCoSeqModalidade }}" name="coSeqModalidade"/>
+            <table class="table table-bordered ui-widget-content">
+                <thead>
+                <tr>
+                    <th colspan="4" align="center">Tipos de Instituições</th>
+                </tr>
+                <tr>
+                    <th>Selecione</th>
+                    <th>Tipo da Instituição</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for key, value in arrInstituicao |sort %}
+                    <tr>
+                        {% if entity.getCoSeqModalidade in  value.arrayCoModalidade | keys %}
+                            <td>
+                                <input type="checkbox" checked="checked" value="{{ value.coSeqInstituicao }}"
+                                       name="checkInstituicao[]"/>
+                            </td>
+
+                        {% else %}
+                            <td>
+                                <input type="checkbox" value="{{ value.coSeqInstituicao }}" name="checkInstituicao[]"/>
+                            </td>
+                        {% endif %}
+                        <td>{{ value.noInstituicao }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="botao">
+                <input type="submit" value="Vincular" class="buttonAzul margim"/>
+                <a href="{{ path('datasus_sisvs_expoepi_administrativo_modalidade') ~ '?coEvento=' ~ entity.getCoEvento.getCoSeqEvento }}" class="buttonAzul">
+                    Voltar
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+    {% endblock %}

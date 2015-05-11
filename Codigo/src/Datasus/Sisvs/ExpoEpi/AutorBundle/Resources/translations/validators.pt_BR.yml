@@ -1,0 +1,29 @@
+autor:
+    validations:
+        default:
+            MoreThanOne: Selecione ao menos um registro.
+            linkedRecord: O registro não pode ser alterado e/ou inativado, pois já existem vinculações efetivadas.
+
+        inscricao:
+            stAutoria:
+               notBlank: O campo O trabalho tem co-autor é de preenchimento obrigatório.
+            noOrientador:
+               notBlank: O campo Nome Completo do Orientador é de preenchimento obrigatório.
+            dsTitulo:
+               notBlank: O campo Título do Resumo Estruturado é de preenchimento obrigatório.
+            dsResumo:
+               notBlank: O campo Resumo é de preenchimento obrigatório.
+            stVeracidade:
+               notBlank: O campo Declaração de Veracidade das Informações é de preenchimento obrigatório.
+
+        instituicao:
+            noInstituicao:
+               notBlank: O campo Nome Completo da Instituição é de preenchimento obrigatório.
+            dsEndereco:
+               notBlank: O campo Endereço é de preenchimento obrigatório.
+            noBairro:
+               notBlank: O campo Bairro / Localidade é de preenchimento obrigatório.
+            nuCep:
+               notBlank: O campo Cep é de preenchimento obrigatório.
+            nuTelefone:
+               notBlank: O campo Telefone é de preenchimento obrigatório.

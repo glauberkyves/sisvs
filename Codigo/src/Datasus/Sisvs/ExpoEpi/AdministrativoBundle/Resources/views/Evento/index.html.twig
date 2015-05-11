@@ -1,0 +1,71 @@
+{% extends "DatasusSisvsExpoEpiAdministrativoBundle::base.html.twig" %}
+
+{% block body %}
+    <div class="box">
+        <strong class="title">Consultar Evento</strong>
+
+        <div class="formulario">
+            <form id="form-evento">
+                <div class="control-group span4">
+                    <label class="control-label" for="noEvento">Evento:</label>
+
+                    <div class="controls">
+                        <input type="text" maxlength="60" placeholder="" class="span4" name="noEvento" id="noEvento">
+                    </div>
+                </div>
+                <div class="control-group span6">
+                    <label class="control-label" for="stAtivo">Situação:</label>
+
+                    <div class="controls">
+                        <select class="span4" name="stAtivo" id="stAtivo">
+                            <option selected="selected" value="">Selecione...</option>
+                            <option value="S">Ativo</option>
+                            <option value="N">Inativo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="botao">
+                    <button class="buttonAzul margim" id="pesquisar">Pesquisar</button>
+                    <button type="reset" class="buttonAzul margim" id="limpar">Limpar</button>
+                    <a class="buttonAzul margim"
+                       href="{{ path('datasus_sisvs_expoepi_administrativo_evento_create') }}">
+                        Incluir Evento</a>
+                </div>
+            </form>
+        </div>
+
+        <div class="formulario box-tabela">
+            <div class="box" style="width:97% !important;padding:15px !important">
+                <table id="grid"></table>
+                <div id="pager"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            var config = {
+                url: '{{ path('datasus_sisvs_expoepi_administrativo_evento_search') }}',
+                buttonSearch: $('#pesquisar'),
+                form: $('#form-evento'),
+                colNames: ['Ano', 'Evento', 'Opções'],
+                postData: {data: 'stAtivo=S'},
+                colModel: [
+                    {name: 'anEvento', index: 'e.anEvento', width: 5},
+                    {name: 'noEvento', index: 'e.noEvento', width: 100},
+                    {name: 'acao', index: 'Opções', width: 17, align: "center"}
+                ],
+                sortname: 'e.noEvento',
+                caption: 'Resultado da Pesquisa'
+            };
+
+            $('#grid').grid(config);
+            $('.alert-error, .alert-success').fadeIn().delay(5000).fadeOut('slow');
+            $('#limpar').click(function () {
+                window.location.href = window.location.href;
+            });
+        }).ajaxStop(function () {
+                    $('.icon-share-alt').attr('title', 'Vincular modalidade com evento.');
+                    $('.icon-eye-open').attr('title', 'Vizualizar Edital.');
+                });
+    </script>
+{% endblock %}

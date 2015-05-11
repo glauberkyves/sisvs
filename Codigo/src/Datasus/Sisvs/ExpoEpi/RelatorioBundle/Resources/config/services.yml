@@ -1,0 +1,7 @@
+parameters:
+    datasus_sisvs_expoepi_relatorio.relatorio_inscricao.class: Datasus\Sisvs\ExpoEpi\RelatorioBundle\Service\RelatorioInscricaoService
+
+services:
+    datasus_sisvs_expoepi_relatorio.relatorio_inscricao:
+        class: %datasus_sisvs_expoepi_relatorio.relatorio_inscricao.class%
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]

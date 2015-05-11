@@ -1,0 +1,13 @@
+security:
+    validations:
+        default:
+            badCredentials: O endereço de e-mail ou a senha estão incorretos.
+            requiredProfile: É necessário que o usuário possua perfil de acesso ao sistema.
+            notConnect: SCPA Indisponível no momento.
+
+        email:
+            notBlank: Campo E-mail é de preenchimento obrigatório.
+            notValidEmail: E-mail informado inválido.
+
+        password:
+            notBlank: Campo Senha é de preenchimento obrigatório.

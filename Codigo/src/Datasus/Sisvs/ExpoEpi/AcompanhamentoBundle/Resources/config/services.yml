@@ -1,0 +1,7 @@
+parameters:
+    datasus_sisvs_expoepi_acompanhamento.acompanhar_evento_controller.class: Datasus\Sisvs\ExpoEpi\AcompanhamentoBundle\Controller\AcompanharEventoController
+
+services:
+    datasus_sisvs_expoepi_acompanhamento.acompanhar_evento_controller:
+         class: %datasus_sisvs_expoepi_acompanhamento.acompanhar_evento_controller.class%
+         arguments: ["@service_container"]

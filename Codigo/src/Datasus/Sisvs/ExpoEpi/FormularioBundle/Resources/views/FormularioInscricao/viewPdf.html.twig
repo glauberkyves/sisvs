@@ -1,0 +1,550 @@
+{% extends "DatasusSisvsBaseBaseBundle::pdf.html.twig" %}
+{% block header %}
+    {% set header =  modalidade.getCoEvento.getAnEvento | headerPdf %}
+    <div class="span9">
+        <div class="logo">
+            <img src="{{ header['noLogotipo'] }}" class="img-circle " width="120" height="60"/>
+        </div>
+        <div class="titulo_sistema">
+            <h1 style="text-align:left !important;">{{ header['noEvento'] }}<span style="font-weight: normal !important;text-align:left !important;">- MOSTRA NACIONAL DE EXPERIÊNCIAS BEM-SUCEDIDAS EM EPIDEMIOLOGIA,
+            PREVENÇÃO E CONTROLE DE DOENÇAS <br/>MINISTÉRIO DA SAÚDE / SECRETARIA DE VIGILÂNCIA EM SAÚDE</span></h1>
+        </div>
+        <hr class="separetor"/>
+    </div>
+{% endblock %}
+
+{% block body %}
+    {% form_theme form _self %}
+    {% block form_errors %}
+    {% endblock form_errors %}
+
+    <div class="box">
+        {{ form_start(form, {'attr': {'class': 'form-horizontal' }, multipart: true} ) }}
+        {{ form_widget(form._token) }}
+        {{ form_widget(form.coSeqInscricao) }}
+
+        <div class="formulario">
+            <div class="page-header">
+                <fieldset>
+                    <div class="espacamento-bottom20 control-group">
+                        <input type="hidden" name="coSeqModalidade" value="{{ modalidade.getCoSeqModalidade }}"/>
+                        <h4 class="pull-left">{{ modalidade.getCoEvento.getNoEvento }} </h4>
+                        <h4 class="pull-left"> - {{ modalidade.getNoModalidade }} </h4>
+                        <h4 class="pull-left">
+                            {% if(modalidade.getCoTipoModalidade) %}
+                                - {{ modalidade.getCoTipoModalidade.getNoTipoModalidade }}
+                            {% endif %}
+                        </h4>
+                    </div>
+                    <div class="control-group">
+                        <div class="pull-left">
+                            <h3>{{ formulario.getDsTitulo |raw('html') }}</h3>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+
+        <div class="formulario">
+            <fieldset>
+                <legend>Identificação do Autor</legend>
+
+                <div class="control-group">
+                    <label class="control-label">Nome do Autor:</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" maxlength="120" disabled>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">CPF:</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" maxlength="14" disabled>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Passaporte:</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" maxlength="9" disabled>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Sexo:</label>
+
+                    <div class="controls">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">CEP:</label>
+
+                    <div class="controls ">
+                        <input type="text" maxlength="8" disabled>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Endereço residêncial:</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" maxlength="120" disabled>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Complemento:</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" maxlength="10" disabled>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Bairro:</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" maxlength="60" disabled>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Estado:</label>
+
+                    <div class="controls">
+
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Município:</label>
+
+                    <div class="controls">
+
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Região:</label>
+
+                    <div class="controls">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">E-mail 1 (institucional ou pessoal):</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" disabled>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">E-mail 2 (institucional ou pessoal):</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" disabled>
+                    </div>
+                </div>
+
+
+                <div class="control-group">
+                    <label class="control-label">Telefone Particular:</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" disabled>
+                    </div>
+                </div>
+
+
+                <div class="control-group">
+                    <label class="control-label">Telefone celular:</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6" disabled>
+                    </div>
+                </div>
+
+
+                <div class="control-group coAutorCheck">
+                    <label class="control-label">O trabalho tem co-autor?</label>
+
+                    <div class="controls">
+                        -Sim -Não
+                    </div>
+                </div>
+
+                <div class="coAutoria hide">
+                    <div class="control-group">
+                        <label class="control-label"><font color="red"><b>*</b></font>Nome do Co-autor</label>
+
+                        <div class="controls">
+                            <input type="text" id="coAutor"/>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label"><font color="red"><b>*</b></font>Nome da Instituição</label>
+
+                        <div class="controls">
+                            <input type="text" id="noInstituicao"/>
+                            <a type="button" class="btn btn-mini" id="btAdicionar" title="Adicionar">
+                                <i class="icon-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="controls span8 margin-left-20">
+                            <span class="table"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </fieldset>
+        </div>
+        <div class="formulario">
+            <fieldset>
+                <legend>Identificação da Instituição</legend>
+
+                <div class="control-group">
+                    <label class="control-label">Tipo de Instituição</label>
+
+                    <div class="control-group span6">
+                        {% for modalidadeInstituicao in modalidade.getCoModalidadeInstituicao %}
+                            <div class="controls span6">
+                                {{ modalidadeInstituicao.getCoInstituicao.getNoInstituicao }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Nome Completo da Instituição:</label>
+
+                    <div class="controls">
+                        {{ form_widget(form.coInstituicao.vars.form.coSeqInstituicao) }}
+                        {{ form_widget(form.coInstituicao.vars.form.noInstituicao) }}
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label for="cpfUsuario" class="control-label">CEP:</label>
+                    <div class="controls ">
+                        <input type="text">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Endereço:</label>
+                    <div class="controls">
+                        {{ form_widget(form.coInstituicao.vars.form.dsEndereco) }}
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Complemento:</label>
+
+                    <div class="controls">
+                        {{ form_widget(form.coInstituicao.vars.form.dsComplemento) }}
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Bairro / Localidade:</label>
+
+                    <div class="controls">
+                        {{ form_widget(form.coInstituicao.vars.form.noBairro) }}
+                    </div>
+                </div>
+
+                <div class="control-group divEstado">
+                    <label for="DDD" class="control-label">Estado</label>
+
+                    <div class="controls">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label for="DDD" class="control-label">Município</label>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Região:</label>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Telefone:</label>
+
+                    <div class="controls">
+                        {{ form_widget(form.coInstituicao.vars.form.nuTelefone) }}
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Fax:</label>
+
+                    <div class="controls">
+                        {{ form_widget(form.coInstituicao.vars.form.nuFax) }}
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="formulario">
+            <fieldset>
+                <legend>Área(s) da {{ modalidade.getCoEvento.getNoEvento }}</legend>
+                <div class="control-group">
+                    <div class="pull-left" style="text-align: justify;">
+                        {{ formulario.getDsAreaEvento |raw('html') }}
+                    </div>
+                </div>
+                <div class="control-group">
+                    {% for area in modalidade.getCoArea %}
+                        {% if(area.getStAtivo) == "S" %}
+                            <div class="control-group">
+                                <div class="control-group span8" style="margin-bottom: -17px;">
+                                    <label class="span8">{{ area.getNoArea }}:</label>
+                                </div>
+                                <div class="control-group span8">
+                                    {% for tema in area .getCoTema %}
+                                        <ul class="control-list">
+                                            <li>
+                                                {% if( tema.getStAtivo) == "S" %}
+                                                    {% if (tema.getCoTipoClassificacao.getCoSeqTipoClassificacao) == 1 %}
+                                                        {{ tema.getNuTema(true) }}) {{ tema.getNoTema }}
+                                                    {% elseif(tema.getNuTema) %}
+                                                        {% if(loop.index == 1) %}
+                                                            a.{{ tema.getNoTema }}
+                                                        {% endif %}
+                                                        {% if(loop.index == 2) %}
+                                                            b.{{ tema.getNoTema }}
+                                                        {% endif %}
+                                                        {% if(loop.index == 3) %}
+                                                            c.{{ tema.getNoTema }}
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% endif %}
+                                            </li>
+                                        </ul>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </fieldset>
+        </div>
+
+        {% if(modalidade.stPossuiOrientador == 'S') %}
+            <div class="formulario">
+                <fieldset>
+                    <legend>Identificação do Orientador</legend>
+                    <div class="control-group">
+                        <label class="control-label" for="{{ form.noOrientador.vars.id }}">Nome Completo do Orientador:
+                            <font color="red"><b>*</b></font></label>
+
+                        <div class="controls">
+                            {{ form_widget(form.noOrientador) }}
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Nome Completo do Co-Orientador:</label>
+
+                        <div class="controls">
+                            {{ form_widget(form.noCoOrientador) }}
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        {% endif %}
+
+        <div class="formulario">
+            <fieldset>
+                <legend>Resumo Estruturado</legend>
+                <div class="control-group">
+                    <div class="pull-left" style="text-align: justify;">
+                        {{ formulario.getDsResumo |raw('html') }}
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Título do Resumo Estruturado:</label>
+
+                    <div class="controls">
+                        <input type="text" class="span6">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Resumo:</label>
+
+                    <div class="controls">
+                        <textarea class="span6" rows="6"></textarea>
+                    </div>
+                </div>
+
+            </fieldset>
+        </div>
+
+        <div class="formulario">
+            <fieldset>
+                <legend>Apresentação</legend>
+
+                <div class="control-group">
+                    <div class="pull-left">
+                        {{ formulario.dsApresentacao |raw('html') }}
+                    </div>
+                </div>
+
+                {% for  inscricaoApresentacao in form.coInscricaoApresentacao %}
+                    <div class="control-group">
+                        <label class="control-label">{{ inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao }}:</label>
+
+                        <div class="controls">
+                            {{ form_widget(inscricaoApresentacao.coApresentacao) }}
+                            {% if (inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao) == "Título" %}
+                                {{ form_widget(inscricaoApresentacao.dsApresentacao, { 'attr': {'maxlength': 200 } } ) |raw('html') }}
+
+                            {% elseif (inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao) == "Objetivos" %}
+                                {{ form_widget(inscricaoApresentacao.dsApresentacao, { 'attr': {'maxlength': 500 }} ) |raw('html')}}
+
+                            {% elseif (inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao) == "Métodos" %}
+                                {{ form_widget(inscricaoApresentacao.dsApresentacao, { 'attr': {'maxlength': 1500 }} )|raw('html') }}
+
+                            {% elseif (inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao) == "Descrição das técnicas, métodos ou processos de trabalho" %}
+                                {{ form_widget(inscricaoApresentacao.dsApresentacao, { 'attr': {'maxlength': 1500 }} )|raw('html') }}
+
+                            {% elseif (inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao) == "Descrição de como foi desenvolvida" %}
+                                {{ form_widget(inscricaoApresentacao.dsApresentacao, { 'attr': {'maxlength': 1500 }} ) |raw('html')}}
+
+                            {% elseif (inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao) == "Principais Resultados" %}
+                                {{ form_widget(inscricaoApresentacao.dsApresentacao, { 'attr': {'maxlength': 6000 }} )|raw('html') }}
+
+                            {% elseif (inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao) == "Conclusões e/ou recomendações para a Saúde Pública" %}
+                                {{ form_widget(inscricaoApresentacao.dsApresentacao, { 'attr': {'maxlength': 2000 }} ) |raw('html')}}
+
+                            {% elseif (inscricaoApresentacao.vars.value.getCoApresentacao.getNoApresentacao) == "Conclusões" %}
+                                {{ form_widget(inscricaoApresentacao.dsApresentacao, { 'attr': {'maxlength': 2000 }} ) |raw('html')}}
+
+                            {% else %}
+                                {{ form_widget(inscricaoApresentacao.dsApresentacao, { 'attr': {'maxlngth': 3000 }} ) |raw('html')}}
+
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </fieldset>
+        </div>
+        <div class="formulario">
+            <fieldset>
+                <legend>Anexos</legend>
+
+                <div class="control-group">
+                    <div class="pull-left">
+                        {{ formulario.dsAnexos |raw('html') }}
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Upload do Anexo:</label>
+
+                    <div class="controls div-upload">
+                        <input type="file" id="upload" class="input-file span4"
+                               name="">
+                        <a type="button" class="btn btn-mini" id="btAdicionarUpload" title="Adicionar">
+                            <i class="icon-plus"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label"></label>
+
+                    <div class="controls span8 upload margin-left-20">
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="formulario">
+            <fieldset>
+                <legend>Declaração de Veracidade das Informações</legend>
+
+                <div class="control-group">
+                    <div class="pull-left">
+                        {{ formulario.getDsDeclaracao |raw('html') }}
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Declaração:</label>
+
+                    <div class="controls span6">
+                        {{ form_widget(form.stVeracidade) }} Sim, certifico que toda a informação citada é verídica
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Data:</label>
+
+                    <div class="controls">
+                        <input type="text" disabled/>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Nome completo do Autor Principal:</label>
+
+                    <div class="controls">
+                        <input type="text" class="span3" disabled/>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <style type="text/css">
+        blockquote small:before {display: none !important; }
+        .alingLabel {margin-left: 0px;        }
+        .control-group blockquote {
+            margin-left: 4px;
+        }
+        .control-group blockquote p {
+            margin-bottom: 5px;
+            margin-top: 5px;
+        }
+        .box h3{color:#064060!important;display:block!important;font-size:13px!important;margin-bottom:18px!important;margin-top:8px!important}
+        .titulo_sistema h1 {
+            float: none !important;
+            font-size: 12px;
+            line-height: 18px;
+            margin-left: 0;
+            padding-right: 4px;
+        }
+        .controls {
+            color: #666 !important;
+            font-size: 12px;
+            line-height: 17px;
+            padding-left: 0 !important;
+            padding-top: 5px;
+        }
+
+        .box .formulario form ul.control-list li {
+            float: inherit;
+            font-size: 12px;
+            left: 15px;
+            margin-bottom: 5px;
+            position: relative;
+        }
+
+        .box .formulario, .box .tabelaImpri {
+            border-radius: 8px;
+            float: left;
+            font-size: 12px;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+    </style>
+
+{% endblock %}

@@ -1,0 +1,135 @@
+{% form_theme form _self %}
+{% block form_errors %}
+{% endblock form_errors %}
+<div class="box">
+    <strong class="title">
+        {% if form.coSeqTema.vars.value %}
+            Alterar
+        {% else %}
+            Incluir
+        {% endif %}
+        Tema / Categoria
+    </strong>
+
+    <div class="formulario">
+
+        {{ form_start(form) }}
+        {{ form_widget(form._token) }}
+        {{ form_widget(form.coArea) }}
+        {{ form_widget(form.coSeqTema) }}
+
+        <div class="control-group span12">
+            <label clas="control-label">Área:</label>
+
+            <div class="controls">
+                <input type="text" value="{{ entity.getCoArea.getNoArea }}" disabled="disabled" class="span6">
+            </div>
+        </div>
+
+        <div class="control-group span12">
+            <label class="control-label" for="{{ form.coTipoClassificacao.vars.id }}">
+                Classificação: <font color="red"><b>*</b></font>
+            </label>
+
+            <div class="control-group">
+                {{ form_widget(form.coTipoClassificacao) }}
+            </div>
+        </div>
+
+        {% if form.coSeqTema.vars.value %}
+            <div class="control-group span12 codigo hide">
+                <label class="control-label" for="{{ form.noTema.vars.id }}">
+                    Código: <font color="red"><b>*</b></font>
+                </label>
+
+                <div class="control-group codigo">
+                    <input type="text" disabled="disabled" id="codigo" value="{{ codigo }}"/>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="control-group span12 tipo-classificacao grau hide">
+            <label class="control-label" for="{{ form.nuTema.vars.id }}">
+                {{ form.nuTema.vars.label }}
+            </label>
+
+            <div class="control-group">
+                {{ form_widget(form.nuTema) }}
+            </div>
+        </div>
+
+        <div class="control-group span12 grupo hide">
+            <label class="control-label" for="{{ form.noTema.vars.id }}">
+                {{ form.noTema.vars.label }}: <font color="red"><b>*</b></font>
+            </label>
+
+            <div class="controls">
+                {{ form_widget(form.noTema) }}
+            </div>
+        </div>
+
+        <div class="control-group span12 grupo hide">
+            <label class="control-label" for="dsArea">
+                {{ form.dsTema.vars.label }}
+            </label>
+
+            <div class="controls">
+                {{ form_widget(form.dsTema) }}
+                <span class="countdown" style="display: block;">
+					Quantidade de caracteres restantes:
+					<span id="resta"> </span>
+				</span>
+            </div>
+        </div>
+
+        <div class="botao">
+            {{ form_widget(form.submit) }}
+            <button type="reset" class="buttonAzul margim" name="limpar" id="limpar">Limpar</button>
+            <a class="buttonAzul"
+               href="{{ path('datasus_sisvs_expoepi_administrativo_tema') ~ '?coArea=' ~ entity.getCoArea.getCoSeqArea }}">Voltar</a>
+        </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        {% if(
+        entity.getCoArea().getCoTema().last()
+        and entity.getCoArea().getCoTema().last().getCoTipoClassificacao().getCoSeqTipoClassificacao() == 1) %}
+        $('#datasus_sisvs_expoepi_administrativobundle_temaentity_coTipoClassificacao option[value=2]').remove();
+        {% elseif(
+        entity.getCoArea().getCoTema().last()
+        and entity.getCoArea().getCoTema().current().getCoTipoClassificacao().getCoSeqTipoClassificacao() == 2) %}
+        $('#datasus_sisvs_expoepi_administrativobundle_temaentity_coTipoClassificacao option[value=1]').remove();
+        {% endif %}
+        /**
+         *Metodo de contagem dos caracteres do text área
+         */
+        $('#resta').text(500);
+
+        $('#datasus_sisvs_expoepi_administrativobundle_temaentity_dsTema').keyup(function () {
+            var len = this.value.length;
+            if (len >= 500) {
+                this.value = this.value.substring(0, 500);
+            }
+            $('#resta').text(500 - len);
+        });
+        {% if form.coSeqTema.vars.value %}
+            var lenInicial = $('#datasus_sisvs_expoepi_administrativobundle_temaentity_dsTema').val().length;
+            $('#resta').text(500 - lenInicial);
+        {% endif %}
+
+        $('.alert-error').fadeIn().delay(5000).fadeOut('slow');
+
+        $('#limpar').click(function () {
+            window.location.href = window.location.href;
+        });
+
+        $('#datasus_sisvs_expoepi_administrativobundle_temaentity_submit').click(function () {
+            var texto = $('#datasus_sisvs_expoepi_administrativobundle_temaentity_dsTema').val().replace(/(\r\n|\n|\r)/gm, " ");
+            $('#datasus_sisvs_expoepi_administrativobundle_temaentity_dsTema').val(texto);
+        });
+    });
+</script>
+<script type="text/javascript" src="{{ asset('bundles/datasussisvsexpoepiadministrativo/js/tema/form.js') }}"></script>

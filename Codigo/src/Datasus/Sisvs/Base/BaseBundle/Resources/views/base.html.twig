@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}SIEPI{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9" >
+    <link type="text/css" rel="stylesheet" href="{{ asset('bundles/datasussisvsbasebase/css/bootstrap.min.css') }}"/>
+    <link type="text/css" rel="stylesheet"
+          href="{{ asset('bundles/datasussisvsbasebase/css/bootstrap-responsive.min.css') }}"/>
+    <link type="text/css" rel="stylesheet" href="{{ asset('bundles/datasussisvsbasebase/css/menu.css') }}"/>
+    <link type="text/css" rel="stylesheet" href="{{ asset('bundles/datasussisvsbasebase/css/contraste.css') }}"/>
+    <link type="text/css" rel="stylesheet" href="{{ asset('bundles/datasussisvsbasebase/css/template.css') }}"/>
+    <link type="text/css" rel="stylesheet"
+          href="{{ asset('bundles/datasussisvsbasebase/css/ui-lightness/jquery-ui-1.10.3.custom.css') }}"/>
+    <link type="text/css" rel="stylesheet" href="{{ asset('bundles/datasussisvsbasebase/css/ui.jqgrid.css') }}"/>
+    <link type="text/css" rel="stylesheet" href="{{ asset('bundles/datasussisvsbasebase/css/datepicker.css') }}"/>
+    <link type="text/css" rel="stylesheet"
+          href="{{ asset('bundles/datasussisvsbasebase/css/bootstrap-wysihtml5.css') }}"/>
+    <link type="text/css" rel="stylesheet"
+          href="{{ asset('bundles/datasussisvsbasebase/css/selectize.css') }}"/>
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="{{ asset('bundles/datasussisvsbasebase/js/html5shiv.js') }}"></script>
+    <![endif]-->
+
+    <!-- Javascript -->
+    <script type="text/javascript" src="{{ asset('bundles/datasussisvsbasebase/js/jquery.min.js') }}"></script>
+
+    <!-- Fav and touch icons -->
+    <link rel="shortcut icon" href="{{ asset('bundles/datasussisvsbasebase/images/ico/favicon.ico') }}">
+</head>
+
+<body id="content">
+<header>
+    <div id="barra-brasil">
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                    <script src="http://barra.brasil.gov.br/barra.js" type="text/javascript" async="true"></script><noscript>A barra do Governo Federal só poderá ser visualizada se o javascript estiver ativado.</noscript> <!-- fim barra do governo -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="topo_geral">
+        <div class="container">
+            <div class="row">
+                <div class="span7">
+                    <div class="logo">{% block sigla_sistema %}SIEPI{% endblock %}</div>
+                    <div class="titulo_sistema">
+                        <span class="img_separador"></span>
+
+                        <h1>{% block nome_sistema %}Ministério da Saúde{% endblock %}</h1>
+
+                        <h3>{% block descricao_sistema %}Sistema de Informações em Epidemiologia Aplicada à Vigilância em Saúde{% endblock %}</h3>
+                    </div>
+                </div>
+                <div class="span5">
+                    <div class="box_botoes_acessibilidade">
+                        <div id="rvfs-controllers" class="fontsize-controllers group"></div>
+                        <a title="Contraste" href="#" id="lbkContraste" onclick="atribuirContraste()" class="contraste">
+                            <img src="{{ asset('bundles/datasussisvsbasebase/images/lgo/bt_acess_contraste.png') }}"
+                                 width="13" height="13"/>
+                        </a>
+                    </div>
+                    <div id="box_menu_top">
+                        {% block opcoes_usuario %}
+                            <ul>
+                                <li class="contato">
+                                    <a href="#"><span class="icon-question-sign icon-white"></span>Ajuda</a>
+                                </li>
+                                <li class="/">
+                                    <a href="/"><span class="icon-home icon-white"></span>Página inicial</a>
+                                </li>
+                                <li class="sair">
+                                    <a href="/logout"><span class="icon-off icon-white"></span>Sair</a>
+                                </li>
+                            </ul>
+                        {% endblock %}
+                    </div>
+                    <div class="usuario">
+                        {% block detalhe_usuario_logado %}
+                            <p>
+                                <span class="usuarioLogado">{{ app.user.getNome }}</span>,
+                                <span class="perfilUsuario">{{ app.user.getPerfil }}</span> {{ version }}
+                            </p>
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="BoxMenuPrincipal">
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                    {% block menu_sistema %}
+                    {% endblock %}
+                    <div id="box_info_usuario">
+                        <div id="box_info_usuario_tempo">
+                            {% block tempo_sessao %}
+                                <div id="wrapper-clock-count">Sua Sessão expira em: <span id="cronometro"></span></div>
+                            {% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                {% block breadcrumb %}
+                    {{ breadcrumb() }}
+                {% endblock %}
+            </div>
+            <div class="span12">
+                <div class="box message">
+                    {% for label, flashes in app.session.flashbag.all %}
+                        <div class="alert alert-{{ label }}">
+                            {% for flash in flashes %}
+                                {{ flash }} <br/>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="box">
+                    {% block body %}{% endblock %}
+                </div>
+
+                <!-- Modal de Ativação / Inativação -->
+                <div id="modal-toogle-status" class="modal hide fade" role="dialog" data-keyboard="false"
+                     data-backdrop="static">
+                    {% block modal_active_inactive %}
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h3>Confirmação</h3>
+                        </div>
+                        <div class="modal-body">
+                            <h4></h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button aria-hidden="true" class="buttonAzul toogle-status-yes">Sim</button>
+                            <button aria-hidden="true" data-dismiss="modal" class="buttonAzul margim toogle-status-not">
+                                Não
+                            </button>
+                        </div>
+                    {% endblock %}
+                </div>
+                <!-- FIM Modal de Ativação / Inativação -->
+
+                <!-- Modal de Visualização -->
+                <div id="modal-view" class="modal hide fade" role="dialog" data-keyboard="false" data-backdrop="static">
+                    {% block modal_view %}{% endblock %}
+                </div>
+
+                <!-- Modal de Loagind -->
+                <div id="modal-loading" class="modal hide fade" role="dialog" data-keyboard="false"
+                     data-backdrop="static">
+                </div>
+                <!-- FIM Modal de Visualização -->
+            </div>
+        </div>
+    </div>
+</section>
+<footer>
+    <div id="BoxRodapePrincipal">
+        <div class="container">
+            <div class="row">
+                <div class="span6">
+                    <div id="BoxRodape_endereco">
+                        {% block endereco_footer %}
+                            <p>
+                                Secretaria Executiva<br/>
+                                Esplanada dos Ministérios, Bloco &quot;G&quot;, Edifício Sede, 3º andar, sala 305<br/>
+                                Brasília-DF, Cep: 70.058-900
+                            </p>
+                        {% endblock %}
+                    </div>
+                </div>
+                <div class="span6">
+                    <div id="BoxRodape_LogoDatasus">Datasus</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript">
+    var minutos = 50;
+    var seconds = 30;
+    var campo = document.getElementById("cronometro");
+    var campo_div = document.getElementById("wrapper-clock-count");
+
+    function startCountdown() {
+        if (seconds <= 0) {
+            seconds = 60;
+            minutos -= 1
+        }
+        if (minutos <= -1) {
+            seconds = 0;
+            seconds += 1;
+            campo.innerHTML = "";
+            campo_div.innerHTML = "Sessão expirada!"
+            setTimeout("location.href = '/logout';", 2000);
+        } else {
+            seconds -= 1;
+            if (seconds < 10) {
+                seconds = "0" + seconds
+            }
+            campo.innerHTML = " " + minutos + "&nbsp;min&nbsp;" + seconds + "&nbsp;seg";
+            setTimeout("startCountdown()", 1000)
+        }
+    }
+    startCountdown();
+</script>
+
+<!-- Bibliotecas adicionais -->
+<script type="text/javascript" src="{{ asset('bundles/datasussisvsbasebase/js/bootstrap.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/datasussisvsbasebase/js/bootstrap-tab.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/datasussisvsbasebase/js/contraste.js') }}"></script>
+<script type="text/javascript"
+        src="{{ asset('bundles/datasussisvsbasebase/js/rv-jquery-fontsize-2.0.3.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/datasussisvsbasebase/js/functions.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/datasussisvsbasebase/js/i18n/grid.locale-pt-br.js') }}"
+        type="text/javascript"></script>
+<script type="text/javascript" src="{{ asset('bundles/datasussisvsbasebase/js/jquery.jqGrid.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/datasussisvsbasebase/js/bootstrap-datepicker.js') }}"></script>
+<script type="text/javascript"
+        src="{{ asset('bundles/datasussisvsbasebase/js/jquery.jqEasyCharCounter.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/datasussisvsbasebase/js/jquery.meio.mask.js') }}"></script>
+<script type="text/javascript"
+        src="{{ asset('bundles/datasussisvsbasebase/js/locales/bootstrap-datepicker.pt-BR.js') }}"></script>
+<script type="text/javascript"
+        src="{{ asset('bundles/datasussisvsbasebase/js/jquery.validate.js') }}"></script>
+<script type="text/javascript"
+        src="{{ asset('bundles/datasussisvsbasebase/js/ckeditor/ckeditor.js') }}"></script>
+
+<!-- Componentes -->
+<script type="text/javascript" src="{{ asset('bundles/datasussisvsbasebase/js/components/grid.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/datasussisvsbasebase/js/components/utils.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/datasussisvsbasebase/js/components/message.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/datasussisvsbasebase/js/components/validation.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/datasussisvsbasebase/js/components/datepicker.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/datasussisvsbasebase/js/components/table.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/datasussisvsbasebase/js/components/textarea.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/datasussisvsbasebase/js/components/address.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/datasussisvsbasebase/js/components/mask.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/datasussisvsbasebase/js/components/validate.js') }}"></script>
+
+</body>
+</html>

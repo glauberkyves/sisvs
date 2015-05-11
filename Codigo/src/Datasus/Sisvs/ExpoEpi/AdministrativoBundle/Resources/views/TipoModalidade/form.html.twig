@@ -1,0 +1,80 @@
+{% form_theme form _self %}
+{% block form_errors %}
+{% endblock form_errors %}
+<div class="box">
+    <strong class="title">
+        {% if form.coSeqTipoModalidade.vars.value %}
+            Alterar
+        {% else %}
+            Incluir
+        {% endif %}
+        Tipo Modalidade
+    </strong>
+
+    <div class="formulario">
+        {{ form_start(form) }}
+        <div class="control-group span12">
+            <label class="control-label" for="{{ form.noTipoModalidade.vars.id }}">
+                {{ form.noTipoModalidade.vars.label }}: <font color="red"><b>*</b></font>
+            </label>
+
+            <div class="controls">
+                {{ form_widget(form._token) }}
+                {{ form_widget(form.coSeqTipoModalidade) }}
+                {{ form_widget(form.noTipoModalidade) }}
+            </div>
+
+            <label class="control-label" for="noTipoModalidade">
+                {{ form.dsTipoModalidade.vars.label }}
+            </label>
+
+            <div class="controls">
+                {{ form_widget(form.dsTipoModalidade) }}
+                <span class="countdown" style="display: block;">
+					Quantidade de caracteres restantes:
+					<span id="resta"> </span>
+				</span>
+            </div>
+        </div>
+
+        <div class="botao">
+            {{ form_widget(form.submit) }}
+            <button type="reset" class="buttonAzul margim" id="limpar">Limpar</button>
+            <a class="buttonAzul"
+               href="{{ path('datasus_sisvs_expoepi_administrativo_tipo_modalidade') }}">Voltar</a>
+        </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        /**
+         *Metodo de contagem dos caracteres do text área
+         */
+        $('#resta').text(500);
+        $('#datasus_sisvs_expoepi_administrativobundle_tipomodalidadeentity_dsTipoModalidade').keyup(function () {
+            var len = this.value.length;
+            if (len >= 500) {
+                this.value = this.value.substring(0, 500);
+            }
+            $('#resta').text(500 - len);
+        });
+        {% if form.coSeqTipoModalidade.vars.value %}
+        var lenInicial = $('#datasus_sisvs_expoepi_administrativobundle_tipomodalidadeentity_dsTipoModalidade').val().length;
+        $('#resta').text(500 - lenInicial);
+        {% endif %}
+
+
+        $('.alert-error').fadeIn().delay(5000).fadeOut('slow');
+        $('#limpar').click(function () {
+            window.location.href = window.location.href;
+        });
+
+        $('#datasus_sisvs_expoepi_administrativobundle_tipomodalidadeentity_submit').click(function () {
+            var texto = $('#datasus_sisvs_expoepi_administrativobundle_tipomodalidadeentity_dsTipoModalidade').val().replace(/(\r\n|\n|\r)/gm, " ");
+            $('#datasus_sisvs_expoepi_administrativobundle_tipomodalidadeentity_dsTipoModalidade').val(texto);
+        });
+    });
+</script>

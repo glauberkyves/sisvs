@@ -1,0 +1,20 @@
+formulario:
+        validations:
+            default:
+                MoreThanOne: Selecione ao menos um registro.
+                linkedRecord: O registro não pode ser alterado e/ou inativado, pois já existem vinculações efetivadas.
+
+            formulario_inscricao:
+                noBlankCoModalidade: O campo Modalidade é de preenchimento obrigatório.
+                noBlankDtInicio: O campo Data Início é de preenchimento obrigatório.
+                noBlankDsTitulo: O campo Título do Formulário é de preenchimento obrigatório.
+                noBlankDtFim: O campo Data Fim é de preenchimento obrigatório.
+                noBlankDsObjeto: O campo Objeto Descritivo é de preenchimento obrigatório.
+                noBlankDsAreaEvento: O campo Áreas do Evento (seleção da área) é de preenchimento obrigatório.
+                noBlankDsResumo: O campo Resumo Estruturado é de preenchimento obrigatório.
+                noBlankDsApresentacao: O campo Apresentação é de preenchimento obrigatório.
+                noBlankDsDeclaracao: O campo Declaração da Veracidade das Informações é de preenchimento obrigatório.
+                noDateValid: A data final não pode ser menor que a data de início.
+                NotEqualTo: O Título já existe no cadastro.
+                formNotPublished: O formulário de inscrição não pode ser publicado uma vez que o periodo de inscrição expirou.
+                justificativaBlank: O campo Justificativa de preenchimento obrigatório.

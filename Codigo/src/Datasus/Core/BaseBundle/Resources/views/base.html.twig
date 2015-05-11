@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}Datasus Core Base{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link type="text/css" rel="stylesheet" href="{{ asset('bundles/datasuscorebase/css/bootstrap.min.css') }}" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('bundles/datasuscorebase/css/bootstrap-responsive.min.css') }}" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('bundles/datasuscorebase/css/datepicker.css') }}" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('bundles/datasuscorebase/css/menu.css') }}" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('bundles/datasuscorebase/css/contraste.css') }}" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('bundles/datasuscorebase/css/template.css') }}" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('bundles/datasuscorebase/css/content.css') }}" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('bundles/datasuscorebase/css/ui-lightness/jquery-ui-1.10.3.custom.css') }}" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('bundles/datasuscorebase/css/ui.jqgrid.css') }}" />
+    
+    {% block css %}
+    {% endblock %}
+    
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="{{ asset('bundles/datasuscorebase/js/html5shiv.js') }}"></script>
+    <![endif]-->
+    <!-- Fav and touch icons -->
+    <link rel="shortcut icon" href="{{ asset('bundles/datasuscorebase/images/ico/favicon.ico') }}">
+
+    </script>
+    
+    <script type="text/javascript" src="{{ asset('bundles/datasuscorebase/js/jquery-1.10.2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/datasuscorebase/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/datasuscorebase/js/bootstrap-tab.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/datasuscorebase/js/bootstrap-datepicker.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/datasuscorebase/js/contraste.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/datasuscorebase/js/store.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/datasuscorebase/js/rv-jquery-fontsize-2.0.3.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/datasuscorebase/js/angular.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/datasuscorebase/js/functions.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/datasuscorebase/js/jquery-ui-1.10.3.custom.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/datasuscorebase/js/i18n/grid.locale-pt-br.js') }}" type="text/javascript"></script>
+    <script type="text/javascript" src="{{ asset('bundles/datasuscorebase/js/jquery.jqGrid.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/datasuscorebase/js/jquery.maskedinput.min.js') }}"></script>
+    
+    <!-- Inclusão de componente de data -->
+    <script type="text/javascript" src="{{ asset('bundles/datasuscorebase/js/jquery-ui-1.10.3.custom.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/datasuscorebase/js/ui.datepicker-pt-BR.js') }}"></script>
+    
+    <!-- Preparação do ambiente utilizando os plugins e pré-definições de arquitetura -->
+    <script type="text/javascript" src="{{ asset('bundles/datasuscorebase/js/set-environment.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/datasuscorebase/js/inputMasks.js') }}"></script>
+    <!-- Preparação do ambiente utilizando os plugins e pré-definições de arquitetura -->
+    
+    <script type="text/javascript">
+      $(document).ready(function() { 
+          $.rvFontsize({
+              targetSection: '#content',
+              store: true, // store.min.js required!
+              controllers: {
+                  appendTo: '#rvfs-controllers',
+                  showResetButton: true
+              }
+          }); 
+      });
+    </script>
+    {% block javascript_libs %}
+    {% endblock %}
+  </head>
+  <body id="content">
+    <div id="dialog-msg" title="Mensagem do Sistema" style="display: none;"></div>
+    <div class="header">
+      <div id="barra-brasil">
+        <div class="container">
+          <div class="row">
+            <div class="span12">
+              <div class="barra">
+                <ul>
+                    <li><a title="Acesso à informação" class="ai" href="http://www.acessoainformacao.gov.br" target="_parent">www.sic.gov.br</a></li>
+                    <li><a title="Portal de Estado do Brasil" class="brasilgov" href="http://www.brasil.gov.br" target="_parent">www.brasil.gov.br</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="topo_geral">
+        <div class="container">
+          <div class="row">
+            <div class="span6">
+              <div class="logo">{% block sigla_sistema %}BASE{% endblock %}</div>
+              <div class="titulo_sistema">
+                <span class="img_separador"></span>
+                <h1>{% block nome_sistema %}Ministério da Saúde{% endblock %}</h1>
+                <h3>{% block descricao_sistema %}Core Base de Desenvolvimento de Sistemas PHP do Datasus{% endblock %}</h3>
+              </div>
+            </div>
+            <div class="span2 banner_programa"><br />
+            {% block banner_programa %}&nbsp;{% endblock %}
+            </div>
+            <div class="span4">
+              <div class="box_botoes_acessibilidade">
+                <div id="rvfs-controllers" class="fontsize-controllers group"></div>
+                <a title="Contraste" href="#" id="lbkContraste" onclick="atribuirContraste()" class="contraste">
+                  <img src="{{ asset('bundles/datasuscorebase/images/lgo/bt_acess_contraste.png') }}" width="13" height="13"/>
+                </a>
+              </div>
+              <div id="box_menu_top">
+                <ul>
+                  <!--li class="contato">
+                    <a href="#"><span class="icon-question-sign icon-white"></span>Ajuda</a>
+                  </li-->
+                  {% if app.session.get('user_name') %}
+                  <li class="paginainicial">
+                    <a href="{{ asset('') }}"><span class="icon-home icon-white"></span>Página inicial</a>
+                  </li>
+                  <li class="sair">
+                    <a href="{{ path('datasus_core_base_logout') }}"><span class="icon-off icon-white"></span>Sair</a>
+                  </li>
+                  {% endif %}
+                </ul>
+              </div>
+              <div class="usuario">
+                <p>
+                {% if app.session.get('user_name') %}
+                <span class="usuarioLogado">
+                    {{app.session.get('user_name')}}
+                </span>
+                <span class="perfilUsuario">
+                    {{app.session.get('user_role')}}
+                </span>
+                {% endif %}
+                V-1.0.0</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="BoxMenuPrincipal">
+        <div class="container">
+          <div class="row">
+            <div class="span8">
+	            <div class="navbar nav">
+	            	<a data-target=".navbar-responsive-collapse" data-toggle="collapse" class="btn btn-navbar select">
+	                  <span class="icon-bar"></span>
+	                  <span class="icon-bar"></span>
+	                  <span class="icon-bar"></span>
+	                </a>
+	                <div class="nav-collapse navbar-responsive-collapse collapse" style="height: 0px;">
+               		{% block page_menu %}{% if app.session.get('user_name') %}{{ knp_menu_render('DatasusCoreBaseBundle:Builder:menuExemplo', {'nav_type': 'navbar'}) }}{% endif %}{% endblock %}
+	               	</div>
+	               	</div>
+	            </div>
+	            <div class="span4">
+	              <div id="box_info_usuario">
+	                <!-- div id="box_info_usuario_tempo">
+	                {% if app.session.get('user_name') %}
+	                    <div id="wrapper-clock-count" style="floatr">Tempo restante: <span id="cronometro"></span></div>
+	                {% endif %}
+	                </div -->
+	              </div>
+	            </div>
+	          </div>
+	        </dvi>
+	      </div>
+	    </div>
+    </div>
+    <div class="section" style="min-height:498px">
+      <div class="container">
+        <!-- 
+          <div class="span12">
+            <div class="breadcrumb">
+              <ul>
+              <!-- @TODO Adicionar BreadCrumbs -- >
+                <li>
+                  <a href="#">Link</a> >
+                </li>
+                <li>
+                  <span>Ativo</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+         -->
+          <div class="">
+            <div class="box">
+                {% for label, flashes in app.session.flashbag.all %}
+					{% for flash in flashes %}
+						<div class="alert alert-{{ label }}">
+						  {{ flash }}
+						</div>
+					{% endfor %}
+				{% endfor %}
+              {% block body %}{% endblock %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% block footer %}
+    <footer>
+      <div id="BoxRodapePrincipal">
+        <div class="container">
+          <div class="row">
+            <div class="span6">
+              <div id="BoxRodape_endereco">
+              {% block endereco_footer %}
+                <p>
+                Ministério da Saúde<br />
+                Esplanada dos Ministérios - Bloco G <br />
+                Brasília - DF - CEP 70.000-000
+                </p>
+              {% endblock %}
+              </div>
+            </div>
+            <div class="span6">
+              <div id="BoxRodape_LogoDatasus">Datasus</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    {% endblock %}
+    	<script>window.jQuery || document.write('<script src="{{ asset('bundles/datasuscorebase/js/jquery.js') }}"><\/script>')</script>
+    	<script src="{{ asset('bundles/datasuscorebase/js/bootstrap.js') }}"></script>
+    	{% block javascripts %}{% endblock %}
+  </body>
+</html>

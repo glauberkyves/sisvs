@@ -1,0 +1,11 @@
+acompanhamento_default:
+    pattern: /default
+    defaults:
+        _controller: DatasusSisvsExpoEpiAdministrativoBundle:Default:index
+        label: "Módulo Acompanhamento"
+
+acompanhamento_acompanhar_evento:
+    resource: routing-acompanhar-evento.yml
+
+acompanhamento_acompanhar_duplicatas:
+    resource: routing-acompanhar-duplicatas.yml

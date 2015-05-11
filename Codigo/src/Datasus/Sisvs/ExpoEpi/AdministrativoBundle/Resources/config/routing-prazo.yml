@@ -1,0 +1,18 @@
+################## prazo ##################
+datasus_sisvs_expoepi_administrativo_prazo:
+    pattern: /prazo
+    defaults:
+        _controller: DatasusSisvsExpoEpiAdministrativoBundle:Prazo:index
+        label: "Consultar Prazos"
+        parent: "datasus_sisvs_expoepi_administrativo_prazo"
+    
+datasus_sisvs_expoepi_administrativo_prazo_search:
+    pattern: /prazo/search
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:Prazo:search }
+
+datasus_sisvs_expoepi_administrativo_prazo_prorrogar_prazo:
+    pattern: /prazo/prorrogar-prazo
+    defaults:
+        _controller: DatasusSisvsExpoEpiAdministrativoBundle:Prazo:edit
+        label: "Prorrogar Prazos"
+        parent: "datasus_sisvs_expoepi_administrativo_prazo"

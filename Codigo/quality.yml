@@ -1,0 +1,9 @@
+- name: Realizando analise de código
+  vars:
+    projectKey: "{{lookup('env','GO_PIPELINE_NAME')}}"
+    projectVersion: "{{lookup('env','GO_PIPELINE_COUNTER')}}"
+  hosts: localhost
+  sudo: no
+  tasks:
+  - name: Executando sonar
+    command: "/ugcs/sonarqube/sonar-runner/bin/sonar-runner -Dsonar.projectKey={{projectKey}} -Dsonar.projectName={{projectKey}} -Dsonar.projectVersion={{projectVersion}} -Dsonar.modules=module1,module2 -Dsonar.sourceEncoding=UTF-8 -Dmodule1.sonar.projectName=JavaScript -Dmodule1.sonar.projectBaseDir=. -Dmodule1.sonar.sources=web/bundles/datasuscorebase,web/bundles/datasussisvsbasebase,web/bundles/datasussisvsexpoepiacompanhamento,web/bundles/datasussisvsexpoepiadministrativo,web/bundles/datasussisvsexpoepiautor,web/bundles/datasussisvsexpoepiemail,web/bundles/datasussisvsexpoepiformulario,web/bundles/datasussisvsexpoepirelatorio -Dmodule1.sonar.language=js -Dmodule2.sonar.projectName=PHP -Dmodule2.sonar.projectBaseDir=. -Dmodule2.sonar.sources=src,app -Dmodule2.sonar.language=php"

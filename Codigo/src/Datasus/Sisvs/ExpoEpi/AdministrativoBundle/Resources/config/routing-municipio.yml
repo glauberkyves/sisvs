@@ -1,0 +1,15 @@
+administrativo_endereco_search_cep:
+    pattern: /endereco/search-cep
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:Default:searchCep }
+
+administrativo_endereco_combo_estado:
+    pattern: /endereco/combo-estado
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:Default:comboEstado }
+
+administrativo_endereco_combo_municipio:
+    pattern: /endereco/combo-municipio
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:Default:comboMunicipio }
+
+administrativo_endereco_combo_regiao_estado:
+    pattern: /endereco/combo-estado-regiao
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:Default:comboRegiaoEstado }

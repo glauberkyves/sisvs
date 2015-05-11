@@ -1,0 +1,116 @@
+{% extends "DatasusSisvsBaseBaseBundle::pdf.html.twig" %}
+
+        {% block body %}
+            {% if(grafico) %}
+                <div class="formulario">
+                    <fieldset>
+                        <div class="control-group span9">
+                            <label class="control-label">Gráfico:</label>
+
+                            <div class="controls">
+                                <span class="input-xlarge">{{ app.request.get('titulo') }}</span>
+                            </div>
+                        </div>
+
+                        {% if(app.request.get('evento')) %}
+                            <div class="control-group span9">
+                                <label class="control-label">Evento:</label>
+
+                                <div class="controls">
+                                    <span class="input-xlarge">{{ app.request.get('evento') }}</span>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <div class="control-group span9">
+                            <label class="control-label">Número de Inscrições:</label>
+
+                            <div class="controls">
+                                <span class="input-xlarge">{{ app.request.get('total') }}</span>
+                            </div>
+                        </div>
+
+                        <div class="control-group span9">
+                            <img src="{{ pathImg }}" class="img-circle " width="800"/>
+                        </div>
+                    </fieldset>
+                </div>
+
+            {% else %}
+                <div class="formulario">
+                    <fieldset>
+                        <legend>Relatório de Inscrição</legend>
+                        <div class="control-group span9">
+                            <table class="table table-bordered table-striped span9">
+                                <thead>
+                                <tr>
+                                    <th>Evento</th>
+                                    <th>Ano</th>
+                                    <th>Modalidade</th>
+                                    {% for column, value in columns %}
+                                        {% if(column == 'coSeqArea' and value) %}
+                                            <th>Área</th>
+                                        {% elseif(column == 'coSeqTema' and value) %}
+                                            <th>Tema / Categoria</th>
+                                        {% elseif(column == 'coRegiao' and value) %}
+                                            <th>Região</th>
+                                        {% elseif(column == 'coUfIbge' and value) %}
+                                            <th>Estado</th>
+                                        {% elseif(column == 'coMunicipioIbge' and value) %}
+                                            <th>Município</th>
+                                        {% elseif(column == 'coSexo' and value) %}
+                                            <th>Sexo</th>
+                                        {% elseif(column == 'coSituacao' and value) %}
+                                            <th>Situação</th>
+                                        {% elseif(column == 'inInstituicao' and value) %}
+                                            <th>Instituição</th>
+                                        {% elseif(column == 'coSeqInstituicao' and value) %}
+                                            <th>Tipo de Instituição</th>
+                                        {% elseif(column == 'InInforDuplicadas' and value) %}
+                                            <th>Duplicadatas</th>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <th>Quantidade</th>
+                                    <th>Percentual</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for result in data %}
+                                    <tr>
+                                        <td>{{ result.cell.noEvento }}</td>
+                                        <td>{{ result.cell.anEvento }}</td>
+                                        <td>{{ result.cell.noModalidade }}</td>
+                                        {% for column, value in columns %}
+                                            {% if(column == 'coSeqArea' and value) %}
+                                                <td>{{ result.cell.noArea }}</td>
+                                            {% elseif(column == 'coSeqTema' and value) %}
+                                                <td>{{ result.cell.noTema }}</td>
+                                            {% elseif(column == 'coRegiao' and value) %}
+                                                <td>{{ result.cell.noRegiao }}</td>
+                                            {% elseif(column == 'coUfIbge' and value) %}
+                                                <td>{{ result.cell.noUf }}</td>
+                                            {% elseif(column == 'coMunicipioIbge' and value) %}
+                                                <td>{{ result.cell.noMunicipio }}</td>
+                                            {% elseif(column == 'coSexo' and value) %}
+                                                <td>{{ result.cell.coSexo  == 'M' ? 'Masculino' : 'Feminino' }}</td>
+                                            {% elseif(column == 'coSituacao' and value) %}
+                                                <td>{{ result.cell.dsSituacao }}</td>
+                                            {% elseif(column == 'inInstituicao' and value) %}
+                                                <td>{{ result.cell.noInstituicao }}</td>
+                                            {% elseif(column == 'coSeqInstituicao' and value) %}
+                                                <td>{{ result.cell.noTipoInstituicao }}</td>
+                                            {% elseif(column == 'InInforDuplicadas' and value) %}
+                                                <td>{{ result.cell.duplicata }}</td>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <td>{{ result.cell.quantidade }}</td>
+                                        <td>{{ result.cell.porcentagem }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </fieldset>
+                </div>
+            {% endif %}
+        {% endblock %}

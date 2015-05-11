@@ -1,0 +1,13 @@
+parameters:
+    datasus_sisvs_expoepi_formulario.formulario_inscricao.class: Datasus\Sisvs\ExpoEpi\FormularioBundle\Service\FormularioInscricaoService
+    datasus_sisvs_expoepi_formulario.situacao_formulario.class: Datasus\Sisvs\ExpoEpi\FormularioBundle\Service\SituacaoFormularioService
+
+services:
+
+    datasus_sisvs_expoepi_formulario.formulario_inscricao:
+        class: %datasus_sisvs_expoepi_formulario.formulario_inscricao.class%
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+
+    datasus_sisvs_expoepi_formulario.situacao_formulario:
+        class: %datasus_sisvs_expoepi_formulario.situacao_formulario.class%
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]

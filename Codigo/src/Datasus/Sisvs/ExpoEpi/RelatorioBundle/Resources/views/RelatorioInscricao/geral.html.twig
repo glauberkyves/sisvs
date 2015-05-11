@@ -1,0 +1,499 @@
+{% extends "DatasusSisvsExpoEpiFormularioBundle::base.html.twig" %}
+
+{% block body %}
+    <strong class="title">
+        Relatório Geral
+    </strong>
+
+    <div class="formulario">
+        <fieldset>
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>Evento</th>
+                    <th class="span2">Ano</th>
+                    <th class="span2">Quantidade de Inscrições</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for evento in arrEvento %}
+                    {% if(evento.total) %}
+                        <tr>
+                            <td>
+                                {{ evento.title }}
+                            </td>
+                            <td>
+                                <b>
+                                    {{ evento.anEvento }}
+                                </b>
+                            </td>
+                            <td>
+                                <b>
+                                    {{ evento.total }}
+                                </b>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+
+    <strong class="title">
+        <h5>Modalidades</h5>
+    </strong>
+    <div class="formulario">
+        <fieldset>
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th colspan="2"></th>
+                    <th class="span2">Quantidade de Inscrições</th>
+                    <th class="span1">Percentual</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for modalidade in arrModalidade %}
+                    {% if(modalidade.total) %}
+                        <tr>
+                            <td colspan="2">
+                                {{ modalidade.title }}
+                            </td>
+                            <td>
+                                <b>
+                                    {{ modalidade.total }}
+                                </b>
+                            </td>
+                            <td>
+                                <b>
+                                    {% set procentagem = (modalidade.total / total) * 100 %}
+                                    {{ procentagem | slice(0,5) }}%
+                                </b>
+                            </td>
+                        </tr>
+
+                        {% for area in arrArea[modalidade.coSeqModalidade]  %}
+                            {% if(area.total) %}
+                                <tr>
+                                    <td colspan="4">
+                                        <h5 class="span6">Área</h5>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <span class="span6">{{ area.title }}</span>
+                                    </td>
+                                    <td>
+                                        <b>
+                                            {{ area.total }}
+                                        </b>
+                                    </td>
+                                    <td>
+                                        <b>
+                                            {% set procentagem = (area.total / total) * 100 %}
+                                            {{ procentagem | slice(0,5) }}%
+                                        </b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <h5 class="span">Tema / Categoria</h5>
+                                    </td>
+                                </tr>
+                                {% for tema in arrTema[area.coSeqArea] %}
+                                    {% if(tema.total) %}
+                                        <tr>
+                                            <td colspan="2">
+                                                <span class="span">{{ tema.title }}</span>
+                                            </td>
+                                            <td>
+                                                <b>
+                                                    {{ tema.total }}
+                                                </b>
+                                            </td>
+                                            <td>
+                                                <b>
+                                                    {% set procentagem = (tema.total / total) * 100 %}
+                                                    {{ procentagem | slice(0,5) }}%
+                                                </b>
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                        <tr>
+                            <td colspan="4">
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <h5 class="span6">Situação</h5>
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th colspan="2"></th>
+                    <th class="span2">Quantidade de Inscrições</th>
+                    <th class="span1">Percentual</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for situacao in arrSituacao %}
+                    {% if(situacao.total) %}
+                        <tr>
+                            <td colspan="2">
+                                {% if(situacao.coSituacao == 3) %}
+                                    <span class="span6">Inscrição Duplicadas</span>
+                                {% else %}
+                                    <span class="span6">{{ situacao.title }}</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <b>
+                                    {{ situacao.total }}
+                                </b>
+                            </td>
+                            <td>
+                                <b>
+                                    {% set procentagem = (situacao.total / total) * 100 %}
+                                    {{ procentagem | slice(0,5) }}%
+                                </b>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+
+            {% if(arrDuplicadas is defined) %}
+                <h5 class="span6">Possíveis Duplicadas</h5>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th colspan="2"></th>
+                        <th class="span2">Quantidade de Inscrições</th>
+                        <th class="span1">Percentual</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for duplicada in arrDuplicadas %}
+                        {% if(duplicada.total) %}
+                            <tr>
+                                <td colspan="2">
+                                    <span class="span6">Quantidade de Possíveis Inscrições Duplicadas</span>
+                                </td>
+                                <td>
+                                    <b>
+                                        {{ duplicada.total }}
+                                    </b>
+                                </td>
+                                <td>
+                                    <b>
+                                        {% set procentagem = (duplicada.total / total) * 100 %}
+                                        {{ procentagem | slice(0,5) }}%
+                                    </b>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </fieldset>
+    </div>
+
+    <strong class="title">
+        <h5>Dados da Instituição</h5>
+    </strong>
+
+    <div class="formulario">
+        <fieldset>
+            <h5 class="span6">Estado</h5>
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th colspan="2"></th>
+                    <th class="span2">Quantidade de Inscrições</th>
+                    <th class="span1">Percentual</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for estado in estadoInstituicao %}
+                    {% if(estado.total) %}
+                        <tr>
+                            <td colspan="2">
+                                <span class="span6">{{ estado.title }}</span>
+                            </td>
+                            <td>
+                                <b>
+                                    {{ estado.total }}
+                                </b>
+                            </td>
+                            <td>
+                                <b>
+                                    {% set procentagem = (estado.total / total) * 100 %}
+                                    {{ procentagem | slice(0,5) }}%
+                                </b>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <h5 class="span6">Município</h5>
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th colspan="2"></th>
+                    <th class="span2">Quantidade de Inscrições</th>
+                    <th class="span1">Percentual</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for municipio in municipioInstituicao %}
+                    {% if(municipio.total) %}
+                        <tr>
+                            <td colspan="2">
+                                <span class="span6">{{ municipio.title }}</span>
+                            </td>
+                            <td>
+                                <b>
+                                    {{ municipio.total }}
+                                </b>
+                            </td>
+                            <td>
+                                <b>
+                                    {% set procentagem = (municipio.total / total) * 100 %}
+                                    {{ procentagem | slice(0,5) }}%
+                                </b>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <h5 class="span6">Região</h5>
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th colspan="2"></th>
+                    <th class="span2">Quantidade de Inscrições</th>
+                    <th class="span1">Percentual</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for regiao in regiaoInstituicao %}
+                    {% if(regiao.total) %}
+                        <tr>
+                            <td colspan="2">
+                                <span class="span6">{{ regiao.title }}</span>
+                            </td>
+                            <td>
+                                <b>
+                                    {{ regiao.total }}
+                                </b>
+                            </td>
+                            <td>
+                                <b>
+                                    {% set procentagem = (regiao.total / total) * 100 %}
+                                    {{ procentagem | slice(0,5) }}%
+                                </b>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <h5 class="span6">Tipo Instituição</h5>
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th colspan="2"></th>
+                    <th class="span2">Quantidade de Inscrições</th>
+                    <th class="span1">Percentual</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for tipoInstituicao in tipoInstituicao %}
+                    {% if(tipoInstituicao.total) %}
+                        <tr>
+                            <td colspan="2">
+                                <span class="span6">{{ tipoInstituicao.title }}</span>
+                            </td>
+                            <td>
+                                <b>
+                                    {{ tipoInstituicao.total }}
+                                </b>
+                            </td>
+                            <td>
+                                <b>
+                                    {% set procentagem = (tipoInstituicao.total / total) * 100 %}
+                                    {{ procentagem | slice(0,5) }}%
+                                </b>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+
+    <strong class="title">
+        <h5>Dados do Autor</h5>
+    </strong>
+
+    <div class="formulario">
+        <fieldset>
+            <h5 class="span6">Sexo</h5>
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th colspan="2"></th>
+                    <th class="span2">Quantidade de Inscrições</th>
+                    <th class="span1">Percentual</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for sexo in arrSexo %}
+                    {% if(sexo.total) %}
+                        <tr>
+                            <td colspan="2">
+                                <span class="span6">{{ sexo.title }}</span>
+                            </td>
+                            <td>
+                                <b>
+                                    {{ sexo.total }}
+                                </b>
+                            </td>
+                            <td>
+                                <b>
+                                    {% set procentagem = (sexo.total / total) * 100 %}
+                                    {{ procentagem | slice(0,5) }}%
+                                </b>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <h5 class="span6">Estado</h5>
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th colspan="2"></th>
+                    <th class="span2">Quantidade de Inscrições</th>
+                    <th class="span1">Percentual</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for estado in estadoUsuario %}
+                    {% if(estado.total) %}
+                        <tr>
+                            <td colspan="2">
+                                <span class="span6">{{ estado.title }}</span>
+                            </td>
+                            <td>
+                                <b>
+                                    {{ estado.total }}
+                                </b>
+                            </td>
+                            <td>
+                                <b>
+                                    {% set procentagem = (estado.total / total) * 100 %}
+                                    {{ procentagem | slice(0,5) }}%
+                                </b>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <h5 class="span6">Município</h5>
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th colspan="2"><h5 class="span6"></h5></th>
+                    <th class="span2">Quantidade de Inscrições</th>
+                    <th class="span1">Percentual</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for municipio in municipioUsuario %}
+                    {% if(municipio.total) %}
+                        <tr>
+                            <td colspan="2">
+                                <span class="span6">{{ municipio.title }}</span>
+                            </td>
+                            <td>
+                                <b>
+                                    {{ municipio.total }}
+                                </b>
+                            </td>
+                            <td>
+                                <b>
+                                    {% set procentagem = (municipio.total / total) * 100 %}
+                                    {{ procentagem | slice(0,5) }}%
+                                </b>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <h5 class="span6">Região</h5>
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th colspan="2"><h5 class="span6"></h5></th>
+                    <th class="span2">Quantidade de Inscrições</th>
+                    <th class="span1">Percentual</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for regiao in regiaoUsuario %}
+                    {% if(regiao.total) %}
+                        <tr>
+                        <td colspan="2">
+                            <span class="span6">{{ regiao.title }}</span>
+                        </td>
+                        <td>
+                            <b>
+                                {{ regiao.total }}
+                            </b>
+                        </td>
+                        <td>
+                            <b>
+                                {% set procentagem = (regiao.total / total) * 100 %}
+                                {{ procentagem | slice(0,5) }}%
+                            </b>
+                        </td>
+                        </tr>{% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+    <div class="formulario">
+        <div class="botao">
+            <a class="buttonAzul margim gerarExcel"
+               href="javascript: window.location = '/relatorio/relatorio-inscricao/geral-pdf' + window.location.search;">Gerar
+                PDF</a>
+            <a class="buttonAzul margim gerarExcel"
+               href="javascript: window.location = '/relatorio/relatorio-inscricao/geral-excel' + window.location.search">Gerar
+                Excel</a>
+            <a class="buttonAzul margim gerarExcel"
+               href="{{ path('datasus_sisvs_expoepi_relatorio_relatorio_inscricao') }}">Voltar</a>
+        </div>
+    </div>
+{% endblock %}

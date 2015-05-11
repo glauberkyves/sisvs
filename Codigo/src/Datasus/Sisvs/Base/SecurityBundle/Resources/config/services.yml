@@ -1,0 +1,22 @@
+parameters:
+    datasus_sisvs_base_webservice_scpa.class: Datasus\Sisvs\Base\SecurityBundle\Security\User\UserSCPAProvider
+    datasus_sisvs_base_service_scpa.class: Datasus\Sisvs\Base\SecurityBundle\Service\UserSCPAService
+    datasus_sisvs_base_security_success_handler.class: Datasus\Sisvs\Base\SecurityBundle\Security\Http\Authentication\AuthenticationSuccessHandler
+    datasus_sisvs_base_security_access_denied_handler.class: Datasus\Sisvs\Base\SecurityBundle\Security\Http\Authentication\AccessDeniedHandler
+
+services:
+    datasus_sisvs_base_webservice_scpa:
+        class: "%datasus_sisvs_base_webservice_scpa.class%"
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+
+    datasus_sisvs_base_service_scpa:
+        class: "%datasus_sisvs_base_service_scpa.class%"
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+
+    datasus_sisvs_base_security_success_handler:
+        class: "%datasus_sisvs_base_security_success_handler.class%"
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+
+    datasus_sisvs_base_security_access_denied_handler:
+        class: "%datasus_sisvs_base_security_access_denied_handler.class%"
+        arguments: ["@doctrine.orm.entity_manager", "@service_container"]

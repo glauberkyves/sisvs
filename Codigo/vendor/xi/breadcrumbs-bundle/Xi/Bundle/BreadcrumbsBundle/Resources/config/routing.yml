@@ -1,0 +1,18 @@
+hello:
+    pattern:  /hello/{name}
+    defaults:
+        _controller: XiBreadcrumbsBundle:Default:index
+        label: "hello {name}"
+        name: "stranger"
+
+doing:
+    pattern:  /hello/{name}/do/{thing}
+    defaults:
+        _controller: XiBreadcrumbsBundle:Default:index
+        parent: "hello"
+        label: "doing {thing}"
+        name: "stranger"
+        thing: "that"
+    requirements:
+        name: "\w+"
+        thing: "\w+"

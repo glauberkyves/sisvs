@@ -1,0 +1,80 @@
+{% extends "DatasusSisvsExpoEpiAdministrativoBundle::base.html.twig" %}
+
+{% block body %}
+    <div class="box">
+        <strong class="title">
+            Consultar Modalidade
+        </strong>
+
+        <div class="formulario">
+            <form id="form-modalidade">
+                <div class="control-group span4">
+                    <label class="control-label" for="{{ form.noModalidade.vars.name }}">
+                        {{ form.noModalidade.vars.label }}
+                    </label>
+
+                    <div class="controls">
+                        <input type="text" maxlength="60" placeholder="" class="span4" name="noModalidade"
+                               id="noModalidade"/>
+                        <input type="hidden" name="{{ form.coEvento.vars.name }}" class="span3"
+                               value="{{ form.coEvento.vars.value }}" id="coEvento"/>
+                    </div>
+                </div>
+                <div class=" control-group span6">
+                    <label class="control-label" for="{{ form.stAtivo.vars.name }}">Situação</label>
+
+                    <div class="controls">
+                        <select class="span4" name="stAtivo" id="stAtivo">
+                            <option selected="selected" value="">Selecione...</option>
+                            <option value="S">Ativo</option>
+                            <option value="N">Inativo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="botao">
+                    <button class="buttonAzul margim"  id="pesquisar">Pesquisar</button>
+                    <button type="reset" class="buttonAzul margim" id="limpar">Limpar</button>
+                    <a class="buttonAzul margim"
+                       href="{{ path('datasus_sisvs_expoepi_administrativo_modalidade_create') ~ '?coEvento=' ~ entity.getCoEvento.getCoSeqEvento }}">
+                        Incluir Modalidade
+                    </a>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="formulario box-tabela">
+            <div class="box" style="width:97% !important;padding:15px !important">
+                <table id="grid"></table>
+                <div id="pager"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            var config = {
+                url: '{{ path('datasus_sisvs_expoepi_administrativo_modalidade_search') }}',
+                buttonSearch: $('#pesquisar'),
+                form: $('#form-modalidade'),
+                colNames: ['Modalidade', 'Ação'],
+                postData: {data: 'stAtivo=S&coEvento=' + {{ entity.getCoEvento.getCoSeqEvento }}},
+                colModel: [
+                    {name: 'noModalidade', index: 'm.noModalidade'},
+                    {name: 'acao', index: 'Oções', width: 20}
+                ],
+                sortname: 'm.noModalidade',
+                caption: 'Resultado da Pesquisa'
+            };
+
+            $('#grid').grid(config);
+            $('.alert-error, .alert-success').fadeIn().delay(5000).fadeOut('slow');
+
+            $('#limpar').click(function () {
+                window.location.href = window.location.href;
+            });
+        }).ajaxStop(function () {
+                    $('.icon-share-alt').attr('title', ' ');
+                    $('.icon-eye-open').attr('title', ' ');
+                });
+    </script>
+{% endblock %}

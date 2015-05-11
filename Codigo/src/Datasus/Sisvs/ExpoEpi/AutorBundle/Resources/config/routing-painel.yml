@@ -1,0 +1,39 @@
+autor_painel:
+    pattern: /painel
+    defaults:
+        _controller: DatasusSisvsExpoEpiAutorBundle:Painel:index
+        label: "Informações da Inscrição"
+        parent: "autor_default"
+
+autor_painel_acessar:
+    pattern: /painel/acessar
+    defaults:
+        _controller: DatasusSisvsExpoEpiAutorBundle:Painel:acessar
+        label: "Informações da Inscrição"
+        parent: "autor_default"
+
+autor_painel_search:
+    pattern: /painel/search
+    defaults: { _controller: DatasusSisvsExpoEpiAutorBundle:Painel:search}
+
+autor_painel_send:
+    pattern: /painel/send
+    defaults: { _controller: DatasusSisvsExpoEpiAutorBundle:Painel:send}
+
+autor_painel_view_pdf:
+    pattern: /painel/view-pdf
+    defaults: { _controller: DatasusSisvsExpoEpiAutorBundle:Painel:viewPdf }
+
+autor_painel_create:
+    pattern: /painel/create
+    defaults:
+        _controller: DatasusSisvsExpoEpiAutorBundle:Painel:create
+        label: "Cadastrar Inscrição"
+        parent: "autor_default"
+
+autor_painel_edit:
+    pattern: /painel/edit
+    defaults:
+        _controller: DatasusSisvsExpoEpiAutorBundle:Painel:edit
+        label: "Alterar Inscrição"
+        parent: "autor_default"

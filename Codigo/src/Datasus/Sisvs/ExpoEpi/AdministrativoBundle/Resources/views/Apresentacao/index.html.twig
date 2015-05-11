@@ -1,0 +1,69 @@
+{% extends "DatasusSisvsExpoEpiAdministrativoBundle::base.html.twig" %}
+
+{% block body %}
+    <div class="box">
+        <strong class="title">Consultar Apresentação</strong>
+
+        <div class="formulario">
+            <form id="form-apresentacao">
+                <div class="control-group span4">
+                    <label class="control-label" for="noApresentacao">Apresentação:</label>
+
+                    <div class="controls">
+                        <input id="noApresentacao" type="text" name="noApresentacao" class="span4" maxlength="">
+                    </div>
+                </div>
+                <div class="control-group span6">
+                    <label class="control-label" for="noApresentacao">Situação:</label>
+
+                    <div class="controls">
+                        <select class="span4" id="stAtivo" name="stAtivo">
+                            <option value="">Selecione uma opção</option>
+                            <option value="S">Ativo</option>
+                            <option value="N">Inativo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="botao">
+                    <button class="buttonAzul margim" id="pesquisar">Pesquisar</button>
+                    <button type="reset" class="buttonAzul margim" id="limpar">Limpar</button>
+                    <a class="buttonAzul margim" href="{{ path('datasus_sisvs_expoepi_administrativo_apresentacao_create') }}">Incluir
+                        Apresentação</a>
+                </div>
+            </form>
+        </div>
+    <div class="formulario grid">
+        <div class="formulario box-tabela">
+            <div class="box" style="width:97% !important;padding:15px !important">
+                <table id="grid"></table>
+                <div id="pager"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        $(document).ready(function () {
+            var config = {
+                url: '{{ path('datasus_sisvs_expoepi_administrativo_apresentacao_search') }}',
+                buttonSearch: $('#pesquisar'),
+                form: $('#form-apresentacao'),
+                colNames: ['Apresentação', 'Opções'],
+                postData: {data: 'stAtivo=S'},
+                colModel: [
+                    {name: 'noApresentacao', index: 'e.noApresentacao', width: 100},
+                    {name: 'acao', index: 'Acao', width: 10, align: "center"}
+                ],
+                sortname: 'e.noApresentacao',
+                caption: 'Resultado da Pesquisa'
+            };
+
+            $('#grid').grid(config);
+            $('.alert-error, .alert-success').fadeIn().delay(5000).fadeOut('slow');
+
+            $('#limpar').click(function () {
+                window.location.href = window.location.href;
+            });
+        });
+    </script>
+{% endblock %}

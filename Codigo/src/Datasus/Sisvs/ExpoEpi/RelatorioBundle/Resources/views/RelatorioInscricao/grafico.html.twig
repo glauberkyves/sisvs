@@ -1,0 +1,284 @@
+{% extends "DatasusSisvsExpoEpiFormularioBundle::base.html.twig" %}
+
+{% block body %}
+    <div class="box">
+        <strong class="title">Gerar Gráfico</strong>
+
+        <div class="formulario">
+            <form id="form-formulario-inscricao" method="post"
+                  action="{{ path('datasus_sisvs_expoepi_relatorio_relatorio_inscricao_grafico') }}">
+
+                <div class="control-group span8">
+                    <div class="controls">
+                        <label class="radio-inline">
+                            <input type="radio" name="query" id="optionsRadios1" value="inscricoes-por-evento">
+                            Número de Inscrições para todos os eventos cadastrados
+                        </label>
+                    </div>
+                </div>
+                <div class="control-group span8" id="hideEvento">
+                    <label class="control-label" for="coEvento">Evento:</label>
+
+                    <div class="controls">
+                        <select class="span3 required" id="coEvento" name="coEvento">
+                            <option value="">Selecione uma opção</option>
+                            {% for evento in cmbEvento %}
+                                <option value="{{ evento.getCoSeqEvento }}">
+                                    {{ evento.getNoEvento }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group span4 opcoes">
+                    <div class="controls">
+                        <label class="radio-inline">
+                            <input type="radio" name="query" id="optionsRadios1" value="inscricoes-por-modalidade">
+                            Número de Inscrições por modalidade
+                        </label>
+
+                        <label class="radio-inline">
+                            <input type="radio" name="query" id="optionsRadios1" value="inscricoes-por-area">
+                            Número de Inscrições por área
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="query" id="optionsRadios2" value="inscricoes-por-tema">
+                            Número de Inscrições por tema/categoria
+                        </label>
+
+                        <label class="radio-inline">
+                            <input type="radio" name="query" id="optionsRadios2" value="inscricoes-por-estado">
+                            Número de Inscrições por estado
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="query" id="optionsRadios2" value="inscricoes-por-regiao">
+                            Número de Inscrições por região
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="query" id="optionsRadios2" value="inscricoes-por-sexo">
+                            Número de Inscrições por sexo
+                        </label>
+                        <label class="radio-inline">
+                        <input type="radio" {{ app.request.get('query') == 'inscricoes-por-duplicata' ? ' checked="checked" ' : '' }}
+                        name="query" id="optionsRadios2" value="inscricoes-por-duplicata">
+                        Número de possíveis inscrições duplicadas
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="query" id="optionsRadios2" value="inscricoes-por-situacao">
+                            Número de Inscrições por situação
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="query" id="optionsRadios2" value="inscricoes-por-tipo-instituicao">
+                            Número de Inscrições por tipo de instituição
+                        </label>
+                    </div>
+                </div>
+
+                <div class="control-group span12">
+                    <label class="control-label"></label>
+
+                    <div class="span2">
+                        <label class="radio-inline">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="control-group span12 tpGrafico">
+                    <label class="control-label">Selecione o tipo de gráfico que deseja gerar: </label>
+
+                    <div class="span2">
+                        <label class="radio-inline">
+                            <input type="radio" name="tipoGrafico" id="optionsRadios2" value="column"> <span
+                                    class="colunasGrafico"></span>
+                            Gráfico em Colunas
+                        </label>
+
+                        <label class="radio-inline">
+                            <input type="radio" name="tipoGrafico" id="optionsRadios2" value="pie">
+                            <span class="pizzaGrafico"></span>
+                            Gráfico em Pizza
+                        </label>
+
+                        <label class="radio-inline">
+                            <input type="radio" name="tipoGrafico" id="optionsRadios2" value="bar"> <span
+                                    class="barraGrafico"></span>
+                            Gráfico em Barras
+                        </label>
+                    </div>
+                </div>
+
+                <div class="botao">
+                    <button class="buttonAzul margim" type="submit" id="gerarGrafico">Gerar Gráfico</button>
+                </div>
+            </form>
+        </div>
+
+        {% if(status) %}
+            <div class="formulario">
+                <form id="form-grafico"
+                      action="" method="post">
+
+                    <div class="control-group span12">
+                        <h5 class="pull-left">Gráfico: {{ title }}</h5>
+                    </div>
+
+                    {% if(app.request.get('query') != 'inscricoes-por-evento') %}
+                        <div class="control-group span12">
+                            <h5 class="pull-left">Evento:
+                                {% for evento in cmbEvento %}
+                                    {% if(app.request.get('coEvento') == evento.getCoSeqEvento) %}
+                                        {{ evento.getNoEvento }}
+                                    {% endif %}
+                                {% endfor %}
+                            </h5>
+                        </div>
+                    {% endif %}
+
+                    <div class="control-group span12">
+                        <h5 class="pull-left">Número de Inscrições: {{ total }}</h5>
+                    </div>
+
+                    {% if(app.request.get('query') == 'inscricoes-por-situacao') %}
+                        <div class="control-group span12">
+                            <h5 class="pull-left">Número de Inscrições Pendentes: {{ totalPendente }}</h5>
+                        </div>
+                    {% endif %}
+
+                    <div class="box" id="grafico"></div>
+                    <div class="box hide" id="graficoImg"></div>
+
+                    <input type="hidden" name="titulo" value="{{ title }}"/>
+                    <input type="hidden" name="total" value="{{ total }}"/>
+                    <input type="hidden" name="evento" value="{% for evento in cmbEvento %}
+                                {% if(app.request.get('coEvento') == evento.getCoSeqEvento) %}
+                                    {{ evento.getNoEvento }}
+                                {% endif %}
+                            {% endfor %}"/>
+
+                    {% if(total) %}
+                        <div class="botao">
+                            <button class="buttonAzul margim gerarPdf" type="submit">Gerar PDF</button>
+                            <button class="buttonAzul margim gerarExcel" type="submit">Gerar Excel</button>
+                            <a class="buttonAzul margim" href="{{path('datasus_sisvs_expoepi_relatorio_relatorio_inscricao_grafico')}}">Voltar</a>
+                        </div>
+                    {% endif %}
+                </form>
+            </div>
+        {% endif %}
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('.opcoes, .tpGrafico').hide();
+
+            $('#coEvento').change(function () {
+                if ($(this).val()) {
+                    $('.opcoes').show();
+                } else {
+                    $('.opcoes, .tpGrafico').hide();
+                }
+            });
+
+            $('input[id=optionsRadios1]:first').click(function () {
+                $('#coEvento').val('').change();
+            });
+
+            $('input[name=query]').click(function () {
+                if ($(this).is(':checked')) {
+                    $('.tpGrafico').show();
+                } else {
+                    $('.tpGrafico').hide();
+                }
+            });
+
+            $('input[name=query]:first').click(function () {
+                if ($(this).is(':checked')) {
+                    $('#coEvento').removeClass('required');
+                }
+            });
+
+            $('input[name=query]').not(':first').click(function () {
+                if ($(this).is(':checked')) {
+                    $('#coEvento').addClass('required');
+                }
+            });
+
+            if ($('#coEvento').val()) {
+                $('#coEvento').change();
+
+                if ($('input[name=query]').is(':checked')) {
+                    $('input[name=query]:checked').click();
+                }
+            }
+            $('.gerarPdf').click(function () {
+                $('#form-grafico').attr('action', '{{ path('datasus_sisvs_expoepi_relatorio_relatorio_inscricao_view_pdf') }}');
+            });
+
+            $('.gerarExcel').click(function () {
+                $('#form-grafico').attr('action', '{{ path('datasus_sisvs_expoepi_relatorio_relatorio_inscricao_view_excel') }}')
+            });
+        });
+    </script>
+
+    {% if(status) %}
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript">
+            google.load("visualization", "1", {packages: ["corechart"]});
+            google.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                    {{ json|raw  }}
+                ]);
+
+                    {% if(app.request.get('tipoGrafico') == 'pie') %}
+                    var options = {
+                        legend: {
+                            position: 'labeled',
+                            alignment: 'center'
+                        },
+                        pieSliceText: 'value',
+                        tooltip: {
+                            trigger: 'none'
+                        },
+                        chartArea: {
+                            top: '2%', height: "90%"
+                        },
+                        backgroundColor: '#F0F0F0',
+                        height: data.getNumberOfRows() * 30
+                    };
+                    options.height = 550;
+                    options.legend.position = 'right';
+                    options.chartArea.width = '90%';
+
+                    var chart = new google.visualization.PieChart(document.getElementById('grafico'));
+
+                    {% elseif(app.request.get('tipoGrafico') == 'column') %}
+                    var options = {
+                        width: 680,
+                        bar: {groupWidth: "95%"},
+                        legend: { position: "none" },
+                        backgroundColor: '#F0F0F0'
+                    };
+                    var chart = new google.visualization.ColumnChart(document.getElementById('grafico'));
+
+                    {% elseif(app.request.get('tipoGrafico') == 'bar') %}
+                    var options = {
+                        width: 900,
+                        bar: {groupWidth: "95%"},
+                        legend: { position: "none" },
+                        backgroundColor: '#F0F0F0'
+                    };
+
+                    var chart = new google.visualization.BarChart(document.getElementById('grafico'));
+
+                    {% endif %}
+                    chart.draw(data, options);
+
+                    var graficoImg = document.getElementById('graficoImg');
+                    graficoImg.innerHTML = '<input type="text" value="' + chart.getImageURI() + '" name="blobImg">';
+                }
+        </script>
+    {% endif %}
+{% endblock %}

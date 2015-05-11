@@ -1,0 +1,56 @@
+{% extends "DatasusSisvsBaseSecurityBundle::base.html.twig" %}
+
+{% block body %}
+    <div class="row">
+        <div class="span4">
+            <div id="BoxAreaLogin">
+                <div class="BoxAreaLogin_titulo">
+                    <h2>Digite seu e-mail e sua senha para acessar a área restrita: </h2>
+                </div>
+                <div class="BoxAreaLogin_content logar">
+                    <form action="{{ path('datasus_sisvs_base_security_auth_login_check') }}" method="post">
+                        <ul>
+                            <li class="login">
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+                                <label for="username" class="BoxAreaLogin_email_senha"><span>*</span>E-mail:</label>
+                                <input type="text" id="username" placeholder="E-mail" value="{{ last_email }}"
+                                       name="_username" class="required span3">
+                                <span class="ico"></span>
+                            </li>
+                            <li class="senha">
+                                <label for="password" class="BoxAreaLogin_email_senha"><span>*</span>Senha:</label>
+                                <input type="password" placeholder="Senha" id="password" class="campo_senha span3 required"
+                                       name="_password">
+                                <span class="ico"></span>
+                            </li>
+                            <li>
+                                <div id="BoxAreaLogin_EsqueceuEmail_e_Botao" class="span3">
+                                    <div id="BoxAreaLogin_EsqueceuEmail">
+                                        <a href="{{ scpa_cadastro }}" target="_blank">Ainda não está cadastrado?</a>
+                                        <a href="{{ scpa_esqueci_senha }}" target="_blank">Esqueceu sua senha? </a>
+                                    </div>
+                                    <button type="submit" class="buttonAzul botaoLogin">ENTRAR</button>
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="span8">
+            <div id="BoxAreaLogin_Informacoes_Contato">
+                <p class="BoxAreaLogin_Info_titulo">Acesso ao Sistema</p>
+
+                <p class="loginInformacoes">É necessário que o usuário informe seu e-mail e senha.<br>
+                    Esqueceu a senha: Clique em "Esqueceu sua senha" e informe seu e-mail para receber uma nova senha de
+                    acesso ao sistema.</p>
+                <hr class="BoxAreaLogin_Info_barra">
+                <p class="BoxAreaLogin_Info_titulo">Usuário que não possui acesso</p>
+
+                <p class="loginInformacoes">Realize o cadastro clicando em "Ainda não está cadastrado?"<br>
+                    Após o login, clique em "solicitar acesso aos sistemas".<br>
+                    Aguarde o e-mail com a aprovação ou não da solicitação de acesso.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Build Datasus"
+         default="deploy:desenvolvimento"
+         basedir="."
+         phingVersion="2.5.0"
+        >
+
+    <target name="deploy:local"  description="Build para ambiente locais">
+        <property name="ambiente" value="local"  />
+        <property name="projeto.ambiente" value="local" />
+        <if>
+            <available file='${projeto.ambiente}.properties' property="check_local.properties_exists" filepath="build" type='file' />
+            <else>
+                <property name="projeto.ambiente" value="desenvolvimento" override="true" />
+                <echo>
+                    ${line.separator}build/local.properties nao existe. Utilizando build/desenvolvimento.properties
+                    ${line.separator}${line.separator}
+                </echo>
+            </else>
+        </if>
+
+        <phingcall target="deploy:desenvolvimento"></phingcall>
+
+    </target>
+
+    <target name="deploy:desenvolvimento" description="Build para ambiente locais">
+        <property name="projeto.ambiente" value="desenvolvimento" />
+
+        <phing phingfile="build.xml" dir="build" target="build:parameters" />
+
+        <phingcall target="run:composer"></phingcall>
+
+        <phingcall target="run:assetic:dump"></phingcall>
+
+        <phingcall target="run:assets:install"></phingcall>
+
+        <phingcall target="run:cache:clear"></phingcall>
+    </target>
+
+    <target name="deploy:treinamento" description="Build para servidores de treinamento">
+        <property name="projeto.ambiente" value="homologacao"  />
+        <phingcall target="deploy:desenvolvimento" />
+    </target>
+
+    <target name="deploy:homologacao" description="Build para servidores de homologacao">
+        <property name="projeto.ambiente" value="homologacao"/>
+        <phingcall target="deploy:desenvolvimento" />
+    </target>
+
+    <target name="deploy:producao" description="Build para servidores de producao">
+        <property name="projeto.ambiente" value="producao"  />
+        <phingcall target="deploy:desenvolvimento" />
+    </target>
+
+
+    <target name="run:composer" description="Executa composer">
+        <if>
+            <isset property="no-composer"></isset>
+            <else>
+                <if>
+                    <equals arg1="local" arg2="${ambiente}"></equals>
+                    <then>
+                        <if>
+                            <available file='autoload.php' filepath="vendor"  property="check_vendor.autoload_exists"  type='file' />
+                            <then>
+                                <echo msg="Atualizando dependencias com composer..."/>
+                                <exec checkreturn="true" command="php bin/composer.phar update" passthru="true" logoutput="true" />
+                            </then>
+                            <else>
+                                <echo msg="Intalando dependencias com composer..."/>
+                                <exec checkreturn="true" command="php bin/composer.phar install" passthru="true" logoutput="true" />
+                            </else>
+                        </if>
+                    </then>
+                    <else>
+                        <if>
+                            <available file='autoload.php' property="check_vendor.autoload_exists"  filepath="vendor" type='file' />
+                            <then>
+                                <echo msg="Atualizando dependencias com composer..."/>
+                                <exec checkreturn="true" command="php bin/composer.phar update --prefer-dist -o --no-progress" passthru="true" logoutput="true" />
+                            </then>
+                            <else>
+                                <echo msg="Intalando dependencias com composer..."/>
+                                <exec checkreturn="true" command="php bin/composer.phar install --prefer-dist -o --no-progress" passthru="true" logoutput="true" />
+                            </else>
+                        </if>
+                    </else>
+                </if>
+            </else>
+        </if>
+    </target>
+
+    <target name="run:cache:clear">
+        <echo msg="php app/console cache:clear"/>
+        <exec executable="php" passthru="true" escape="false">
+            <arg path="app/console"/>
+            <arg value="cache:clear"/>
+            <arg value="--env=prod"/>
+            <arg value="--no-debug"/>
+            <arg value="--no-warmup"/>
+        </exec>
+    </target>
+
+    <target name="run:assets:install">
+        <if>
+            <equals arg1="local" arg2="${ambiente}"></equals>
+            <then>
+                <echo msg="php app/console assets:install --env=prod"/>
+                <exec executable="php" passthru="true" escape="false">
+                    <arg path="app/console"/>
+                    <arg value="assets:install"/>
+                    <arg value="--symlink"/>
+                    <arg value="web"/>
+                    <arg value="--env=prod"/>
+                </exec>
+            </then>
+            <else>
+
+                <echo msg="php app/console assets:install"/>
+                <exec executable="php" passthru="true" escape="false">
+                    <arg path="app/console"/>
+                    <arg value="assets:install"/>
+                    <arg value="--env=prod"/>
+                </exec>
+            </else>
+        </if>
+    </target>
+
+    <target name="run:assetic:dump">
+        <echo msg="php app/console assetic:dump --env=prod"/>
+        <exec executable="php" passthru="true" escape="false">
+            <arg path="app/console"/>
+            <arg value="assetic:dump"/>
+            <arg value="--env=prod"/>
+        </exec>
+    </target>
+
+
+</project>

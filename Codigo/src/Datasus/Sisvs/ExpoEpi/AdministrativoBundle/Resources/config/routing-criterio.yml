@@ -1,0 +1,29 @@
+################## criterio ##################
+datasus_sisvs_expoepi_administrativo_criterio:
+    pattern: /criterio
+    defaults:
+        _controller: DatasusSisvsExpoEpiAdministrativoBundle:Criterio:index
+        label: "Critério"
+        parent: "administrativo_default"
+    
+datasus_sisvs_expoepi_administrativo_criterio_search:
+    pattern: /criterio/search
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:Criterio:search }
+
+datasus_sisvs_expoepi_administrativo_criterio_create:
+    pattern: /criterio/create
+    defaults:
+        _controller: DatasusSisvsExpoEpiAdministrativoBundle:Criterio:create
+        label: "Cadastrar Critério"
+        parent: "datasus_sisvs_expoepi_administrativo_criterio"
+    
+datasus_sisvs_expoepi_administrativo_criterio_edit:
+    pattern: /criterio/edit
+    defaults:
+        _controller: DatasusSisvsExpoEpiAdministrativoBundle:Criterio:edit
+        label: "Alterar Critério"
+        parent: "datasus_sisvs_expoepi_administrativo_criterio"
+
+datasus_sisvs_expoepi_administrativo_criterio_toogle-status:
+    pattern: /criterio/toogle-status
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:Criterio:toogleStatus }

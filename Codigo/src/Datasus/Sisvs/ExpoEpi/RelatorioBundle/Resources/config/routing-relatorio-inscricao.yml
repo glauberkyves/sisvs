@@ -1,0 +1,61 @@
+datasus_sisvs_expoepi_relatorio_relatorio_inscricao:
+    pattern: /relatorio-inscricao
+    defaults:
+        _controller: DatasusSisvsExpoEpiRelatorioBundle:RelatorioInscricao:index
+        label: "Relatório de Inscrição"
+        parent: "relatorio_inscricao"
+
+datasus_sisvs_expoepi_relatorio_relatorio_inscricao_search:
+    pattern: /relatorio-inscricao/search
+    defaults: { _controller: DatasusSisvsExpoEpiRelatorioBundle:RelatorioInscricao:search }
+
+datasus_sisvs_expoepi_relatorio_relatorio_inscricao_grafico:
+    pattern: /relatorio-inscricao/grafico
+    defaults:
+        _controller: DatasusSisvsExpoEpiRelatorioBundle:RelatorioInscricao:grafico
+        label: "Gerar Gráfico"
+        parent: "relatorio_inscricao"
+
+datasus_sisvs_expoepi_relatorio_relatorio_inscricao_create:
+    pattern: /relatorio-inscricao/create
+    defaults:
+        _controller: DatasusSisvsExpoEpiRelatorioBundle:RelatorioInscricao:create
+        label: "Relatório de Inscrição"
+        parent: "datasus_sisvs_expoepi_relatorio_relatorio_inscricao"
+
+datasus_sisvs_expoepi_relatorio_relatorio_inscricao_view_pdf:
+    pattern: /relatorio-inscricao/view-pdf
+    defaults:
+        _controller: DatasusSisvsExpoEpiRelatorioBundle:RelatorioInscricao:viewPdf
+        label: "Relatório de Inscrição"
+        parent: "datasus_sisvs_expoepi_relatorio_relatorio_inscricao"
+
+datasus_sisvs_expoepi_relatorio_relatorio_inscricao_view_excel:
+    pattern: /relatorio-inscricao/view-excel
+    defaults: { _controller: DatasusSisvsExpoEpiRelatorioBundle:RelatorioInscricao:viewExcel }
+
+datasus_sisvs_expoepi_relatorio_relatorio_inscricao_edit:
+    pattern: /relatorio-inscricao/edit
+    defaults:
+        _controller: DatasusSisvsExpoEpiRelatorioBundle:RelatorioInscricao:edit
+        label: "Relatório de Inscrição"
+        parent: "datasus_sisvs_expoepi_relatorio_relatorio_inscricao"
+
+datasus_sisvs_expoepi_relatorio_relatorio_inscricao_geral:
+    pattern: /relatorio-inscricao/geral
+    defaults:
+        _controller: DatasusSisvsExpoEpiRelatorioBundle:RelatorioInscricao:geral
+        label: "Relatório de Inscrição Geral"
+        parent: "datasus_sisvs_expoepi_relatorio_relatorio_inscricao"
+
+datasus_sisvs_expoepi_relatorio_relatorio_inscricao_geral_pdf:
+    pattern: /relatorio-inscricao/geral-pdf
+    defaults: { _controller: DatasusSisvsExpoEpiRelatorioBundle:RelatorioInscricao:geralPdf }
+
+datasus_sisvs_expoepi_relatorio_relatorio_inscricao_geral_excel:
+    pattern: /relatorio-inscricao/geral-excel
+    defaults: { _controller: DatasusSisvsExpoEpiRelatorioBundle:RelatorioInscricao:geralExcel }
+
+datasus_sisvs_expoepi_relatorio_relatorio_inscricao_ajax_get_event_year:
+    pattern: /relatorio-inscricao/ajax-get-event-year
+    defaults: { _controller: DatasusSisvsExpoEpiRelatorioBundle:RelatorioInscricao:ajaxGetEventYear }

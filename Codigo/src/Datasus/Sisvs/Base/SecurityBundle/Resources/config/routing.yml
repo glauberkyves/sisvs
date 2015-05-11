@@ -1,0 +1,13 @@
+datasus_sisvs_base_security_auth_login:
+    path:  /login
+    defaults: { _controller: DatasusSisvsBaseSecurityBundle:Security:login }
+
+datasus_sisvs_base_security_auth_login_check:
+    path:  /login_check
+
+datasus_sisvs_base_security_auth_logout:
+    path:  /logout
+
+datasus_sisvs_base_security_auth_perfil:
+    path:  /auth/perfil
+    defaults: { _controller: DatasusSisvsBaseSecurityBundle:Security:perfil }

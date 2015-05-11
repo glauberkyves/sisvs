@@ -1,0 +1,8 @@
+email_default:
+    pattern: /default
+    defaults:
+        _controller: DatasusSisvsExpoEpiEmailBundle:Default:index
+        label: "Módulo E-mail"
+
+email_mala_direta:
+    resource: routing-mala_direta.yml

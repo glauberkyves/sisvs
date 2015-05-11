@@ -1,0 +1,62 @@
+{
+    "name": "symfony/framework-standard-edition",
+    "description": "The \"Datasus Symfony Custom Edition\" distribution",
+    "type": "project",
+    "require": {
+        "symfony/symfony": "~2.3",
+        "doctrine/doctrine-fixtures-bundle": "~2.2",
+        "symfony/swiftmailer-bundle": "2.3.*",
+        "doctrine/orm": "~2.4",
+        "doctrine/data-fixtures": "~1.0",
+        "symfony/assetic-bundle": "2.3.*",
+        "incenteev/composer-parameter-handler": "~2.0",
+        "knplabs/knp-menu-bundle": "1.1.2",
+        "twig/twig": "~1.12",
+        "twig/extensions": "1.1.*",
+        "php": ">=5.3.3",
+        "sensio/generator-bundle": "2.3.*",
+        "symfony/monolog-bundle": "2.3.*",
+        "knplabs/knp-paginator-bundle": "~2.4",
+        "sensio/framework-extra-bundle": "2.3.*",
+        "braincrafted/bootstrap-bundle": "~2.1",
+        "sensio/distribution-bundle": "2.3.*",
+        "doctrine/doctrine-bundle": "1.2.*",
+        "spraed/pdf-generator-bundle": "v1.0",
+        "xi/breadcrumbs-bundle": "2.3.x-dev",
+        "liuggio/excelbundle": "~2.0",
+		"phing/phing": "~2.8"
+
+    },
+    "autoload": {
+        "psr-0": {
+            "": "src/"
+        }
+    },
+	"repositories" : [
+            {
+                "packagist": false
+            },
+            {
+                "type" : "composer",
+                "url" : "http://arquitetura.saude.gov.br/satis/web"
+            },
+            {
+                "type" : "composer",
+                "url" : "http://arquitetura.saude.gov.br/satis_dev/web"
+            }
+        ],
+	"config" : {
+        "preferred-install" : "dist",
+		"bin-dir" : "bin"
+	},
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.3-dev"
+        },
+        "symfony-app-dir": "app",
+        "symfony-web-dir": "web",
+        "incenteev-parameters": {
+            "file": "app/config/parameters.yml"
+        }
+    }
+}

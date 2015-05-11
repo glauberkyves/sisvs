@@ -1,0 +1,34 @@
+datasus_sisvs_expoepi_email_mala_direta:
+    pattern: /mala-direta
+    defaults:
+        _controller: DatasusSisvsExpoEpiEmailBundle:MalaDireta:index
+        label: "Mala Direta"
+        parent: "datasus_sisvs_expoepi_email_mala_direta"
+
+datasus_sisvs_expoepi_email_mala_direta_search:
+    pattern: /mala-direta/search
+    defaults: { _controller: DatasusSisvsExpoEpiEmailBundle:MalaDireta:search }
+
+datasus_sisvs_expoepi_email_mala_direta_combo_box:
+    pattern: /mala-direta/combo-box
+    defaults: { _controller: DatasusSisvsExpoEpiEmailBundle:MalaDireta:comboBox }
+
+datasus_sisvs_expoepi_email_mala_direta_view:
+    pattern: /mala-direta/view
+    defaults: { _controller: DatasusSisvsExpoEpiEmailBundle:MalaDireta:view }
+
+datasus_sisvs_expoepi_email_mala_direta_view_pdf:
+    pattern: /mala-direta/view-pdf
+    defaults: { _controller: DatasusSisvsExpoEpiEmailBundle:MalaDireta:viewPdf }
+
+datasus_sisvs_expoepi_email_mala_direta_anexo:
+    pattern: /mala-direta/anexo
+    defaults: { _controller: DatasusSisvsExpoEpiEmailBundle:MalaDireta:anexo }
+
+datasus_sisvs_expoepi_email_mala_direta_write_mail:
+    pattern: /mala-direta/write-mail
+    defaults: { _controller: DatasusSisvsExpoEpiEmailBundle:MalaDireta:writeMail }
+
+datasus_sisvs_expoepi_email_mala_direta_send:
+    pattern: /mala-direta/send
+    defaults: { _controller: DatasusSisvsExpoEpiEmailBundle:MalaDireta:send }

@@ -1,0 +1,94 @@
+{% extends "DatasusSisvsExpoEpiAdministrativoBundle::base.html.twig" %}
+
+{% block body %}
+<div class="box">
+    <strong class="title">
+        Critérios Cadastrados
+    </strong>
+
+    <div class="formulario">
+
+        <form id="" action="{{ path('datasus_sisvs_expoepi_administrativo_modalidade_save-bind-criterio') }}"
+              method="post">
+            <input type="hidden" value="{{ entity.getCoSeqModalidade }}" name="coSeqModalidade"/>
+            <table class="table table-bordered ui-widget-content">
+                <thead>
+                <tr>
+                    <th colspan="4" align="center">Critérios</th>
+                </tr>
+                <tr>
+                    <th>Selecione</th>
+                    <th>Critérios</th>
+                    <th>Permite Bloqueio?</th>
+                    <th>Possui Categoria?</th>
+                    <th>Dado não informado?</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for criterio in arrCriterio  %}
+                    <tr>
+                        <td>
+                            <input type="checkbox" value="{{ criterio.coSeqCriterio }}" name="checkCriterio[]"
+                                   id="coSeqCriterio"
+                                    {% for coModalidadeCriterio in entity.getCoModalidadeCriterio %}
+                                        {% if coModalidadeCriterio.getCoCriterio.getCoSeqCriterio == criterio.coSeqCriterio %}
+                                            checked="checked"
+                                        {% endif %}
+                                    {% endfor %}
+                                    />
+                        </td>
+                        <td>{{ criterio.noCriterio }}</td>
+                        <td>
+                            <input type="checkbox" value="{{ criterio.coSeqCriterio }}" name="stPermiteBloqueio[]"
+                                   id="stPermiteBloqueio"
+                                    {% for coModalidadeCriterio in entity.getCoModalidadeCriterio %}
+                                        {% if coModalidadeCriterio.getCoCriterio.getCoSeqCriterio == criterio.coSeqCriterio
+                                        and coModalidadeCriterio.stPermiteBloqueio == 'S' %}
+                                            checked="checked"
+                                        {% endif %}
+                                    {% endfor %}
+                                    />
+                        </td>
+                        <td>
+                            <input type="radio" value="{{ criterio.coSeqCriterio }}" name="stPossuiCategoria"
+                                   id="checkbox"
+                                    {% for coModalidadeCriterio in entity.getCoModalidadeCriterio %}
+                                        {% if coModalidadeCriterio.getCoCriterio.getCoSeqCriterio == criterio.coSeqCriterio
+                                        and coModalidadeCriterio.stPossuiCategoria == 'S' %}
+                                            checked="checked"
+                                        {% endif %}
+                                    {% endfor %}
+                                    />
+                        </td>
+                        <td>
+                            <input type="checkbox" value="{{ criterio.coSeqCriterio }}" name="stNaoInformado[]"
+                                   id="stNaoInformado"
+                                    {% for  coModalidadeCriterio in entity.getCoModalidadeCriterio %}
+                                        {% if coModalidadeCriterio.getCoCriterio.getCoSeqCriterio == criterio.coSeqCriterio
+                                        and coModalidadeCriterio.stNaoInformado == 'S' %}
+                                            checked="checked"
+                                        {% endif %}
+                                    {% endfor %}
+                                    />
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="botao">
+                <input type="submit" value="Vincular" class="buttonAzul margim"/>
+                <a href="{{ path('datasus_sisvs_expoepi_administrativo_modalidade') ~ '?coEvento=' ~ entity.getCoEvento.getCoSeqEvento }}"
+                   class="buttonAzul">
+                    Voltar
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+
+    <script type="text/javascript"
+            src="{{ asset('bundles/datasussisvsexpoepiadministrativo/js/modalidade/bindCriterio.js') }}"></script>
+    {% endblock %}
+

@@ -1,0 +1,71 @@
+{% extends "DatasusSisvsExpoEpiAutorBundle::base.html.twig" %}
+
+{% block body %}
+    <strong class="title">Acompanhar Informações da Inscrição</strong>
+
+    <div class="formulario">
+        <form id="form-inscricao" action="" method="post">
+            <div class="control-group span3">
+                <label class="control-label" for="coEvento">Evento: <font color="red"><b>*</b></font></label>
+
+                <div class="controls">
+                    <select class="span3 required" id="coEvento" name="coEvento">
+                        {% for evento in cmbEnvento %}
+                            {%  if (evento.anEvento) == ( "now"|date("Y"))  %}
+                                <option value="{{ evento.getCoSeqEvento }}" selected>{{ evento.getNoEvento }}</option>
+                            {% else %}
+                                <option value="{{ evento.getCoSeqEvento }}">{{ evento.getNoEvento }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="control-group span3">
+                <label class="control-label" for="nuInscricao">Número Inscrição:</label>
+
+                <div class="controls">
+                    <input id="nuInscricao" type="text" name="nuInscricao" class="span3"/>
+                </div>
+            </div>
+
+            <div class="botao">
+                <button  type="button" class="buttonAzul margim" id="pesquisar">Pesquisar</button>
+                <button type="reset" class="buttonAzul margim" id="limpar">Limpar</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="formulario grid hide">
+        <div class="box" style="width:97% !important;padding:15px !important">
+            <table id="grid"></table>
+            <div id="pager"></div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            var config = {
+                url: '{{ path('autor_acompanhar_inscricao_search') }}',
+                buttonSearch: $('#pesquisar'),
+                form: $('#form-inscricao'),
+                colNames: ['Número Inscrição', 'Título', 'Modalidade', 'Área', 'Tema / Categoria', 'Situação', 'Opções'],
+                colModel: [
+                    {name: 'nuInscricao', index: 'i.nuInscricao', width: 85},
+                    {name: 'dsTitulo', index: 'i.dsTitulo', width: 200},
+                    {name: 'noModalidade', index: 'm.noModalidade', width: 70},
+                    {name: 'noArea', index: 'a.noArea'},
+                    {name: 'noTema', index: 't.noTema'},
+                    {name: 'dsSituacao', index: 's.dsSituacao', width: 80},
+                    {name: 'acao', index: 'Acao', width: 40, align: "center"}
+                ],
+                caption: 'Resulta da pesquisa',
+                sortname: 'i.nuInscricao'
+            }
+            $('#grid').grid(config);
+            $('#limpar').click(function () {
+                window.location.href = window.location.href;
+            });
+        });
+    </script>
+{% endblock %}

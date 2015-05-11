@@ -1,0 +1,40 @@
+{% block modal_view %}
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>Detalhar Situações da Inscrição</h3>
+    </div>
+    <div class="modal-body">
+        <table class="table table-bordered ui-widget-content table-striped">
+            <thead>
+            <tr>
+                <th align="center" colspan="4">Número da Inscrição: {{ entity.getNuInscricao }}</th>
+            </tr>
+            <tr>
+                <th>Data</th>
+                <th>Situação</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for historico in entity.getCoHistorico %}
+                <tr>
+                    <td>
+                        {{ historico.getDtSituacao | date("d/m/Y") }}
+                    </td>
+                    <td>
+                        {% if(historico.getCoSituacaoInscricao.getCoSituacao in situacao) %}
+                            Em análise
+                        {% else %}
+                            {{ historico.getCoSituacaoInscricao.getDsSituacao }}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button aria-hidden="true" data-dismiss="modal" class="buttonAzul margim view-not">
+            Fechar
+        </button>
+    </div>
+{% endblock %}

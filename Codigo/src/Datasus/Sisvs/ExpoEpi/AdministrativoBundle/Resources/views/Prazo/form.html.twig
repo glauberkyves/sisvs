@@ -1,0 +1,138 @@
+{% form_theme form _self %}
+{% block form_errors %}
+{% endblock form_errors %}
+<div class="box">
+    <strong class="title">
+        Prorrogar Prazo
+    </strong>
+
+    <div class="formulario">
+        {{ form_start(form) }}
+        {{ form_widget(form._token) }}
+        {{ form_widget(form.coSeqFormularioInscricao) }}
+
+
+
+        <div class="control-group  span11">
+            <label class="control-label" for="">
+                N° do formulário: <font color="red"><b>*</b></font>
+            </label>
+
+            <div class="controls">
+                <input type="text" id="nuFormulario" name="nuFormulario" class="span2" readonly="readonly"
+                       value="{{ dataEntity.getNuFormulario }}"/>
+            </div>
+        </div>
+
+        <div class="control-group  span11">
+            <label class="control-label" for="coModalidade">Modalidade:</label>
+
+            <div class="controls">
+                <input type="text" id="datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_noModalidade"
+                       name="datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity[noModalidade]"
+                       class="span2" disabled="disabled" readonly="readonly"
+                       value="{{ dataEntity.getCoModalidade.getNoModalidade }}"/>
+            </div>
+        </div>
+
+        <div class="control-group span11">
+            <label class="control-label"
+                   for="datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_dtInicio">
+                Data Início: <font color="red"><b>*</b></font>
+            </label>
+
+            <div class="controls">
+                <input type="text" id="datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_dtInicio"
+                       name="datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity[dtInicio]"
+                       class="span2 required" value="{{ dataEntity.getDtInicio|date('d/m/Y') }}"/>
+            </div>
+        </div>
+
+        <div class="control-group span11">
+            <label class="control-label" for="datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_dtFim">
+                Data Fim: <font color="red"><b>*</b></font>
+            </label>
+
+            <div class="controls">
+                <input type="text" id="datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_dtFim"
+                       name="datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity[dtFim]"
+                       class="span2 required" value="{{ dataEntity.getDtFim|date('d/m/Y') }}"/>
+            </div>
+        </div>
+
+        <div class="control-group span11">
+            <label class="control-label"
+                   for="datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_dsJustificativa">
+                Justificativa: <font color="red"><b>*</b></font>
+            </label>
+
+            <div class="controls">
+                <textarea id="datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_dsJustificativa"
+                          name="datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity[dsJustificativa]"
+                          class="span4 required" maxlength="500" rows="6">{{ dataEntity.getDsJustificativa }}</textarea>
+            </div>
+        </div>
+
+        <div class="botao">
+            <button type="button" id="btn-prorrogar-prazo" class="buttonAzul margim">Salvar</button>
+
+            <a class="buttonAzul" href="{{ path('datasus_sisvs_expoepi_administrativo_prazo') }}">Voltar</a>
+            <button class="buttonAzul margim" id="limpar" type="reset">Limpar</button>
+        </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript" src="{{ asset('bundles/datasussisvsexpoepiadministrativo/js/prazo/form.js') }}"></script>
+<script>
+    $(document).ready(function () {
+        $('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_dtInicio').setMask('99/99/9999');
+        $('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_dtFim').setMask('99/99/9999');
+        $('#limpar').click(function () {
+            $('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_dtInicio').val('');
+            $('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_dtFim').val('');
+            $('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_dsJustificativa').val('');
+            window.location.href = window.location.href;
+        });
+
+        if ($('#btn-prorrogar-prazo').click(function () {
+                    if ($('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_dsJustificativa').val() == false) {
+                        Message.addMessage('O campo Justificativa é de preenchimento obrigatório.', 'error');
+                        $('html, body').animate({scrollTop: 0}, 300);
+                        $('.alert-error').fadeIn().delay(5000).fadeOut('slow');
+                        return false;
+                    }
+
+                    if ($('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_dtInicio').val() == false) {
+                        Message.addMessage('O campo data início é de preenchimento obrigatório.', 'error');
+                        $('html, body').animate({scrollTop: 0}, 300);
+                        $('.alert-error').fadeIn().delay(5000).fadeOut('slow');
+                        return false;
+                    }
+
+                    if ($('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_dtFim').val() == false) {
+                        Message.addMessage('O campo data fim é de preenchimento obrigatório.', 'error');
+                        $('html, body').animate({scrollTop: 0}, 300);
+                        $('.alert-error').fadeIn().delay(5000).fadeOut('slow');
+                        return false;
+                    }
+
+                    if ($('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_dsJustificativa').val() == false) {
+                        Message.addMessage('O campo Justificativa é de preenchimento obrigatório.', 'error');
+                        $('html, body').animate({scrollTop: 0}, 300);
+                        $('.alert-error').fadeIn().delay(5000).fadeOut('slow');
+                        return false;
+                    }
+
+
+                    var inicio = $('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_dtInicio').val().split('/');
+                    var fim = $('#datasus_sisvs_expoepi_formulariobundle_formularioinscricaoentity_dtFim').val().split('/');
+                    if (inicio[2] + inicio[1] + inicio[0] > fim[2] + fim[1] + fim[0]) {
+                        Message.addMessage('A data final não pode ser menor que a data de início.', 'error');
+                        $('html, body').animate({scrollTop: 0}, 300);
+                        $('.alert-error').fadeIn().delay(5000).fadeOut('slow');
+                        return false;
+                    }
+                }));
+    });
+</script>

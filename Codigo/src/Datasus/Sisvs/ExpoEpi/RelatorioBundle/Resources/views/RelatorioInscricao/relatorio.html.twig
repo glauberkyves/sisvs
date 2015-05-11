@@ -1,0 +1,89 @@
+{% extends "DatasusSisvsExpoEpiFormularioBundle::base.html.twig" %}
+
+{% block body %}
+    <div class="box">
+        <strong class="title">Relatório de Inscrição</strong>
+
+        <div class="formulario">
+            <form id="form-formulario-inscricao">
+                <div class="control-group span2">
+                    <label class="control-label" for="nuFormulario">N° do Formulário:</label>
+
+                    <div class="controls">
+                        <input id="nuFormulario" type="text" name="nuFormulario" class="span2">
+                    </div>
+                </div>
+                <div class="control-group span3">
+                    <label class="control-label" for="coEvento">Evento:</label>
+
+                    <div class="controls">
+                        <select class="span3" id="coEvento" name="coEvento">
+                            <option value="">Selecione uma opção</option>
+                            {#{% for evento in cmbEvento %}#}
+                                {#<option value="{{ evento.getCoSeqEvento }}">{{ evento.getNoEvento }}</option>#}
+                            {#{% endfor %}#}
+                        </select>
+                    </div>
+                </div>
+                <div class="control-group span3">
+                    <label class="control-label" for="coModalidade">Modalidade:</label>
+
+                    <div class="controls">
+                        <select class="span3" id="coModalidade" name="coModalidade">
+                            <option value="">Selecione uma opção</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="control-group span3">
+                    <label class="control-label" for="noFormulario">Situação:</label>
+
+                    <div class="controls">
+                        <select class="span3" id="stAtivo" name="stAtivo">
+                            <option value="">Selecione uma opção</option>
+                            {#{% for formulario in cmbSituacaoFormulario %}#}
+                                {#<option value="{{ formulario.getCoSituacaoFormulario }}">{{ formulario.getDsSituacaoFormulario }}</option>#}
+                            {#{% endfor %}#}
+                        </select>
+                    </div>
+                </div>
+            </form>
+            <div class="botao">
+                <a class="buttonAzul margim" href="#" id="pesquisar">Pesquisar</a>
+                <a class="buttonAzul"
+                   href="{{ path('datasus_sisvs_expoepi_formulario_formulario_inscricao_create') }}">Novo
+                    Formulário</a>
+            </div>
+        </div>
+
+        <div class="formulario">
+            <div class="box">
+                <table id="grid"></table>
+                <div id="pager"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript"
+            src="{{ asset('bundles/datasussisvsexpoepiformulario/js/formulario-inscricao/index.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            var config = {
+                url: '{{ path('datasus_sisvs_expoepi_formulario_formulario_inscricao_search') }}',
+                buttonSearch: $('#pesquisar'),
+                form: $('#form-formulario-inscricao'),
+                colNames: ['Nº Formulário', 'Evento', 'Modalidade', 'Situação', 'Ação'],
+                colModel: [
+                    {name: 'nuFormulario', index: 'nuFormulario ', width: 10},
+                    {name: 'noEvento', index: 'noEvento', width: 30},
+                    {name: 'noModalidade', index: 'noModalidade', width: 30},
+                    {name: 'dsSituacaoFormulario', index: 'dsSituacaoFormulario', width: 10},
+                    {name: 'acao', index: 'Acao', width: 7, align: "center"}
+                ],
+                sortname: 'nuFormulario',
+                caption: 'Resultado da Pesquisa'
+            };
+
+            $('#grid').grid(config);
+        });
+    </script>
+{% endblock %}

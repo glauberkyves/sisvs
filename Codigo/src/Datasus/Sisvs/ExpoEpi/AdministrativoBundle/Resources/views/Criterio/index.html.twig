@@ -1,0 +1,75 @@
+{% extends "DatasusSisvsExpoEpiAdministrativoBundle::base.html.twig" %}
+
+{% block body %}
+    <div class="box">
+    <strong class="title">Consultar Critério</strong>
+
+    <div class="formulario">
+        <form id="form-criterio">
+            <div class="control-group span4">
+                <label class="control-label" for="noCriterio">Critério:</label>
+
+                <div class="controls">
+                    <input id="noCriterio" type="text" name="noCriterio" class="tm320" maxlength="60">
+                </div>
+            </div>
+            <div class="control-group span4">
+                <label class="control-label" for="noCriterio">Situação:</label>
+
+                <div class="controls">
+                    <select class="tm320" id="stAtivo" name="stAtivo">
+                        <option value="">Selecione uma opção</option>
+                        <option value="S">Ativo</option>
+                        <option value="N">Inativo</option>
+                    </select>
+                </div>
+            </div>
+            <div class="botao">
+                <button class="buttonAzul margim" id="pesquisar">Pesquisar</button>
+                <button type="reset" class="buttonAzul margim" id="limpar">Limpar</button>
+                <a class="buttonAzul margim" href="{{ path('datasus_sisvs_expoepi_administrativo_criterio_create') }}">Incluir
+                    Critério</a>
+            </div>
+        </form>
+    </div>
+
+    <div class="formulario grid">
+        <div class="formulario box-tabela">
+            <div class="box" style="width:97% !important;padding:15px !important">
+                <table id="grid"></table>
+                <div id="pager"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        $(document).ready(function () {
+            var config = {
+                url: '{{ path('datasus_sisvs_expoepi_administrativo_criterio_search') }}',
+                buttonSearch: $('#pesquisar'),
+                form: $('#form-criterio'),
+                colNames: ['Critério', 'Opções'],
+                postData: {data: 'stAtivo=S'},
+                colModel: [
+                    {name: 'noCriterio', index: 'e.noCriterio', width: 100},
+                    {name: 'acao', index: 'Acao', width: 7, align: "center"}
+                ],
+                sortname: 'e.noCriterio',
+                caption: 'Resultado da Pesquisa'
+            };
+
+            $('#grid').grid(config);
+            $('.toogle-status-not').click(function(){
+                $('.alert-success').die();
+                $("#grid").trigger("reloadGrid");
+            });
+
+            $('.alert-error, .alert-success').fadeIn().delay(5000).fadeOut('slow');
+            $('#limpar').click(function () {
+                window.location.href = window.location.href;
+            });
+        });
+
+    </script>
+{% endblock %}

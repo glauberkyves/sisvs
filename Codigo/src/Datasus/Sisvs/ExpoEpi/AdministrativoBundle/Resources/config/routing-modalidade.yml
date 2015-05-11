@@ -1,0 +1,101 @@
+################## modalidade ##################
+datasus_sisvs_expoepi_administrativo_modalidade:
+    pattern: /modalidade
+    defaults:
+        _controller: DatasusSisvsExpoEpiAdministrativoBundle:Modalidade:index
+        label: "Modalidade"
+        parent: "datasus_sisvs_expoepi_administrativo_evento"
+
+datasus_sisvs_expoepi_administrativo_modalidade_search:
+    pattern: /modalidade/search
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:Modalidade:search  }
+
+datasus_sisvs_expoepi_administrativo_modalidade_create:
+    pattern: /modalidade/create
+    defaults:
+        _controller: DatasusSisvsExpoEpiAdministrativoBundle:Modalidade:create
+        label: "Cadastrar Modalidade"
+        parent: "datasus_sisvs_expoepi_administrativo_modalidade"
+
+datasus_sisvs_expoepi_administrativo_modalidade_edit:
+    pattern: /modalidade/edit
+    defaults:
+        _controller: DatasusSisvsExpoEpiAdministrativoBundle:Modalidade:edit
+        label: "Alterar Modalidade"
+        parent: "datasus_sisvs_expoepi_administrativo_modalidade"
+
+datasus_sisvs_expoepi_administrativo_modalidade_toogle-status:
+    pattern: /modalidade/toogle-status
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:Modalidade:toogleStatus }
+
+datasus_sisvs_expoepi_administrativo_modalidade_view:
+    pattern: /modalidade/view
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:Modalidade:view }
+
+datasus_sisvs_expoepi_administrativo_modalidade_view_criterio:
+    pattern: /modalidade/view-criterio
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:Modalidade:viewCriterio }
+
+datasus_sisvs_expoepi_administrativo_modalidade_view_apresentacao:
+    pattern: /modalidade/view-apresentacao
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:Modalidade:viewApresentacao }
+
+datasus_sisvs_expoepi_administrativo_modalidade_view_instituicao:
+    pattern: /modalidade/view-instituicao
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:Modalidade:viewInstituicao }
+
+datasus_sisvs_expoepi_administrativo_modalidade_view_tipo-modalidade:
+    pattern: /modalidade/view-tipo-modalidade
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:Modalidade:viewTipoMod }
+
+datasus_sisvs_expoepi_administrativo_modalidade_view_area:
+    pattern: /modalidade/view-area
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:Modalidade:viewArea }
+
+datasus_sisvs_expoepi_administrativo_modalidade_bind-criterio:
+    pattern: /modalidade/bind-criterio
+    defaults:
+        _controller: DatasusSisvsExpoEpiAdministrativoBundle:Modalidade:bindCriterio
+        label: "Vincular Critério"
+        parent: "datasus_sisvs_expoepi_administrativo_modalidade"
+
+datasus_sisvs_expoepi_administrativo_modalidade_save-bind-criterio:
+    pattern: /modalidade/save-bind-criterio
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:Modalidade:saveBindCriterio }
+
+datasus_sisvs_expoepi_administrativo_modalidade_bind-instituicao:
+    pattern: /modalidade/bind-instituicao
+    defaults:
+        _controller: DatasusSisvsExpoEpiAdministrativoBundle:Modalidade:bindInstituicao
+        label: "Vincular Tipo de Instituição"
+        parent: "datasus_sisvs_expoepi_administrativo_modalidade"
+
+datasus_sisvs_expoepi_administrativo_modalidade_save-bind:
+    pattern: /modalidade/save-bind-instituicao
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:Modalidade:saveBindInstituicao }
+
+datasus_sisvs_expoepi_administrativo_modalidade_bind-apresentacao:
+    pattern: /modalidade/bind-apresentacao
+    defaults:
+        _controller: DatasusSisvsExpoEpiAdministrativoBundle:Modalidade:bindApresentacao
+        label: "Vincular Apresentação"
+        parent: "datasus_sisvs_expoepi_administrativo_modalidade"
+
+datasus_sisvs_expoepi_administrativo_modalidade_save-bind-apresentacao:
+    pattern: /modalidade/save-bind-apresentacao
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:Modalidade:saveBindApresentacao }
+
+datasus_sisvs_expoepi_administrativo_modalidade_bind-tipo-modalidade:
+    pattern: /modalidade/bind-tipo-modalidade
+    defaults:
+        _controller: DatasusSisvsExpoEpiAdministrativoBundle:Modalidade:bindTipoMod
+        label: "Vincular Tipo da Modalidade"
+        parent: "datasus_sisvs_expoepi_administrativo_modalidade"
+
+datasus_sisvs_expoepi_administrativo_modalidade_save-bind-tipo-modalidade:
+    pattern: /modalidade/save-bind-tipo-modalidade
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:Modalidade:saveBindTipoModalidade }
+
+datasus_sisvs_expoepi_administrativo_modalidade_combo_box:
+    pattern: /modalidade/combo-box
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:Modalidade:comboBox }

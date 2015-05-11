@@ -1,0 +1,8 @@
+formulario_default:
+    pattern: /default
+    defaults:
+        _controller: DatasusSisvsExpoEpiFormularioBundle:Default:index
+        label: "Formulário"
+
+formulario_formulario_inscricao:
+    resource: routing-formulario-inscricao.yml

@@ -1,0 +1,51 @@
+parameters:
+    # Otpions database
+    default_database_driver:        @DB_DRIVER@
+    default_database_host:          @DB_HOSTNAME@
+    default_database_port:          @DB_PORT@
+    default_database_service_name:  @DB_SERVICE_NAME@
+    default_database_service_use:   @DB_SERVICE_USE@
+    default_database_user:          @DB_USERNAME@
+    default_database_password:      @DB_PASSWORD@
+    default_database_charset:       @DB_CHARSET@
+    default_database_role_user:     @DB_ROLE_USER@
+    default_database_role_pass:     @DB_ROLE_PASS@
+
+    # Otpions mail
+    mailer_transport:               @MAILER_TRANSPORT@
+    mailer_host:                    @MAILER_HOSTNAME@
+    mailer_destinatario:            @MAILER_DESTINATARIO@
+    mailer_user:                    @MAILER_USER@
+    mailer_password:                @MAILER_PASS@
+
+    framework_strict:               @FRAMEWORK_STRICT@
+    framework_profile:              @FRAMEWORK_PROFILE@
+
+    locale:                         @LOCALE@
+    secret:                         @SECRECT_KEY@
+    version:                        @VERSION@
+
+    # email expoepi padrao
+    mail_expoepi:                   expoepi@saude.gov.br
+
+    # Otpions wsdl SCPA
+    scpa_email:                     @SCPA_EMAIL@
+    scpa_senha:                     @SCPA_SENHA@
+    scpa_sigla_sistema:             @SCPA_SIGLA_SISTEMA@
+    scpa_wsdl:                      @SCPA_WSDL@
+    scpa_cadastro:                  @SCPA_CADASTRO@
+    scpa_esqueci_senha:             @SCPA_ESQUECI_SENHA@
+    scpa_wsdl_options:
+       uri: "urn: xmethods-delayed-quoteds"
+       style: SOAP_RPC
+       use: SOAP_ENCODED
+       encoding: UTF-8
+       soap_version: SOAP_1_1
+
+    spca_role:
+       ROLE_COO: Coordenação
+       ROLE_GTE: Grupo Técnico de Seleção
+       ROLE_GTC: Grupo Técnico de Triagem
+       ROLE_OAN: Organização dos Anais
+       ROLE_REV: Revisoras
+       ROLE_AUT: Autor

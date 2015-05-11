@@ -1,0 +1,71 @@
+{% extends "DatasusSisvsExpoEpiAdministrativoBundle::base.html.twig" %}
+
+{% block body %}
+    <div class="box">
+        <strong class="title">
+            Consultar Área
+        </strong>
+
+        <div class="formulario">
+            <form id="form-area">
+                <div class="control-group span4">
+                    <label class="control-label" for="{{ form.noArea.vars.name }}">
+                        {{ form.noArea.vars.label }}
+                    </label>
+
+                    <div class="controls">
+                        <input type="text" maxlength="250" placeholder="" class="span4" name="noArea" id=""/>
+                        <input type="hidden" name="coModalidade" class="span3" value="{{ form.coModalidade.vars.value }}" id="coModalidade" />
+                    </div>
+                </div>
+                <div class=" control-group span6">
+                    <label class="control-label" for="{{ form.stAtivo.vars.name }}">{{ form.stAtivo.vars.label }}
+                        :</label>
+
+                    <div class="controls">
+                        <select class="span4" name="stAtivo" id="">
+                            <option selected="selected" value="">Selecione...</option>
+                            <option value="S">Ativo</option>
+                            <option value="N">Inativo</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="botao">
+                    <button type="button" class="buttonAzul margim" id="pesquisar">Pesquisar</button>
+                    <button type="reset" class="buttonAzul margim" id="limpar">Limpar</button>
+                    <a class="buttonAzul margim"
+                       href="{{ path('datasus_sisvs_expoepi_administrativo_area_create') ~ '?coModalidade=' ~ entity.getCoModalidade.getCoSeqModalidade }}">Cadastrar
+                        Área</a>
+                </div>
+            </form>
+        </div>
+
+        <div class="formulario box-tabela">
+            <div class="box" style="width:97% !important;padding:15px !important">
+                <table id="grid"></table>
+                <div id="pager"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            var config = {
+                url: '{{ path('datasus_sisvs_expoepi_administrativo_area_search') }}',
+                buttonSearch: $('#pesquisar'),
+                form: $('#form-area'),
+                colNames: ['Área', 'Ação'],
+                postData: {data: 'stAtivo=S&coModalidade={{ entity.getCoModalidade.getCoSeqModalidade }}'},
+                colModel: [
+                    {name: 'noArea', index: 'a.noArea', width: 100},
+                    {name: 'acao', index: 'Opções', width: 13, align: "center"}
+                ],
+                sortname: 'a.coSeqArea',
+                caption: 'Resultado da Pesquisa'
+            };
+
+            $('#grid').grid(config);
+            $('.alert-error, .alert-success').fadeIn().delay(5000).fadeOut('slow');
+        });
+    </script>
+{% endblock %}

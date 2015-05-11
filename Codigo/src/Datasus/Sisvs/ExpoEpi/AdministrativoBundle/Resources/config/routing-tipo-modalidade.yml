@@ -1,0 +1,29 @@
+################## tipo modalidade ##################
+datasus_sisvs_expoepi_administrativo_tipo_modalidade:
+    pattern: /tipo-modalidade
+    defaults:
+        _controller: DatasusSisvsExpoEpiAdministrativoBundle:TipoModalidade:index
+        label: "Tipo da Modalidade"
+        parent: "administrativo_default"
+    
+datasus_sisvs_expoepi_administrativo_tipo_modalidade_search:
+    pattern: /tipo-modalidade/search
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:TipoModalidade:search }
+
+datasus_sisvs_expoepi_administrativo_tipo_modalidade_create:
+    pattern: /tipo-modalidade/create
+    defaults:
+        _controller: DatasusSisvsExpoEpiAdministrativoBundle:TipoModalidade:create
+        label: "Cadastrar Tipo da Modalidade"
+        parent: "datasus_sisvs_expoepi_administrativo_tipo_modalidade"
+    
+datasus_sisvs_expoepi_administrativo_tipo_modalidade_edit:
+    pattern: /tipo-modalidade/edit
+    defaults:
+        _controller: DatasusSisvsExpoEpiAdministrativoBundle:TipoModalidade:edit
+        label: "Alterar Tipo da Modalidade"
+        parent: "datasus_sisvs_expoepi_administrativo_tipo_modalidade"
+
+datasus_sisvs_expoepi_administrativo_tipo_modalidade_toogle-status:
+    pattern: /tipo-modalidade/toogle-status
+    defaults: { _controller: DatasusSisvsExpoEpiAdministrativoBundle:TipoModalidade:toogleStatus }

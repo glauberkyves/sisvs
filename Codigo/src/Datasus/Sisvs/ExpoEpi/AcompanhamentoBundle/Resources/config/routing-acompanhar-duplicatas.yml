@@ -1,0 +1,41 @@
+acompanhar_duplicata:
+    pattern: /acompanhar-duplicata
+    defaults:
+        _controller: DatasusSisvsExpoEpiAcompanhamentoBundle:AcompanharDuplicata:index
+        label: "Listar Possíveis Incrições Duplicadas / Inscrições Bloqueadas"
+        parent: "acompanhar_duplicata"
+
+acompanhar_duplicata_toogle:
+    pattern: /acompanhar-duplicata/toogle
+    defaults: { _controller: DatasusSisvsExpoEpiAcompanhamentoBundle:AcompanharDuplicata:toogle}
+
+acompanhar_duplicata_toogle_block:
+    pattern: /acompanhar-duplicata/toogle-block
+    defaults: { _controller: DatasusSisvsExpoEpiAcompanhamentoBundle:AcompanharDuplicata:toogleBlock}
+
+acompanhar_duplicata_search:
+    pattern: /acompanhar-duplicata/search
+    defaults: { _controller: DatasusSisvsExpoEpiAcompanhamentoBundle:AcompanharDuplicata:search }
+
+acompanhar_duplicata_view:
+    pattern: /acompanhar-duplicata/view
+    defaults:
+        _controller: DatasusSisvsExpoEpiAcompanhamentoBundle:AcompanharDuplicata:view
+        label: "Visualizar Inscrição"
+        parent: "acompanhar_duplicata"
+
+acompanhar_duplicata_view_downloads:
+    pattern: /acompanhar-duplicata/view-downloads
+    defaults: { _controller: DatasusSisvsExpoEpiAcompanhamentoBundle:AcompanharDuplicata:viewDownloads }
+
+acompanhar_duplicata_download:
+    pattern: /acompanhar-duplicata/download
+    defaults: { _controller: DatasusSisvsExpoEpiAcompanhamentoBundle:AcompanharDuplicata:download }
+
+acompanhar_duplicata_view_pdf:
+    pattern: /acompanhar-duplicata/view-pdf
+    defaults: { _controller: DatasusSisvsExpoEpiAcompanhamentoBundle:AcompanharDuplicata:viewPdf }
+
+acompanhar_evento_combo_box:
+    pattern: /acompanhar-duplicata/combo-box
+    defaults: { _controller: DatasusSisvsExpoEpiAcompanhamentoBundle:AcompanharDuplicata:comboBox }
